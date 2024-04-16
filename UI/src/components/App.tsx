@@ -14,14 +14,17 @@ const App = () => {
 
   const API_URL = "http://127.0.0.1:8000";
 
-  const fetchData = () => {
+  const fetchData = (interval: number) => {
     axios
       .get(API_URL + "/1")
       .then((response) => {
         setData(response.data.list_items);
         setListId(response.data.list_id);
       })
-      .catch((e) => alert(e));
+      .catch((e) => {
+        alert("Backend connection error");
+        clearInterval(interval);
+      });
   };
 
   const markAsBuyed = (data: ListItemIdentifier) => {
@@ -47,13 +50,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchData();
-
-    const interval = setInterval(() => {
-      fetchData();
-    }, 700);
-
-    return () => clearInterval(interval);
+    const interval = setInterval(() => fetchData(interval), 700);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
