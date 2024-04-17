@@ -50,7 +50,7 @@ app.add_middleware(
 )
 
 
-@app.get("/{list_id}")
+@app.get("/api/{list_id}")
 def get_list_items(list_id: int) -> ShoppingListResponse:
     with db_session as session:
         items = session.query(ShoppingList).filter_by(id=list_id).one()
@@ -72,7 +72,7 @@ def get_list_items(list_id: int) -> ShoppingListResponse:
         )
 
 
-@app.post("/buyed")
+@app.post("/api/buyed")
 def buyed(data: ListItemIdentifier):
     with db_session as session:
         item: ListItem = (
@@ -84,7 +84,7 @@ def buyed(data: ListItemIdentifier):
         session.commit()
 
 
-@app.post("/delete")
+@app.post("/api/delete")
 def delete(data: ListItemIdentifier):
     with db_session as session:
         item: ListItem = (
@@ -96,7 +96,7 @@ def delete(data: ListItemIdentifier):
         session.commit()
 
 
-@app.post("/new")
+@app.post("/api/new")
 def new(data: NewListItem):
     with db_session as session:
         try:

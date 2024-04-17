@@ -11,8 +11,7 @@ interface NewListItem extends Inputs {
 const App = () => {
   const [data, setData] = useState<ListItem[]>([]);
   const [listID, setListId] = useState<number>(0);
-
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = "/api";
 
   const fetchData = (interval: number) => {
     axios
@@ -21,7 +20,7 @@ const App = () => {
         setData(response.data.list_items);
         setListId(response.data.list_id);
       })
-      .catch((e) => {
+      .catch(() => {
         alert("Backend connection error");
         clearInterval(interval);
       });
