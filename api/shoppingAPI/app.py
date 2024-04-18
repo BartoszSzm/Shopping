@@ -1,6 +1,8 @@
 import typing as t
+from contextlib import asynccontextmanager
 from datetime import datetime
 
+from database.db import create_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -36,7 +38,14 @@ class NewListItem(BaseModel):
     list_id: int
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db()
+    yield
+    # after
+
+
+app = FastAPI(lifespan=lifespan)
 
 origins = ["http://localhost:5173"]
 
