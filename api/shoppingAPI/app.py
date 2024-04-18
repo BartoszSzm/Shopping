@@ -2,13 +2,13 @@ import typing as t
 from contextlib import asynccontextmanager
 from datetime import datetime
 
-from .database.db import create_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
 from .database import ItemType, ListItem, ShoppingList, db_session
+from .database.db import create_db
 
 
 class ListItemType(BaseModel):
@@ -38,6 +38,11 @@ class NewListItem(BaseModel):
     list_id: int
 
 
+class MsgResponse(BaseModel):
+    status: t.Literal["confirmed", "rejected"]
+    msg: t.Optional[str] = ""
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db()
@@ -60,59 +65,73 @@ app.add_middleware(
 
 
 @app.get("/api/{list_id}")
-def get_list_items(list_id: int) -> ShoppingListResponse:
+def get_list_items(list_id: int) -> ShoppingListResponse | MsgResponse:
     with db_session as session:
-        items = session.query(ShoppingList).filter_by(id=list_id).one()
-        return ShoppingListResponse(
-            list_id=list_id,
-            list_items=[
-                ListItemType(
-                    id=item.id,
-                    name=item.name,
-                    list_id=item.list_id,
-                    quantity=item.quantity,
-                    buyed=item.buyed,
-                    typeicon=item.typeicon,
-                    created=item.created,
-                    modified=item.modified,
-                )
-                for item in items.items
-            ],
-        )
+        try:
+            items = session.query(ShoppingList).filter_by(id=list_id).one()
+        except NoResultFound:
+            return MsgResponse(status="rejected", msg="Item not found")
+        else:
+            return ShoppingListResponse(
+                list_id=list_id,
+                list_items=[
+                    ListItemType(
+                        id=item.id,
+                        name=item.name,
+                        list_id=item.list_id,
+                        quantity=item.quantity,
+                        buyed=item.buyed,
+                        typeicon=item.typeicon,
+                        created=item.created,
+                        modified=item.modified,
+                    )
+                    for item in items.items
+                ],
+            )
 
 
 @app.post("/api/buyed")
-def buyed(data: ListItemIdentifier):
+def buyed(data: ListItemIdentifier) -> MsgResponse:
     with db_session as session:
-        item: ListItem = (
-            session.query(ListItem)
-            .filter_by(id=data.item_id, list_id=data.list_id)
-            .one()
-        )
-        item.buyed = not item.buyed
-        session.commit()
+        try:
+            item: ListItem = (
+                session.query(ListItem)
+                .filter_by(id=data.item_id, list_id=data.list_id)
+                .one()
+            )
+            item.buyed = not item.buyed
+            session.commit()
+        except NoResultFound:
+            return MsgResponse(status="rejected", msg="Item not found")
+        else:
+            return MsgResponse(status="confirmed")
 
 
 @app.post("/api/delete")
-def delete(data: ListItemIdentifier):
+def delete(data: ListItemIdentifier) -> MsgResponse:
     with db_session as session:
-        item: ListItem = (
-            session.query(ListItem)
-            .filter_by(id=data.item_id, list_id=data.list_id)
-            .one()
-        )
-        session.delete(item)
-        session.commit()
+        try:
+            item: ListItem = (
+                session.query(ListItem)
+                .filter_by(id=data.item_id, list_id=data.list_id)
+                .one()
+            )
+            session.delete(item)
+            session.commit()
+        except NoResultFound:
+            return MsgResponse(status="rejected", msg="Record not found")
+        else:
+            return MsgResponse(status="confirmed")
 
 
 @app.post("/api/new")
-def new(data: NewListItem):
+def new(data: NewListItem) -> MsgResponse:
     with db_session as session:
         try:
             session.query(ListItem).filter_by(
                 name=data.name, list_id=data.list_id
             ).one()
-            return {"errors": "Już jest na liście"}
+            return MsgResponse(status="rejected", msg="Already on the list")
         except NoResultFound:
             item: ListItem = ListItem(
                 name=data.name,
@@ -122,4 +141,4 @@ def new(data: NewListItem):
             )
             session.add(item)
             session.commit()
-            return {"errors": ""}
+            return MsgResponse(status="confirmed")
