@@ -55,3 +55,9 @@ class ListItem(Base):
 
 def create_db() -> None:
     Base.metadata.create_all(engine)
+
+
+def create_dummy_list() -> None:
+    with db_session as session:
+        session.add(ShoppingList(name="test"))
+        session.commit()

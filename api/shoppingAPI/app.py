@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
 from .database import ItemType, ListItem, ShoppingList, db_session
-from .database.db import create_db
+from .database.db import create_db, create_dummy_list
 
 
 class ListItemType(BaseModel):
@@ -46,6 +46,7 @@ class MsgResponse(BaseModel):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db()
+    create_dummy_list()
     yield
     # after
 
