@@ -2,7 +2,7 @@ import typing as t
 from contextlib import asynccontextmanager
 from datetime import datetime
 
-from database.db import create_db
+from .database.db import create_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
