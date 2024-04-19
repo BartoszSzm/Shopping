@@ -91,7 +91,7 @@ const ShoppingList = ({
                 <Td>
                   <Checkbox
                     size="lg"
-                    defaultChecked={row.buyed}
+                    isChecked={row.buyed}
                     onChange={(e) => {
                       handleBuyed({
                         list_id: row.list_id,

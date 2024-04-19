@@ -49,8 +49,8 @@ class MsgResponse(BaseModel):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db()
     create_dummy_list()
+    create_db()
     yield
     # after
 

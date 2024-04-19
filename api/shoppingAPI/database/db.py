@@ -53,11 +53,21 @@ class ListItem(Base):
     list: so.Mapped["ShoppingList"] = so.relationship(back_populates="items")
 
 
+class ItemTypes(Base):
+    __tablename__ = "itemTypes"
+
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    name: so.Mapped[str] = so.mapped_column(sa.String(100), unique=True)
+    typeicon: so.Mapped[ItemType] = so.mapped_column(sa.Enum(ItemType))
+
+
 def create_db() -> None:
     Base.metadata.create_all(engine)
 
 
 def create_dummy_list() -> None:
     with db_session as session:
-        session.add(ShoppingList(name="test"))
-        session.commit()
+        lists = session.query(ShoppingList).all()
+        if not lists:
+            session.add(ShoppingList(name="test"))
+            session.commit()
