@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Inputs } from "./NewItem";
-import ShoppingList, { ListItem, ListItemIdentifier } from "./ShoppingList";
+import ShoppingList, { ListItem } from "./ShoppingList";
 
 interface NewListItem extends Inputs {
   list_id: number;
@@ -26,11 +26,15 @@ const App = () => {
       });
   };
 
-  const markAsBuyed = (data: ListItemIdentifier) => {
+  const markAsBuyed = (data: {
+    item_id: number;
+    list_id: number;
+    buyed: boolean;
+  }) => {
     axios.post(API_URL + "/buyed", data).catch((e) => alert(e));
   };
 
-  const markAsDeleted = (data: ListItemIdentifier) => {
+  const markAsDeleted = (data: { item_id: number; list_id: number }) => {
     axios.post(API_URL + "/delete", data).catch((e) => alert(e));
   };
 

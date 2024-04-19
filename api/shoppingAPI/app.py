@@ -32,6 +32,10 @@ class ListItemIdentifier(BaseModel):
     list_id: int
 
 
+class MarkAsBuyedData(ListItemIdentifier):
+    buyed: bool
+
+
 class NewListItem(BaseModel):
     name: str
     quantity: int
@@ -92,7 +96,7 @@ def get_list_items(list_id: int) -> ShoppingListResponse | MsgResponse:
 
 
 @app.post("/api/buyed")
-def buyed(data: ListItemIdentifier) -> MsgResponse:
+def buyed(data: MarkAsBuyedData) -> MsgResponse:
     with db_session as session:
         try:
             item: ListItem = (
@@ -100,7 +104,7 @@ def buyed(data: ListItemIdentifier) -> MsgResponse:
                 .filter_by(id=data.item_id, list_id=data.list_id)
                 .one()
             )
-            item.buyed = not item.buyed
+            item.buyed = data.buyed
             session.commit()
         except NoResultFound:
             return MsgResponse(status="rejected", msg="Item not found")

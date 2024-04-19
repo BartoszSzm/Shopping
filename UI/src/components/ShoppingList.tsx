@@ -27,15 +27,14 @@ export interface ListItem {
   modified: Date;
 }
 
-export interface ListItemIdentifier {
-  item_id: number;
-  list_id: number;
-}
-
 interface Props {
   initialState: ListItem[];
-  handleDelete: (itemIdentifier: ListItemIdentifier) => void;
-  handleBuyed: (ListItemIdentifier: ListItemIdentifier) => void;
+  handleDelete: (itemIdentifier: { item_id: number; list_id: number }) => void;
+  handleBuyed: (ListItemIdentifier: {
+    item_id: number;
+    list_id: number;
+    buyed: boolean;
+  }) => void;
   handleAddItem: (newItemData: Inputs) => void;
 }
 
@@ -94,8 +93,11 @@ const ShoppingList = ({
                     size="lg"
                     defaultChecked={row.buyed}
                     onChange={(e) => {
-                      console.log(e);
-                      handleBuyed({ list_id: row.list_id, item_id: row.id });
+                      handleBuyed({
+                        list_id: row.list_id,
+                        item_id: row.id,
+                        buyed: e.target.checked,
+                      });
                     }}
                   ></Checkbox>
                 </Td>
