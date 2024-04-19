@@ -93,9 +93,10 @@ const ShoppingList = ({
                   <Checkbox
                     size="lg"
                     defaultChecked={row.buyed}
-                    onChange={() =>
-                      handleBuyed({ list_id: row.list_id, item_id: row.id })
-                    }
+                    onChange={(e) => {
+                      console.log(e);
+                      handleBuyed({ list_id: row.list_id, item_id: row.id });
+                    }}
                   ></Checkbox>
                 </Td>
                 <Td>{row.name}</Td>

@@ -11,7 +11,7 @@ interface NewListItem extends Inputs {
 const App = () => {
   const [data, setData] = useState<ListItem[]>([]);
   const [listID, setListId] = useState<number>(0);
-  const API_URL = "/api";
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   const fetchData = (interval: number) => {
     axios
