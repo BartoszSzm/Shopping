@@ -60,14 +60,14 @@ class ItemTypes(Base):
     name: so.Mapped[str] = so.mapped_column(sa.String(100), unique=True)
     typeicon: so.Mapped[ItemType] = so.mapped_column(sa.Enum(ItemType))
 
-    def get_typeicon(self, item_name: str) -> t.Optional[ItemType]:
+    def get_typeicon(self, item_name: str) -> t.Optional[str]:
         row = (
             db_session.query(ItemTypes)
-            .filter(ItemTypes.name.like(f'%{item_name.lower()}%'))
+            .filter(ItemTypes.name.like(f"%{item_name.lower()}%"))
             .first()
         )
         if row:
-            return row.typeicon
+            return row.typeicon.value
         else:
             return None
 
