@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
-from .database import ItemType, ItemTypes, ListItem, ShoppingList, db_session
+from .database import ItemTypes, ListItem, ShoppingList, db_session
 from .database.db import create_db, create_dummy_list
 
 
