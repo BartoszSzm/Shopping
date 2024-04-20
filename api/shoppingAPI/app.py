@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
-from .database import ItemType, ListItem, ShoppingList, db_session
+from .database import ItemType, ItemTypes, ListItem, ShoppingList, db_session
 from .database.db import create_db, create_dummy_list
 
 
@@ -142,7 +142,7 @@ def new(data: NewListItem) -> MsgResponse:
                 name=data.name,
                 list_id=data.list_id,
                 quantity=data.quantity,
-                typeicon=ItemType.fruit,
+                typeicon=ItemTypes().get_typeicon(data.name),
             )
             session.add(item)
             session.commit()
