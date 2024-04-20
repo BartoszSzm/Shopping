@@ -19,6 +19,7 @@ class ItemType(str, Enum):
     fruit = "FaAppleAlt"
     diary = "FaCheese"
     ready_made = "FaUtensils"
+    unknown = "FaRegQuestionCircle"
 
 
 class ShoppingList(Base):
@@ -69,7 +70,7 @@ class ItemTypes(Base):
         if row:
             return row.typeicon.value
         else:
-            return None
+            return ItemType.unknown
 
 
 def create_db() -> None:
