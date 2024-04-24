@@ -8,7 +8,7 @@ import sqlalchemy.orm as so
 
 DB_URL = os.environ["DB_URL"]
 engine = sa.create_engine(DB_URL)
-db_session = so.sessionmaker(autocommit=False, autoflush=False, bind=engine)()
+db_session = so.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(so.DeclarativeBase):
@@ -62,15 +62,16 @@ class ItemTypes(Base):
     typeicon: so.Mapped[ItemType] = so.mapped_column(sa.Enum(ItemType))
 
     def get_typeicon(self, item_name: str) -> t.Optional[str]:
-        row = (
-            db_session.query(ItemTypes)
-            .filter(ItemTypes.name.like(f"%{item_name.lower()}%"))
-            .first()
-        )
-        if row:
-            return row.typeicon.value
-        else:
-            return ItemType.unknown
+        with db_session() as session:
+            row = (
+                session.query(ItemTypes)
+                .filter(ItemTypes.name.like(f"%{item_name.lower()}%"))
+                .first()
+            )
+            if row:
+                return row.typeicon.value
+            else:
+                return ItemType.unknown
 
 
 def create_db() -> None:
@@ -78,7 +79,7 @@ def create_db() -> None:
 
 
 def create_dummy_list() -> None:
-    with db_session as session:
+    with db_session() as session:
         lists = session.query(ShoppingList).all()
         if not lists:
             session.add(ShoppingList(name="test"))

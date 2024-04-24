@@ -20,8 +20,8 @@ const App = () => {
         setData(response.data.list_items);
         setListId(response.data.list_id);
       })
-      .catch(() => {
-        alert("Backend connection error");
+      .catch((e) => {
+        alert(`Backend connection error: ${e}`);
         clearInterval(interval);
       });
   };
@@ -69,7 +69,7 @@ const App = () => {
           console.log(addNewItem({ ...itemData, list_id: listID }))
         }
       ></ShoppingList>
-      <ToastContainer></ToastContainer>
+      <ToastContainer position="bottom-right"></ToastContainer>
     </>
   );
 };

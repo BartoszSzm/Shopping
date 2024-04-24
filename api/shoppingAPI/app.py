@@ -71,7 +71,7 @@ app.add_middleware(
 
 @app.get("/api/{list_id}")
 def get_list_items(list_id: int) -> ShoppingListResponse | MsgResponse:
-    with db_session as session:
+    with db_session() as session:
         try:
             items = session.query(ShoppingList).filter_by(id=list_id).one()
         except NoResultFound:
@@ -97,7 +97,7 @@ def get_list_items(list_id: int) -> ShoppingListResponse | MsgResponse:
 
 @app.post("/api/buyed")
 def buyed(data: MarkAsBuyedData) -> MsgResponse:
-    with db_session as session:
+    with db_session() as session:
         try:
             item: ListItem = (
                 session.query(ListItem)
@@ -114,7 +114,7 @@ def buyed(data: MarkAsBuyedData) -> MsgResponse:
 
 @app.post("/api/delete")
 def delete(data: ListItemIdentifier) -> MsgResponse:
-    with db_session as session:
+    with db_session() as session:
         try:
             item: ListItem = (
                 session.query(ListItem)
@@ -131,7 +131,7 @@ def delete(data: ListItemIdentifier) -> MsgResponse:
 
 @app.post("/api/new")
 def new(data: NewListItem) -> MsgResponse:
-    with db_session as session:
+    with db_session() as session:
         try:
             session.query(ListItem).filter_by(
                 name=data.name, list_id=data.list_id
