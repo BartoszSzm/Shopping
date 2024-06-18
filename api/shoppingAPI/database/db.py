@@ -32,7 +32,9 @@ class ShoppingList(Base):
         sa.DateTime, default=sa.func.now(), onupdate=sa.func.now()
     )
 
-    items: so.Mapped[t.List["ListItem"]] = so.relationship(back_populates="list")
+    items: so.Mapped[t.List["ListItem"]] = so.relationship(
+        back_populates="list", cascade="all,delete"
+    )
 
 
 class ListItem(Base):

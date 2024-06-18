@@ -47,6 +47,25 @@ class MsgResponse(BaseModel):
     msg: t.Optional[str] = ""
 
 
+class NewList(BaseModel):
+    name: str
+
+
+class ShoppingListModel(BaseModel):
+    id: int
+    name: str
+    created: datetime
+    modified: datetime
+
+
+class AllListsResponse(BaseModel):
+    lists: t.List[ShoppingListModel]
+
+
+class ListIdentifier(BaseModel):
+    id: int
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db()
@@ -67,6 +86,26 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/api/lists")
+def get_lists() -> t.List[ShoppingListModel] | MsgResponse:
+    with db_session() as session:
+        response: t.List[ShoppingListModel] = []
+        try:
+            all_lists = session.query(ShoppingList).all()
+            for list in all_lists:
+                response.append(
+                    ShoppingListModel(
+                        id=list.id,
+                        name=list.name,
+                        created=list.created,
+                        modified=list.modified,
+                    )
+                )
+            return response
+        except Exception as exc:
+            return MsgResponse(status="rejected", msg=str(exc))
 
 
 @app.get("/api/{list_id}")
@@ -129,8 +168,8 @@ def delete(data: ListItemIdentifier) -> MsgResponse:
             return MsgResponse(status="confirmed")
 
 
-@app.post("/api/new")
-def new(data: NewListItem) -> MsgResponse:
+@app.post("/api/newItem")
+def newItem(data: NewListItem) -> MsgResponse:
     with db_session() as session:
         try:
             session.query(ListItem).filter_by(
@@ -146,4 +185,29 @@ def new(data: NewListItem) -> MsgResponse:
             )
             session.add(item)
             session.commit()
+            return MsgResponse(status="confirmed")
+
+
+@app.post("/api/newList")
+def new_list(data: NewList) -> MsgResponse:
+    with db_session() as session:
+        try:
+            new_list = ShoppingList(name=data.name)
+            session.add(new_list)
+            session.commit()
+            return MsgResponse(status="confirmed")
+        except Exception as exc:
+            return MsgResponse(status="rejected", msg=str(exc))
+
+
+@app.post("/api/deleteList")
+def delete_list(data: ListIdentifier) -> MsgResponse:
+    with db_session() as session:
+        try:
+            list: ShoppingList = session.query(ShoppingList).filter_by(id=data.id).one()
+            session.delete(list)
+            session.commit()
+        except NoResultFound:
+            return MsgResponse(status="rejected", msg="Record not found")
+        else:
             return MsgResponse(status="confirmed")

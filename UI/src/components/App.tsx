@@ -1,74 +1,109 @@
+import {
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Heading,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-import { Inputs } from "./NewItem";
-import ShoppingList, { ListItem } from "./ShoppingList";
+import NewItem from "./NewItem";
 
-interface NewListItem extends Inputs {
-  list_id: number;
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
+interface List {
+  id: number;
+  name: string;
+}
+
+interface NewList {
+  name: string;
+}
+
+async function sendPost(endpoint: string, data: object): Promise<any> {
+  const response = await axios.post(API_URL + endpoint, data);
+  return response.data;
 }
 
 const App = () => {
-  const [data, setData] = useState<ListItem[]>([]);
-  const [listID, setListId] = useState<number>(0);
-  const API_URL = import.meta.env.VITE_BACKEND_URL;
-
-  const fetchData = (interval: number) => {
-    axios
-      .get(API_URL + "/1")
-      .then((response) => {
-        setData(response.data.list_items);
-        setListId(response.data.list_id);
-      })
-      .catch((e) => {
-        alert(`Backend connection error: ${e}`);
-        clearInterval(interval);
-      });
-  };
-
-  const markAsBuyed = (data: {
-    item_id: number;
-    list_id: number;
-    buyed: boolean;
-  }) => {
-    axios.post(API_URL + "/buyed", data).catch((e) => alert(e));
-  };
-
-  const markAsDeleted = (data: { item_id: number; list_id: number }) => {
-    axios.post(API_URL + "/delete", data).catch((e) => alert(e));
-  };
-
-  const addNewItem = (data: NewListItem) => {
-    axios
-      .post(API_URL + "/new", data)
-      .then((data) => {
-        console.log(data.data);
-        if (data.data.errors) {
-          toast.error(data.data.errors);
-        } else {
-          toast.success("OK!");
-        }
-      })
-      .catch((e) => toast.error(e));
-  };
+  const [lists, setLists] = useState<List[]>([]);
 
   useEffect(() => {
-    const interval = setInterval(() => fetchData(interval), 700);
-    return () => {
-      clearInterval(interval);
-    };
+    axios
+      .get(API_URL + "/lists")
+      .then((response) => setLists(response.data))
+      .catch((e) => {
+        alert(`Backend connection error: ${e}`);
+      });
   }, []);
 
   return (
     <>
-      <ShoppingList
-        initialState={data}
-        handleDelete={(itemIdentifier) => markAsDeleted(itemIdentifier)}
-        handleBuyed={(itemIdentifier) => markAsBuyed(itemIdentifier)}
-        handleAddItem={(itemData) =>
-          console.log(addNewItem({ ...itemData, list_id: listID }))
-        }
-      ></ShoppingList>
+      <Box
+        marginTop={"1.5rem"}
+        marginBottom={"1.5rem"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Heading marginRight={"1rem"}>Lists</Heading>
+        <NewItem
+          handleAddItem={(itemData) => {
+            sendPost("/newList", itemData)
+              .then((msg) => {
+                if (msg.status == "confirmed") {
+                  window.location.reload();
+                } else {
+                  toast.error(msg.msg);
+                }
+              })
+              .catch((err) => toast.error(err));
+          }}
+          withNumberStepper={false}
+        ></NewItem>
+      </Box>
+      <Stack spacing="4" width={"80%"} gap={"2rem"} margin={"auto"}>
+        {lists.map((list) => (
+          <Card>
+            <CardHeader
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignContent={"center"}
+            >
+              <Link href={`/${list.id}`}>
+                <Heading size="md"> {list.name}</Heading>
+              </Link>
+              <Box>
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<FaChevronDown />}>
+                    Actions
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem
+                      color={"red"}
+                      onClick={() => {
+                        sendPost("/deleteList", { id: list.id }).then(() =>
+                          setLists(lists.filter((l) => l.id !== list.id))
+                        );
+                      }}
+                    >
+                      Delete
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+            </CardHeader>
+          </Card>
+        ))}
+      </Stack>
       <ToastContainer position="bottom-right"></ToastContainer>
     </>
   );

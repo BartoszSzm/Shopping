@@ -22,6 +22,7 @@ import Icon from "./Icon";
 
 interface Props {
   handleAddItem: (itemData: Inputs) => void;
+  withNumberStepper?: boolean;
 }
 
 export interface Inputs {
@@ -29,7 +30,7 @@ export interface Inputs {
   quantity: number;
 }
 
-const NewItem = ({ handleAddItem }: Props) => {
+const NewItem = ({ handleAddItem, withNumberStepper = true }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { register, handleSubmit } = useForm<Inputs>();
@@ -54,13 +55,15 @@ const NewItem = ({ handleAddItem }: Props) => {
               <FormControl>
                 <Flex>
                   <Input {...register("name")}></Input>
-                  <NumberInput defaultValue={1} min={1}>
-                    <NumberInputField {...register("quantity")} />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
+                  {withNumberStepper ? (
+                    <NumberInput defaultValue={1} min={1}>
+                      <NumberInputField {...register("quantity")} />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  ) : null}
                 </Flex>
               </FormControl>
               <ModalFooter>

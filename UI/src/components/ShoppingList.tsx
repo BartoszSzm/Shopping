@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Link,
   Table,
   TableContainer,
   Tbody,
@@ -15,7 +16,6 @@ import Icon, { IconName } from "./Icon";
 import NewItem, { Inputs } from "./NewItem";
 
 import "react-toastify/dist/ReactToastify.css";
-
 export interface ListItem {
   id: number;
   name: string;
@@ -126,6 +126,14 @@ const ShoppingList = ({
         <NewItem
           handleAddItem={(itemData) => handleAddItem(itemData)}
         ></NewItem>
+      </Box>
+
+      <Box pos="fixed" bottom="30px" left="35px">
+        <Link href="/">
+          <Button colorScheme="blue" size="lg" borderRadius="5px">
+            <Icon name="FaArrowLeft"></Icon>
+          </Button>
+        </Link>
       </Box>
     </>
   );
