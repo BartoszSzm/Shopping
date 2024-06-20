@@ -24,11 +24,7 @@ interface List {
   name: string;
 }
 
-interface NewList {
-  name: string;
-}
-
-async function sendPost(endpoint: string, data: object): Promise<any> {
+export async function sendPost(endpoint: string, data: object): Promise<any> {
   const response = await axios.post(API_URL + endpoint, data);
   return response.data;
 }

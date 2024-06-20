@@ -33,10 +33,11 @@ export interface Inputs {
 const NewItem = ({ handleAddItem, withNumberStepper = true }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit, reset } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     handleAddItem(data);
+    reset();
   };
 
   return (

@@ -2,7 +2,15 @@ import {
   Box,
   Button,
   Checkbox,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  Input,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +24,7 @@ import Icon, { IconName } from "./Icon";
 import NewItem, { Inputs } from "./NewItem";
 
 import "react-toastify/dist/ReactToastify.css";
+
 export interface ListItem {
   id: number;
   name: string;
@@ -36,6 +45,11 @@ interface Props {
     buyed: boolean;
   }) => void;
   handleAddItem: (newItemData: Inputs) => void;
+  handleEditItemName: (id: ListItem["id"], newName: ListItem["name"]) => void;
+  handleEditItemQuantity: (
+    id: ListItem["id"],
+    newQuantity: ListItem["quantity"]
+  ) => void;
 }
 
 const ShoppingList = ({
@@ -43,6 +57,8 @@ const ShoppingList = ({
   handleDelete,
   handleBuyed,
   handleAddItem,
+  handleEditItemName,
+  handleEditItemQuantity,
 }: Props) => {
   const [rows, updateRows] = useState(initialState);
 
@@ -72,13 +88,21 @@ const ShoppingList = ({
     <>
       <TableContainer>
         <Table variant="simple" size="sm">
-          <Thead>
+          <Thead height={"3rem"}>
             <Tr>
               <Th></Th>
               <Th>Nazwa</Th>
               <Th>Ilość</Th>
               <Th>Typ</Th>
-              <Th></Th>
+              <Th>
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<Icon name={"FaCog"} />} />
+                  <MenuList>
+                    <MenuItem>Wygasanie ekranu</MenuItem>
+                    <MenuItem>Usuń wszystko</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -101,8 +125,26 @@ const ShoppingList = ({
                     }}
                   ></Checkbox>
                 </Td>
-                <Td>{row.name}</Td>
-                <Td>{row.quantity}</Td>
+                <Td>
+                  <Editable
+                    defaultValue={row.name}
+                    onSubmit={(value) => handleEditItemName(row.id, value)}
+                  >
+                    <EditablePreview />
+                    <EditableInput />
+                  </Editable>
+                </Td>
+                <Td>
+                  <Editable
+                    defaultValue={row.quantity.toString()}
+                    onSubmit={(value) =>
+                      handleEditItemQuantity(row.id, parseInt(value))
+                    }
+                  >
+                    <EditablePreview></EditablePreview>
+                    <Input as={EditableInput} type="number" />
+                  </Editable>
+                </Td>
                 <Td>
                   <Icon name={row.typeicon}></Icon>
                 </Td>
@@ -122,13 +164,13 @@ const ShoppingList = ({
         </Table>
       </TableContainer>
 
-      <Box pos="fixed" bottom="30px" right="35px">
+      <Box pos="fixed" bottom="100px" right="35px">
         <NewItem
           handleAddItem={(itemData) => handleAddItem(itemData)}
         ></NewItem>
       </Box>
 
-      <Box pos="fixed" bottom="30px" left="35px">
+      <Box pos="fixed" bottom="100px" left="35px">
         <Link href="/">
           <Button colorScheme="blue" size="lg" borderRadius="5px">
             <Icon name="FaArrowLeft"></Icon>

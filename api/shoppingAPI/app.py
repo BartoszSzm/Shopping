@@ -5,7 +5,7 @@ from datetime import datetime
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
 from .database import ItemTypes, ListItem, ShoppingList, db_session
 from .database.db import create_db, create_dummy_list
@@ -56,6 +56,12 @@ class ShoppingListModel(BaseModel):
     name: str
     created: datetime
     modified: datetime
+
+
+class UpdateItem(BaseModel):
+    id: int
+    name: t.Optional[str] = None
+    quantity: t.Optional[int] = None
 
 
 class AllListsResponse(BaseModel):
@@ -211,3 +217,25 @@ def delete_list(data: ListIdentifier) -> MsgResponse:
             return MsgResponse(status="rejected", msg="Record not found")
         else:
             return MsgResponse(status="confirmed")
+
+
+@app.post("/api/updateItem")
+def update_item(data: UpdateItem) -> MsgResponse:
+    with db_session() as session:
+        try:
+            item: ListItem = session.query(ListItem).filter_by(id=data.id).one()
+            if data.name:
+                item.name = data.name
+            if data.quantity:
+                item.quantity = data.quantity
+            session.commit()
+            return MsgResponse(status="confirmed")
+
+        except NoResultFound:
+            return MsgResponse(
+                status="rejected", msg=f"No item found with id: {data.id}"
+            )
+        except MultipleResultsFound:
+            return MsgResponse(
+                status="rejected", msg=f"Multiple items found for id: {data.id}"
+            )

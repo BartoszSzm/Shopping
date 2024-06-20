@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { sendPost } from "./App";
 import { Inputs } from "./NewItem";
 import ShoppingList, { ListItem } from "./ShoppingList";
 
@@ -68,6 +69,16 @@ const ListDetails = () => {
         handleBuyed={(itemIdentifier) => markAsBuyed(itemIdentifier)}
         handleAddItem={(itemData) =>
           addNewItem({ ...itemData, list_id: listID })
+        }
+        handleEditItemName={(id, name) =>
+          sendPost("/updateItem", { id: id, name: name })
+            .then(() => toast.success("OK!"))
+            .catch((err) => toast.error(err))
+        }
+        handleEditItemQuantity={(id, quantity) =>
+          sendPost("/updateItem", { id: id, quantity: quantity })
+            .then(() => toast.success("OK!"))
+            .catch((err) => toast.error(err))
         }
       ></ShoppingList>
       <ToastContainer position="bottom-right"></ToastContainer>
