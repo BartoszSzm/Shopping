@@ -24,6 +24,7 @@ import { sendPost } from "./App";
 import Icon, { IconName } from "./Icon";
 import NewItem, { Inputs } from "./NewItem";
 
+import NoSleep from "nosleep.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -63,6 +64,13 @@ const ShoppingList = ({
   handleEditItemQuantity,
 }: Props) => {
   const [rows, updateRows] = useState(initialState);
+  const [noSleepState, setNoSleepState] = useState<boolean>(false);
+
+  useEffect(() => {
+    let noSleep = new NoSleep();
+    noSleepState ? noSleep.enable() : noSleep.disable();
+    console.log(noSleep.isEnabled);
+  }, [noSleepState]);
 
   useEffect(() => {
     updateRows(initialState);
@@ -100,7 +108,9 @@ const ShoppingList = ({
                 <Menu>
                   <MenuButton as={Button} rightIcon={<Icon name={"FaCog"} />} />
                   <MenuList>
-                    <MenuItem>Wygasanie ekranu</MenuItem>
+                    <MenuItem onClick={() => setNoSleepState(!noSleepState)}>
+                      {noSleepState ? "Zawsze widoczny ✓" : "Zawsze widoczny"}
+                    </MenuItem>
                     <MenuItem
                       onClick={() =>
                         sendPost("/deleteManyItems", {
