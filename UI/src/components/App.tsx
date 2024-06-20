@@ -79,9 +79,10 @@ const App = () => {
               </Link>
               <Box>
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<FaChevronDown />}>
-                    Actions
-                  </MenuButton>
+                  <MenuButton
+                    as={Button}
+                    rightIcon={<FaChevronDown />}
+                  ></MenuButton>
                   <MenuList>
                     <MenuItem
                       color={"red"}

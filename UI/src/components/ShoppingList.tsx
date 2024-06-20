@@ -20,9 +20,11 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { sendPost } from "./App";
 import Icon, { IconName } from "./Icon";
 import NewItem, { Inputs } from "./NewItem";
 
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export interface ListItem {
@@ -99,7 +101,20 @@ const ShoppingList = ({
                   <MenuButton as={Button} rightIcon={<Icon name={"FaCog"} />} />
                   <MenuList>
                     <MenuItem>Wygasanie ekranu</MenuItem>
-                    <MenuItem>Usuń wszystko</MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        sendPost("/deleteManyItems", {
+                          items_ids: rows.map((i) => i.id),
+                        })
+                          .then(() => {
+                            updateRows([]);
+                            toast.success("OK!");
+                          })
+                          .catch((err) => toast.error(err))
+                      }
+                    >
+                      Usuń wszystko
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </Th>

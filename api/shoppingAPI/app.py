@@ -11,6 +11,10 @@ from .database import ItemTypes, ListItem, ShoppingList, db_session
 from .database.db import create_db, create_dummy_list
 
 
+class DeleteManyItems(BaseModel):
+    items_ids: t.List[int]
+
+
 class ListItemType(BaseModel):
     id: int
     name: str
@@ -239,3 +243,24 @@ def update_item(data: UpdateItem) -> MsgResponse:
             return MsgResponse(
                 status="rejected", msg=f"Multiple items found for id: {data.id}"
             )
+
+
+@app.post("/api/deleteManyItems")
+def delete_many_items(data: DeleteManyItems) -> MsgResponse:
+    with db_session() as session:
+        try:
+            items: t.List[ListItem] = (
+                session.query(ListItem).filter(ListItem.id.in_(data.items_ids)).all()
+            )
+            if len(items) == len(data.items_ids):
+                [session.delete(item) for item in items]  # type: ignore
+                session.commit()
+                return MsgResponse(status="confirmed")
+            else:
+                return MsgResponse(
+                    status="rejected",
+                    msg="Given ids list does not match these in database",
+                )
+        except Exception as exc:
+            print(exc)
+            return MsgResponse(status="rejected", msg="Database error")
