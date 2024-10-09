@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["logos201 <logos201@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.110.1"
+python-dotenv = "^1.0.1"
+uvicorn = "^0.29.0"
+sqlalchemy = "^2.0.29"
+passlib = "^1.7.4"
+types-passlib = "^1.7.7.20240327"
+pyjwt = "^2.9.0"
+python-multipart = "^0.0.9"
+cryptography = "^43.0.1"
+redis = "^5.1.1"
+pytest = "^8.3.3"
+fastapi-csrf-protect = "0.3.5"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
