@@ -6,7 +6,6 @@ import {
   EditableInput,
   EditablePreview,
   Input,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -27,6 +26,7 @@ import NewItem, { Inputs } from "./NewItem";
 import NoSleep from "nosleep.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RemoveItem from "./RemoveItem";
 
 export interface ListItem {
   id: number;
@@ -96,7 +96,7 @@ const ShoppingList = ({
 
   return (
     <>
-      <TableContainer>
+      <TableContainer maxHeight={"75vh"} overflowY={"auto"}>
         <Table variant="simple" size="sm">
           <Thead height={"3rem"}>
             <Tr>
@@ -150,7 +150,7 @@ const ShoppingList = ({
                     }}
                   ></Checkbox>
                 </Td>
-                <Td>
+                <Td whiteSpace={"normal"}>
                   <Editable
                     defaultValue={row.name}
                     onSubmit={(value) => handleEditItemName(row.id, value)}
@@ -174,14 +174,12 @@ const ShoppingList = ({
                   <Icon name={row.typeicon}></Icon>
                 </Td>
                 <Td>
-                  <Button
-                    size="s"
-                    onClick={() =>
+                  <RemoveItem
+                    initSize="md"
+                    handleDelete={() =>
                       handleDelete({ item_id: row.id, list_id: row.list_id })
                     }
-                  >
-                    <Icon name={"FaTrash"}></Icon>
-                  </Button>
+                  ></RemoveItem>
                 </Td>
               </Tr>
             ))}
@@ -189,18 +187,18 @@ const ShoppingList = ({
         </Table>
       </TableContainer>
 
-      <Box pos="fixed" bottom="100px" right="35px">
+      <Box position={"fixed"} bottom={"30px"} left={"50px"}>
         <NewItem
           handleAddItem={(itemData) => handleAddItem(itemData)}
         ></NewItem>
       </Box>
 
-      <Box pos="fixed" bottom="100px" left="35px">
-        <Link href="/">
+      <Box position={"fixed"} bottom={"30px"} right={"50px"}>
+        <a href="/">
           <Button colorScheme="blue" size="lg" borderRadius="5px">
             <Icon name="FaArrowLeft"></Icon>
           </Button>
-        </Link>
+        </a>
       </Box>
     </>
   );
