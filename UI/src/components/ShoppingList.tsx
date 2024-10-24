@@ -67,7 +67,7 @@ const ShoppingList = ({
   const [noSleepState, setNoSleepState] = useState<boolean>(false);
 
   useEffect(() => {
-    let noSleep = new NoSleep();
+    const noSleep = new NoSleep();
     noSleepState ? noSleep.enable() : noSleep.disable();
     console.log(noSleep.isEnabled);
   }, [noSleepState]);
@@ -96,7 +96,7 @@ const ShoppingList = ({
 
   return (
     <>
-      <TableContainer maxHeight={"75vh"} overflowY={"auto"}>
+      <TableContainer maxHeight={"80vh"} overflowY={"auto"}>
         <Table variant="simple" size="sm">
           <Thead height={"3rem"}>
             <Tr>
@@ -140,7 +140,7 @@ const ShoppingList = ({
                 <Td>
                   <Checkbox
                     size="lg"
-                    isChecked={row.buyed}
+                    defaultChecked={row.buyed}
                     onChange={(e) => {
                       handleBuyed({
                         list_id: row.list_id,
@@ -187,18 +187,18 @@ const ShoppingList = ({
         </Table>
       </TableContainer>
 
-      <Box position={"fixed"} bottom={"30px"} left={"50px"}>
-        <NewItem
-          handleAddItem={(itemData) => handleAddItem(itemData)}
-        ></NewItem>
-      </Box>
-
       <Box position={"fixed"} bottom={"30px"} right={"50px"}>
         <a href="/">
           <Button colorScheme="blue" size="lg" borderRadius="5px">
             <Icon name="FaArrowLeft"></Icon>
           </Button>
         </a>
+      </Box>
+
+      <Box position={"fixed"} bottom={"30px"} left={"50px"}>
+        <NewItem
+          handleAddItem={(itemData) => handleAddItem(itemData)}
+        ></NewItem>
       </Box>
     </>
   );

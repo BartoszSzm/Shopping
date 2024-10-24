@@ -27,6 +27,7 @@ class Config(BaseModel):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     CSRF_SECRET_KEY: str
+    TOKEN_MAX_AGE_MILISECONDS: int
 
 
 @asynccontextmanager
@@ -46,6 +47,7 @@ config = Config(
     ALGORITHM=os.environ["ALGORITHM"],
     ACCESS_TOKEN_EXPIRE_MINUTES=int(os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]),
     CSRF_SECRET_KEY=os.environ["CSRF_SECRET_KEY"],
+    TOKEN_MAX_AGE_MILISECONDS=int(os.environ["TOKEN_MAX_AGE_MILISECONDS"]),
 )
 
 
@@ -106,7 +108,10 @@ async def login_for_access_token(
         algorithm=config.ALGORITHM,
     )
     response.set_cookie(
-        key="Authorization", value=f"Bearer {access_token}", httponly=True
+        key="Authorization",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        max_age=config.TOKEN_MAX_AGE_MILISECONDS or None,
     )
 
     return auth_vm.Token(access_token=access_token, token_type="bearer")

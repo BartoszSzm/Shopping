@@ -14,7 +14,7 @@ const ListDetails = () => {
   const [data, setData] = useState<ListItem[]>([]);
   const [listID, setListId] = useState<number>(0);
   const API_URL = import.meta.env.VITE_BACKEND_URL;
-  let { listId } = useParams();
+  const { listId } = useParams();
 
   const fetchData = (interval: number) => {
     axios
