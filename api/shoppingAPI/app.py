@@ -27,7 +27,7 @@ class Config(BaseModel):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     CSRF_SECRET_KEY: str
-    TOKEN_MAX_AGE_MILISECONDS: int
+    TOKEN_MAX_AGE_SECONDS: int
 
 
 @asynccontextmanager
@@ -39,7 +39,7 @@ async def lifespan(app: FastAPI):
     # after
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, docs_url="/api/docs")
 
 
 config = Config(
@@ -47,7 +47,7 @@ config = Config(
     ALGORITHM=os.environ["ALGORITHM"],
     ACCESS_TOKEN_EXPIRE_MINUTES=int(os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]),
     CSRF_SECRET_KEY=os.environ["CSRF_SECRET_KEY"],
-    TOKEN_MAX_AGE_MILISECONDS=int(os.environ["TOKEN_MAX_AGE_MILISECONDS"]),
+    TOKEN_MAX_AGE_SECONDS=int(os.environ["TOKEN_MAX_AGE_SECONDS"]),
 )
 
 
@@ -111,7 +111,9 @@ async def login_for_access_token(
         key="Authorization",
         value=f"Bearer {access_token}",
         httponly=True,
-        max_age=config.TOKEN_MAX_AGE_MILISECONDS or None,
+        secure=True,
+        samesite="lax",
+        max_age=config.TOKEN_MAX_AGE_SECONDS or None,
     )
 
     return auth_vm.Token(access_token=access_token, token_type="bearer")
@@ -148,7 +150,7 @@ async def read_users_me(
 
 @app.get("/api/lists")
 def get_lists(
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)]
+    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
 ) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
     with db_session() as session:
         response: t.List[basic_vm.ShoppingListModel] = []
