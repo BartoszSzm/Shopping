@@ -1,23 +1,13 @@
 import os
-import time
 import typing as t
 from contextlib import asynccontextmanager
-from datetime import timedelta
-from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordRequestForm
-from fastapi_csrf_protect import CsrfProtect
-from fastapi_csrf_protect.exceptions import CsrfProtectError
 from pydantic import BaseModel
+from shoppingAPI import validation_models as basic_vm
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
-from shoppingAPI import validation_models as basic_vm
-
-from .auth import auth
-from .auth import validation_models as auth_vm
 from .database import ItemTypes, ListItem, ShoppingList, Users, db_session
 from .database.db import create_db, create_dummy_list
 
@@ -25,9 +15,6 @@ from .database.db import create_db, create_dummy_list
 class Config(BaseModel):
     SECRET_KEY: str
     ALGORITHM: str
-    ACCESS_TOKEN_EXPIRE_MINUTES: int
-    CSRF_SECRET_KEY: str
-    TOKEN_MAX_AGE_SECONDS: int
 
 
 @asynccontextmanager
@@ -45,22 +32,9 @@ app = FastAPI(lifespan=lifespan, docs_url="/api/docs")
 config = Config(
     SECRET_KEY=os.environ["SECRET_KEY"],
     ALGORITHM=os.environ["ALGORITHM"],
-    ACCESS_TOKEN_EXPIRE_MINUTES=int(os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]),
-    CSRF_SECRET_KEY=os.environ["CSRF_SECRET_KEY"],
-    TOKEN_MAX_AGE_SECONDS=int(os.environ["TOKEN_MAX_AGE_SECONDS"]),
 )
 
-
-class CsrfSettings(BaseModel):
-    secret_key: str = config.CSRF_SECRET_KEY
-
-
-@CsrfProtect.load_config  # type: ignore
-def get_csrf_config():
-    return CsrfSettings()
-
-
-origins = ["http://localhost:5173"]
+origins = ["http://localhost:5173", "http://localhost"]
 
 
 app.add_middleware(
@@ -72,77 +46,8 @@ app.add_middleware(
 )
 
 
-############################ ATUH ENDPOINTS ####################################
-
-
-@app.exception_handler(CsrfProtectError)
-def csrf_protect_exception_handler(
-    request: Request, exc: CsrfProtectError
-) -> JSONResponse:
-    return JSONResponse(status_code=exc.status_code, content={"detail": exc.message})
-
-
-@app.post("/api/token")
-async def login_for_access_token(
-    response: Response,
-    request: Request,
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    csrf_protect: CsrfProtect = Depends(),
-) -> auth_vm.Token:
-
-    await csrf_protect.validate_csrf(request)
-    csrf_protect.unset_csrf_cookie(response)
-
-    user = Users.authenticate_user(form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token_expires = timedelta(minutes=config.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = auth.create_access_token(
-        data={"sub": user.username},
-        expires_delta=access_token_expires,
-        secret_key=config.SECRET_KEY,
-        algorithm=config.ALGORITHM,
-    )
-    response.set_cookie(
-        key="Authorization",
-        value=f"Bearer {access_token}",
-        httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=config.TOKEN_MAX_AGE_SECONDS or None,
-    )
-
-    return auth_vm.Token(access_token=access_token, token_type="bearer")
-
-
-@app.get("/api/csrf-token")
-def get_csrf_token(csrf_protect: CsrfProtect = Depends()):
-    """Returns the CSRF token for the client."""
-    csrf_token, signed_token = csrf_protect.generate_csrf_tokens()
-    response = JSONResponse({"csrf_token": csrf_token})
-    csrf_protect.set_csrf_cookie(signed_token, response)
-    return response
-
-
-@app.post("/api/logout")
-async def logout(
-    token_data: t.Annotated[auth_vm.TokenData, Depends(auth.get_token_data)],
-    response: Response,
-):
-    auth.revoke_token(token_data.token, token_data.expiration - int(time.time()))
-    response.delete_cookie(key="Authorization", httponly=True)
-    return basic_vm.MsgResponse(status="confirmed", msg="Logged out")
-
-
-@app.get("/users/me/")
-async def read_users_me(
-    current_user: Annotated[Users, Depends(auth.get_current_active_user)],
-):
-    return current_user
+async def get_current_user() -> Users:
+    return Users.get_user(username="bartosz")
 
 
 ########################## UTILITY ENDPOINTS ###################################
@@ -150,7 +55,7 @@ async def read_users_me(
 
 @app.get("/api/lists")
 def get_lists(
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
     with db_session() as session:
         response: t.List[basic_vm.ShoppingListModel] = []
@@ -172,7 +77,7 @@ def get_lists(
 
 @app.get("/api/{list_id}")
 def get_list_items(
-    list_id: int, user: t.Annotated[Users, Depends(auth.get_current_active_user)]
+    list_id: int, user: t.Annotated[Users, Depends(get_current_user)]
 ) -> basic_vm.ShoppingListResponse | basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -201,7 +106,7 @@ def get_list_items(
 @app.post("/api/buyed")
 def buyed(
     data: basic_vm.MarkAsBuyedData,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -221,7 +126,7 @@ def buyed(
 @app.post("/api/delete")
 def delete(
     data: basic_vm.ListItemIdentifier,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -241,7 +146,7 @@ def delete(
 @app.post("/api/newItem")
 def newItem(
     data: basic_vm.NewListItem,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -264,7 +169,7 @@ def newItem(
 @app.post("/api/newList")
 def new_list(
     data: basic_vm.NewList,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -279,7 +184,7 @@ def new_list(
 @app.post("/api/deleteList")
 def delete_list(
     data: basic_vm.ListIdentifier,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -295,7 +200,7 @@ def delete_list(
 @app.post("/api/updateItem")
 def update_item(
     data: basic_vm.UpdateItem,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -320,7 +225,7 @@ def update_item(
 @app.post("/api/deleteManyItems")
 def delete_many_items(
     data: basic_vm.DeleteManyItems,
-    user: t.Annotated[Users, Depends(auth.get_current_active_user)],
+    user: t.Annotated[Users, Depends(get_current_user)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
