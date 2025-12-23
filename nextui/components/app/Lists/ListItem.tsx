@@ -9,7 +9,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { URLS } from "@/lib/apiClient";
 import { List } from "@/types/list";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 import { toast } from "sonner";
@@ -19,7 +21,7 @@ const ListItem = ({ list }: { list: List }) => {
   return (
     <Card>
       <div className="flex justify-between">
-        <span>{list.name}</span>
+        <Link href={URLS.app.listDetails(list.id)}>{list.name}</Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button>

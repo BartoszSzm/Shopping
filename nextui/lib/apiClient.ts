@@ -1,8 +1,16 @@
 "server only";
 
 export const URLS = {
-  apiUrl: () => process.env.BACKEND_URL,
-  allLists: () => `${URLS.apiUrl()}/lists`,
-  deleteList: () => `${URLS.apiUrl()}/deleteList`,
-  newList: () => `${URLS.apiUrl()}/newList`,
+  api: {
+    apiUrl: () => process.env.BACKEND_URL,
+    allLists: () => `${URLS.api.apiUrl()}/lists`,
+    deleteList: () => `${URLS.api.apiUrl()}/deleteList`,
+    newList: () => `${URLS.api.apiUrl()}/newList`,
+    listDetails: (listId: number) => `${URLS.api.apiUrl()}/${listId}`,
+    newListItem: () => `${URLS.api.apiUrl()}/newItem`,
+  },
+  app: {
+    lists: () => `/lists`,
+    listDetails: (listId: number) => `${URLS.app.lists()}/${listId}/details`,
+  },
 };
