@@ -6,11 +6,11 @@ RUN apt-get update && \
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install poetry
 
 COPY . /code
+
+RUN poetry install --no-root
 
 CMD [ "/code/run.sh" ]
 

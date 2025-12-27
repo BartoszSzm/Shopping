@@ -5,10 +5,14 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from shoppingAPI import validation_models as basic_vm
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
-from .database import ItemTypes, ListItem, ShoppingList, Users, db_session
+from shoppingAPI import validation_models as basic_vm
+from shoppingAPI.app_types import ItemTypeRow
+from shoppingAPI.crud import list_item as list_item_crud
+from shoppingAPI.utils.load_categories import load_item_types
+
+from .database import ListItem, ShoppingList, Users, db_session
 from .database.db import create_db, create_dummy_list
 
 
@@ -17,11 +21,23 @@ class Config(BaseModel):
     ALGORITHM: str
 
 
+item_types: t.Optional[list[ItemTypeRow]] = None
+
+
+def get_item_types() -> list[ItemTypeRow]:
+    global item_types
+    if item_types:
+        return item_types
+    raise ValueError("cannot get item_types")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # before
     create_db()
     create_dummy_list()
+    global item_types
+    item_types = load_item_types()
     yield
     # after
 
@@ -150,20 +166,13 @@ def newItem(
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
-            session.query(ListItem).filter_by(
-                name=data.name, list_id=data.list_id
-            ).one()
-            return basic_vm.MsgResponse(status="rejected", msg="Already on the list")
-        except NoResultFound:
-            item: ListItem = ListItem(
-                name=data.name,
-                list_id=data.list_id,
-                quantity=data.quantity,
-                typeicon=ItemTypes().get_typeicon(data.name),
-            )
-            session.add(item)
-            session.commit()
+            list_item_crud.new_list_item(session, data, collection=get_item_types())
             return basic_vm.MsgResponse(status="confirmed")
+        except Exception as exc:
+            print(str(exc))
+            return basic_vm.MsgResponse(
+                status="rejected", msg="Error occured, check logs"
+            )
 
 
 @app.post("/api/newList")

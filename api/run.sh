@@ -1,2 +1,1 @@
-redis-server --daemonize yes && uvicorn shoppingAPI.app:app --host 0.0.0.0 --port 80
-
+redis-server --daemonize yes && poetry run uvicorn shoppingAPI.app:app --host 0.0.0.0 --port 80
