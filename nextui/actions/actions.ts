@@ -4,6 +4,7 @@ import { URLS } from "@/lib/apiClient";
 import {
   ListIdentifier,
   ListItemType,
+  MarkAsBuyedData,
   MsgResponse,
   NewList,
   NewListItem,
@@ -89,6 +90,31 @@ export async function newListItem(listItem: NewListItem): Promise<MsgResponse> {
 
   if (!res.ok) {
     throw new Error("Nie można dodać nowego elementu");
+  }
+
+  return await res.json();
+}
+
+export async function toggleBuyed(
+  listItem: MarkAsBuyedData
+): Promise<MsgResponse> {
+  let res: Response;
+  try {
+    res = await fetch(URLS.api.buyed(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listItem),
+      cache: "no-cache",
+    });
+  } catch (e) {
+    const err = e as Error;
+    throw new Error(`Network error ${err}`);
+  }
+
+  if (!res.ok) {
+    throw new Error("Nie można zaktualizować stanu");
   }
 
   return await res.json();

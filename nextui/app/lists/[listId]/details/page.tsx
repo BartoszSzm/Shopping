@@ -1,6 +1,7 @@
 import { getListDetails } from "@/actions/actions";
 import ButtonsList from "@/components/app/ListDetails/ButtonsList/ButtonsList";
 import ShoppingListTable from "@/components/app/ListDetails/ShoppingListTable";
+import { sortTableRows } from "@/lib/utils";
 import { ShoppingListResponse } from "@/types/apiTypes";
 
 const ShoppingListDetails = async ({
@@ -14,7 +15,7 @@ const ShoppingListDetails = async ({
 
   const listDetailsData: ShoppingListResponse = await getListDetails(listId);
 
-  const rows = listDetailsData.list_items;
+  const rows = sortTableRows(listDetailsData.list_items);
 
   return (
     <div>

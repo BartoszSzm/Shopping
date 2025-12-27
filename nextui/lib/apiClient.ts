@@ -8,6 +8,7 @@ export const URLS = {
     newList: () => `${URLS.api.apiUrl()}/newList`,
     listDetails: (listId: number) => `${URLS.api.apiUrl()}/${listId}`,
     newListItem: () => `${URLS.api.apiUrl()}/newItem`,
+    buyed: () => `${URLS.api.apiUrl()}/buyed`,
   },
   app: {
     lists: () => `/lists`,

@@ -1,5 +1,8 @@
 "use client";
 
+import { toggleBuyed } from "@/actions/actions";
+import { Checkbox } from "@/components/ui/checkbox";
+import { sortTableRows } from "@/lib/utils";
 import { ListItemType } from "@/types/apiTypes";
 import React, { useState } from "react";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
@@ -12,8 +15,18 @@ interface Props {
 const ShoppingListTable = ({ headers, rows }: Props) => {
   const [editClicked, setEditClicked] = useState(false);
   const [clickedRow, setClickedRow] = useState<ListItemType | null>(null);
+  const [tableRows, setTableRows] = useState<ListItemType[]>(rows);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {};
+
+  const toggleBuyedItem = (item: ListItemType) => {
+    setTableRows((prevRows) => {
+      const newRows = prevRows.map((row) =>
+        row.id === item.id ? { ...row, buyed: !row.buyed } : row
+      );
+      return sortTableRows(newRows);
+    });
+  };
 
   return (
     <div className="grid grid-cols-5 gap-y-4 items-center">
@@ -34,9 +47,21 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
           quantity: clickedRow?.quantity,
         }}
       />
-      {rows.map((row) => (
+      {tableRows.map((row) => (
         <React.Fragment key={row.id}>
-          <div>{row.buyed ? "✅" : "⬜"}</div>
+          <Checkbox
+            checked={row.buyed}
+            onCheckedChange={(checked) => {
+              toggleBuyedItem(row);
+              toggleBuyed({
+                buyed: checked,
+                item_id: row.id,
+                list_id: row.list_id,
+              }).then((r) => {
+                r.msg === "rejected" ? toggleBuyedItem(row) : null;
+              });
+            }}
+          />
           <div
             onClick={() => {
               setEditClicked(true);
