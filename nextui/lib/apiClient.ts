@@ -9,6 +9,9 @@ export const URLS = {
     listDetails: (listId: number) => `${URLS.api.apiUrl()}/${listId}`,
     newListItem: () => `${URLS.api.apiUrl()}/newItem`,
     buyed: () => `${URLS.api.apiUrl()}/buyed`,
+    updateItem: () => `${URLS.api.apiUrl()}/updateItem`,
+    deleteItem: () => `${URLS.api.apiUrl()}/delete`,
+    deleteManyItems: () => `${URLS.api.apiUrl()}/deleteManyItems`,
   },
   app: {
     lists: () => `/lists`,

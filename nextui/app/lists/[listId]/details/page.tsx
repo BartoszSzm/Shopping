@@ -9,7 +9,7 @@ const ShoppingListDetails = async ({
 }: {
   params: Promise<{ listId: number }>;
 }) => {
-  const headers = ["NAZWA", "ILOŚĆ", "TYP", "SETTINGS"];
+  const headers = ["NAZWA", "ILOŚĆ", "TYP"];
 
   const { listId } = await params;
 

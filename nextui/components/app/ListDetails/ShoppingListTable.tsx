@@ -1,11 +1,19 @@
 "use client";
 
-import { toggleBuyed } from "@/actions/actions";
+import {
+  deleteAllItems,
+  deleteItem,
+  editItem,
+  toggleBuyed,
+} from "@/actions/actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { sortTableRows } from "@/lib/utils";
 import { ListItemType } from "@/types/apiTypes";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
+import SettingsButton from "./ButtonsList/SettingsButton";
+import TableRowActions from "./TableRowActions";
 
 interface Props {
   headers: string[];
@@ -17,7 +25,14 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
   const [clickedRow, setClickedRow] = useState<ListItemType | null>(null);
   const [tableRows, setTableRows] = useState<ListItemType[]>(rows);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    editItem({
+      id: typeof data.id === "string" ? parseInt(data.id) : 0,
+      ...data,
+    });
+  };
 
   const toggleBuyedItem = (item: ListItemType) => {
     setTableRows((prevRows) => {
@@ -28,6 +43,43 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
     });
   };
 
+  const removeItem = (item: ListItemType) => {
+    setTableRows((prevRows) => {
+      const newRows = prevRows.filter((i) => i.id !== item.id);
+      return sortTableRows(newRows);
+    });
+  };
+
+  const deleteAllAction = async () => {
+    const oldRows = [...tableRows];
+    setTableRows([]);
+    await deleteAllItems({ items_ids: tableRows.map((row) => row.id) })
+      .then(() => toast.success("All items removed!"))
+      .catch((e) => {
+        const err = e as Error;
+        setTableRows(oldRows);
+        toast.error(err.message);
+      });
+  };
+
+  const onDeleteItemAction = (item: ListItemType) => {
+    const oldRows = [...tableRows];
+    removeItem(item);
+    deleteItem({ item_id: item.id, list_id: item.list_id }).catch((e) => {
+      const err = e as Error;
+      toast.error(err.message);
+      setTableRows(oldRows);
+    });
+  };
+
+  useEffect(() => {
+    setTableRows(rows);
+  }, [rows]);
+
+  if (tableRows.length === 0) {
+    return <div>Ta lista jest pusta</div>;
+  }
+
   return (
     <div className="grid grid-cols-5 gap-y-4 items-center">
       <div className="font-bold"></div>
@@ -36,6 +88,7 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
           {header}
         </div>
       ))}
+      <SettingsButton deleteAllAction={deleteAllAction}></SettingsButton>
       <hr className="col-span-5 border-gray-300" />
       <AddEditListItemModal
         title="Edytuj element"
@@ -43,6 +96,7 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
         setOpen={setEditClicked}
         onSubmitAction={handleSubmit}
         values={{
+          id: clickedRow?.id,
           name: clickedRow?.name,
           quantity: clickedRow?.quantity,
         }}
@@ -54,7 +108,7 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
             onCheckedChange={(checked) => {
               toggleBuyedItem(row);
               toggleBuyed({
-                buyed: checked,
+                buyed: typeof checked === "boolean" ? checked : false,
                 item_id: row.id,
                 list_id: row.list_id,
               }).then((r) => {
@@ -80,7 +134,9 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
           </div>
           <div>{row.typeicon}</div>
           <div>
-            <button className="text-xs bg-gray-100 p-1 rounded">Edytuj</button>
+            <TableRowActions
+              onDeleteItemAction={() => onDeleteItemAction(row)}
+            ></TableRowActions>
           </div>
         </React.Fragment>
       ))}

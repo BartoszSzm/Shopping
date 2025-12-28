@@ -21,7 +21,8 @@ interface Props {
   onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   successMessage?: string;
   errorMessage?: string;
-  values?: { name?: string; quantity?: number };
+  onErrorAction?: () => void;
+  values?: { id?: number; name?: string; quantity?: number };
 }
 
 const AddEditListItemModal = ({
@@ -45,7 +46,9 @@ const AddEditListItemModal = ({
         toast.success(successMessage);
         router.refresh();
       })
-      .catch((e) => toast.error(`${errorMessage} ${e}`))
+      .catch((e) => {
+        toast.error(`${errorMessage} ${e}`);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -60,6 +63,7 @@ const AddEditListItemModal = ({
             <div className="grid gap-2 grid-cols-2">
               <Label htmlFor="name">Nazwa</Label>
               <Label htmlFor="quantity">Ilość</Label>
+              <Input id="id" name="id" defaultValue={values?.id} hidden />
               <Input
                 id="name"
                 name="name"

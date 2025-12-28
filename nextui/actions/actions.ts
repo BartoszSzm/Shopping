@@ -2,13 +2,16 @@
 
 import { URLS } from "@/lib/apiClient";
 import {
+  DeleteManyItems,
   ListIdentifier,
+  ListItemIdentifier,
   ListItemType,
   MarkAsBuyedData,
   MsgResponse,
   NewList,
   NewListItem,
   ShoppingListResponse,
+  UpdateItem,
 } from "@/types/apiTypes";
 
 export async function newList(listItem: NewList): Promise<MsgResponse> {
@@ -118,4 +121,89 @@ export async function toggleBuyed(
   }
 
   return await res.json();
+}
+
+export async function editItem(listItem: UpdateItem): Promise<MsgResponse> {
+  let res: Response;
+  try {
+    res = await fetch(URLS.api.updateItem(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listItem),
+      cache: "no-cache",
+    });
+  } catch (e) {
+    const err = e as Error;
+    throw new Error(`Network error ${err}`);
+  }
+
+  const responseParsed = await res.json();
+
+  if (!res.ok) {
+    console.error(responseParsed);
+    console.error(listItem);
+    throw new Error("Nie można zaktualizować stanu");
+  }
+
+  return responseParsed;
+}
+
+export async function deleteItem(
+  listItem: ListItemIdentifier
+): Promise<MsgResponse> {
+  let res: Response;
+  try {
+    res = await fetch(URLS.api.deleteItem(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listItem),
+      cache: "no-cache",
+    });
+  } catch (e) {
+    const err = e as Error;
+    throw new Error(`Network error ${err}`);
+  }
+
+  const responseParsed = await res.json();
+
+  if (!res.ok) {
+    console.error(responseParsed);
+    console.error(listItem);
+    throw new Error("Nie można usunąć elementu");
+  }
+
+  return responseParsed;
+}
+
+export async function deleteAllItems(
+  listItem: DeleteManyItems
+): Promise<MsgResponse> {
+  let res: Response;
+  try {
+    res = await fetch(URLS.api.deleteManyItems(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listItem),
+      cache: "no-cache",
+    });
+  } catch (e) {
+    const err = e as Error;
+    throw new Error(`Network error ${err}`);
+  }
+
+  const responseParsed = await res.json();
+
+  if (!res.ok) {
+    console.error(responseParsed);
+    console.error(listItem);
+    throw new Error("Nie można usunąć elementu");
+  }
+
+  return responseParsed;
 }
