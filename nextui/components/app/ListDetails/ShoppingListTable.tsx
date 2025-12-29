@@ -9,6 +9,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { sortTableRows } from "@/lib/utils";
 import { ListItemType } from "@/types/apiTypes";
+import { Package } from "lucide-react"; // Import dla pustego stanu
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
@@ -77,19 +78,29 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
   }, [rows]);
 
   if (tableRows.length === 0) {
-    return <div>Ta lista jest pusta</div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-zinc-200 text-zinc-400">
+        <Package size={40} className="mb-4 opacity-20" />
+        <p className="font-medium">Ta lista jest pusta</p>
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-5 gap-y-4 items-center">
-      <div className="font-bold"></div>
-      {headers.map((header) => (
-        <div key={header} className="font-bold text-gray-600">
-          {header}
+    <div className="w-full">
+      {/* Nagłówek "Tabeli" */}
+      <div className="grid grid-cols-[40px_1fr_80px_60px_40px] gap-4 items-center px-5 mb-4 text-[11px] font-bold text-zinc-400 tracking-widest uppercase">
+        <div></div>
+        {headers.map((header) => (
+          <div key={header} className={header === "NAZWA" ? "" : "text-center"}>
+            {header}
+          </div>
+        ))}
+        <div className="flex justify-end">
+          <SettingsButton deleteAllAction={deleteAllAction} />
         </div>
-      ))}
-      <SettingsButton deleteAllAction={deleteAllAction}></SettingsButton>
-      <hr className="col-span-5 border-gray-300" />
+      </div>
+
       <AddEditListItemModal
         title="Edytuj element"
         open={editClicked}
@@ -101,45 +112,72 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
           quantity: clickedRow?.quantity,
         }}
       />
-      {tableRows.map((row) => (
-        <React.Fragment key={row.id}>
-          <Checkbox
-            checked={row.buyed}
-            onCheckedChange={(checked) => {
-              toggleBuyedItem(row);
-              toggleBuyed({
-                buyed: typeof checked === "boolean" ? checked : false,
-                item_id: row.id,
-                list_id: row.list_id,
-              }).then((r) => {
-                r.msg === "rejected" ? toggleBuyedItem(row) : null;
-              });
-            }}
-          />
+
+      {/* Lista produktów */}
+      <div className="space-y-2">
+        {tableRows.map((row) => (
           <div
-            onClick={() => {
-              setEditClicked(true);
-              setClickedRow(row);
-            }}
+            key={row.id}
+            className={`grid grid-cols-[40px_1fr_80px_60px_40px] gap-4 items-center p-4 bg-white border border-zinc-100 rounded-2xl transition-all duration-200 hover:border-zinc-200 hover:shadow-sm ${
+              row.buyed ? "opacity-50 select-none" : ""
+            }`}
           >
-            {row.name}
+            {/* Checkbox */}
+            <div className="flex justify-center">
+              <Checkbox
+                checked={row.buyed}
+                className="h-5 w-5 rounded-md border-zinc-300 data-[state=checked]:bg-black data-[state=checked]:border-black transition-transform active:scale-90"
+                onCheckedChange={(checked) => {
+                  toggleBuyedItem(row);
+                  toggleBuyed({
+                    buyed: typeof checked === "boolean" ? checked : false,
+                    item_id: row.id,
+                    list_id: row.list_id,
+                  }).then((r) => {
+                    r.msg === "rejected" ? toggleBuyedItem(row) : null;
+                  });
+                }}
+              />
+            </div>
+
+            {/* Nazwa */}
+            <div
+              className={`cursor-pointer font-semibold text-zinc-800 transition-all ${
+                row.buyed ? "line-through text-zinc-400" : ""
+              }`}
+              onClick={() => {
+                setEditClicked(true);
+                setClickedRow(row);
+              }}
+            >
+              {row.name}
+            </div>
+
+            {/* Ilość */}
+            <div
+              className="text-center"
+              onClick={() => {
+                setEditClicked(true);
+                setClickedRow(row);
+              }}
+            >
+              <span className="inline-block px-3 py-1 rounded-lg bg-zinc-50 text-zinc-600 text-sm font-mono border border-zinc-100 cursor-pointer">
+                {row.quantity}
+              </span>
+            </div>
+
+            {/* Ikona Typu */}
+            <div className="text-center text-xl">{row.typeicon}</div>
+
+            {/* Akcje */}
+            <div className="flex justify-end">
+              <TableRowActions
+                onDeleteItemAction={() => onDeleteItemAction(row)}
+              />
+            </div>
           </div>
-          <div
-            onClick={() => {
-              setEditClicked(true);
-              setClickedRow(row);
-            }}
-          >
-            {row.quantity}
-          </div>
-          <div>{row.typeicon}</div>
-          <div>
-            <TableRowActions
-              onDeleteItemAction={() => onDeleteItemAction(row)}
-            ></TableRowActions>
-          </div>
-        </React.Fragment>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

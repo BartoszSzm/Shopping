@@ -54,7 +54,7 @@ const AddEditListItemModal = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-106.25">
+      <DialogContent className="sm:max-w-106.25 top-[30%]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
