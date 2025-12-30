@@ -1,6 +1,7 @@
 "use server";
 
-import { URLS } from "@/lib/apiClient";
+import { authApiFetch, URLS } from "@/lib/apiClient";
+
 import {
   DeleteManyItems,
   ListIdentifier,
@@ -14,196 +15,89 @@ import {
   UpdateItem,
 } from "@/types/apiTypes";
 
-export async function newList(listItem: NewList): Promise<MsgResponse> {
-  let res: Response;
-
-  try {
-    res = await fetch(URLS.api.newList(), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  return await res.json();
+export async function newList(payload: NewList): Promise<MsgResponse> {
+  return authApiFetch<MsgResponse, NewList>({
+    url: URLS.api.newList(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można utworzyć listy",
+  });
 }
 
 export async function deleteList(
-  listItem: ListIdentifier
+  payload: ListIdentifier
 ): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.deleteList(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  return await res.json();
+  return authApiFetch<MsgResponse, ListIdentifier>({
+    url: URLS.api.deleteList(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można usunąć listy",
+  });
 }
 
 export async function getLists(): Promise<ListItemType[]> {
-  const res = await fetch(URLS.api.allLists(), { cache: "no-cache" });
-
-  if (!res.ok) {
-    throw new Error("Nie można pobrać list");
-  }
-
-  return res.json();
+  return authApiFetch<ListItemType[]>({
+    url: URLS.api.allLists(),
+    errorMessage: "Nie można pobrać list",
+  });
 }
 
 export async function getListDetails(
   listId: number
 ): Promise<ShoppingListResponse> {
-  const res = await fetch(URLS.api.listDetails(listId), { cache: "no-cache" });
-
-  if (!res.ok) {
-    throw new Error("Nie można pobrać szczegółów listy");
-  }
-
-  return res.json();
+  return authApiFetch<ShoppingListResponse>({
+    url: URLS.api.listDetails(listId),
+    errorMessage: "Nie można pobrać szczegółów listy",
+  });
 }
 
-export async function newListItem(listItem: NewListItem): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.newListItem(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  if (!res.ok) {
-    throw new Error("Nie można dodać nowego elementu");
-  }
-
-  return await res.json();
+export async function newListItem(payload: NewListItem): Promise<MsgResponse> {
+  return authApiFetch<MsgResponse, NewListItem>({
+    url: URLS.api.newListItem(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można dodać nowego elementu",
+  });
 }
 
 export async function toggleBuyed(
-  listItem: MarkAsBuyedData
+  payload: MarkAsBuyedData
 ): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.buyed(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  if (!res.ok) {
-    throw new Error("Nie można zaktualizować stanu");
-  }
-
-  return await res.json();
+  return authApiFetch<MsgResponse, MarkAsBuyedData>({
+    url: URLS.api.buyed(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można zaktualizować stanu",
+  });
 }
 
-export async function editItem(listItem: UpdateItem): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.updateItem(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  const responseParsed = await res.json();
-
-  if (!res.ok) {
-    console.error(responseParsed);
-    console.error(listItem);
-    throw new Error("Nie można zaktualizować stanu");
-  }
-
-  return responseParsed;
+export async function editItem(payload: UpdateItem): Promise<MsgResponse> {
+  return authApiFetch<MsgResponse, UpdateItem>({
+    url: URLS.api.updateItem(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można zaktualizować elementu",
+  });
 }
 
 export async function deleteItem(
-  listItem: ListItemIdentifier
+  payload: ListItemIdentifier
 ): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.deleteItem(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  const responseParsed = await res.json();
-
-  if (!res.ok) {
-    console.error(responseParsed);
-    console.error(listItem);
-    throw new Error("Nie można usunąć elementu");
-  }
-
-  return responseParsed;
+  return authApiFetch<MsgResponse, ListItemIdentifier>({
+    url: URLS.api.deleteItem(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można usunąć elementu",
+  });
 }
 
 export async function deleteAllItems(
-  listItem: DeleteManyItems
+  payload: DeleteManyItems
 ): Promise<MsgResponse> {
-  let res: Response;
-  try {
-    res = await fetch(URLS.api.deleteManyItems(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(listItem),
-      cache: "no-cache",
-    });
-  } catch (e) {
-    const err = e as Error;
-    throw new Error(`Network error ${err}`);
-  }
-
-  const responseParsed = await res.json();
-
-  if (!res.ok) {
-    console.error(responseParsed);
-    console.error(listItem);
-    throw new Error("Nie można usunąć elementu");
-  }
-
-  return responseParsed;
+  return authApiFetch<MsgResponse, DeleteManyItems>({
+    url: URLS.api.deleteManyItems(),
+    method: "POST",
+    body: payload,
+    errorMessage: "Nie można usunąć elementów",
+  });
 }

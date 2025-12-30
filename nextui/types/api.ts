@@ -4,6 +4,23 @@
  */
 
 export interface paths {
+    "/token-data/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Token Data */
+        get: operations["read_token_data_token_data__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/lists": {
         parameters: {
             query?: never;
@@ -268,6 +285,14 @@ export interface components {
             /** List Items */
             list_items: components["schemas"]["ListItemType"][];
         };
+        /** TokenData */
+        TokenData: {
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+        };
         /** UpdateItem */
         UpdateItem: {
             /** Id */
@@ -295,6 +320,26 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    read_token_data_token_data__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenData"];
+                };
+            };
+        };
+    };
     get_lists_api_lists_get: {
         parameters: {
             query?: never;
