@@ -19,6 +19,7 @@ redis = "^5.1.1"
 pytest = "^8.3.3"
 fastapi-csrf-protect = "0.3.5"
 thefuzz = "^0.22.1"
+httpx = "^0.28.1"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,25 +1,17 @@
-import os
 import typing as t
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from sqlalchemy.exc import MultipleResultsFound, NoResultFound
-
 from shoppingAPI import validation_models as basic_vm
 from shoppingAPI.app_types import ItemTypeRow
+from shoppingAPI.auth.auth import TokenData, get_token_data
 from shoppingAPI.crud import list_item as list_item_crud
 from shoppingAPI.utils.load_categories import load_item_types
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
 from .database import ListItem, ShoppingList, Users, db_session
 from .database.db import create_db, create_dummy_list
-
-
-class Config(BaseModel):
-    SECRET_KEY: str
-    ALGORITHM: str
-
 
 item_types: t.Optional[list[ItemTypeRow]] = None
 
@@ -45,11 +37,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan, docs_url="/api/docs")
 
 
-config = Config(
-    SECRET_KEY=os.environ["SECRET_KEY"],
-    ALGORITHM=os.environ["ALGORITHM"],
-)
-
 origins = ["http://localhost:5173", "http://localhost"]
 
 
@@ -62,8 +49,12 @@ app.add_middleware(
 )
 
 
-async def get_current_user() -> Users:
-    return Users.get_user(username="bartosz")
+############################ AUTH ENDPOINTS ######################################
+@app.get("/token-data/", response_model=TokenData)
+async def read_token_data(
+    token_data: t.Annotated[TokenData, Depends(get_token_data)],
+):
+    return token_data
 
 
 ########################## UTILITY ENDPOINTS ###################################
@@ -71,7 +62,7 @@ async def get_current_user() -> Users:
 
 @app.get("/api/lists")
 def get_lists(
-    user: t.Annotated[Users, Depends(get_current_user)],
+    token: t.Annotated[Users, Depends(get_token_data)],
 ) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
     with db_session() as session:
         response: t.List[basic_vm.ShoppingListModel] = []
@@ -93,7 +84,7 @@ def get_lists(
 
 @app.get("/api/{list_id}")
 def get_list_items(
-    list_id: int, user: t.Annotated[Users, Depends(get_current_user)]
+    list_id: int, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.ShoppingListResponse | basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -121,8 +112,7 @@ def get_list_items(
 
 @app.post("/api/buyed")
 def buyed(
-    data: basic_vm.MarkAsBuyedData,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.MarkAsBuyedData, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -142,7 +132,7 @@ def buyed(
 @app.post("/api/delete")
 def delete(
     data: basic_vm.ListItemIdentifier,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    token: t.Annotated[Users, Depends(get_token_data)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -161,8 +151,7 @@ def delete(
 
 @app.post("/api/newItem")
 def newItem(
-    data: basic_vm.NewListItem,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.NewListItem, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -177,8 +166,7 @@ def newItem(
 
 @app.post("/api/newList")
 def new_list(
-    data: basic_vm.NewList,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.NewList, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -192,8 +180,7 @@ def new_list(
 
 @app.post("/api/deleteList")
 def delete_list(
-    data: basic_vm.ListIdentifier,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.ListIdentifier, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -208,8 +195,7 @@ def delete_list(
 
 @app.post("/api/updateItem")
 def update_item(
-    data: basic_vm.UpdateItem,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.UpdateItem, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -233,8 +219,7 @@ def update_item(
 
 @app.post("/api/deleteManyItems")
 def delete_many_items(
-    data: basic_vm.DeleteManyItems,
-    user: t.Annotated[Users, Depends(get_current_user)],
+    data: basic_vm.DeleteManyItems, token: t.Annotated[Users, Depends(get_token_data)]
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
