@@ -1,6 +1,7 @@
 "use client";
 
 import AppLogo from "@/components/app/Logos/AppLogo";
+import { URLS } from "@/lib/apiClient";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -56,7 +57,7 @@ export default function LandingPage() {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/lists" className="w-full sm:w-auto">
+            <Link href={URLS.app.lists()} className="w-full sm:w-auto">
               <Button className="w-full sm:w-auto text-lg gap-2 group">
                 Moje listy zakupowe
                 <ArrowRight

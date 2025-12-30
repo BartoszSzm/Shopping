@@ -14,7 +14,7 @@ export const URLS = {
     deleteManyItems: () => `${URLS.api.apiUrl()}/deleteManyItems`,
   },
   app: {
-    lists: () => `/lists`,
+    lists: () => `/account/lists`,
     listDetails: (listId: number) => `${URLS.app.lists()}/${listId}/details`,
   },
 };
