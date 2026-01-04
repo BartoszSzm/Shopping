@@ -29,6 +29,7 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    console.log("DATA", data);
     editItem({
       id: typeof data.id === "string" ? parseInt(data.id) : 0,
       ...data,

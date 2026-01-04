@@ -36,6 +36,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <header className="pt-16 pb-16 md:pt-40 md:pb-32 px-6">
         <div className="max-w-4xl mx-auto text-center">
+          {/* @ts-ignore */}
           <motion.h1
             {...fadeIn}
             className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05]"

@@ -4,3 +4,8 @@ export interface List {
   created: string;
   modified: string;
 }
+
+export type AddEditTableItem = {
+  name: string;
+  quantity: string;
+};

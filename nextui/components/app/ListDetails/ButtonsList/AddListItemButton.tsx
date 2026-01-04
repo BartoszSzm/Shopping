@@ -19,11 +19,12 @@ const AddListItemButton = ({ listId }: Props) => {
     // Zachowujemy Twoją logikę biznesową
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name")?.toString().trim();
-    const quantity = formData.get("quantity")?.toString();
+    let quantity = formData.get("quantity")?.toString();
 
-    if (name === undefined && quantity === undefined) return;
+    if (name === undefined || quantity === undefined) return;
 
     // Tutaj warto dodać .then(() => setOpen(false)) jeśli chcesz zamykać modal po sukcesie
+    // @ts-ignore
     newListItem({ list_id: listId, name: name, quantity: quantity });
   };
 

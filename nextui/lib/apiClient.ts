@@ -40,6 +40,7 @@ export async function apiFetch<TResponse, TBody = unknown>({
   let res: Response;
 
   try {
+    console.log("BODY", body);
     res = await fetch(url, {
       method,
       headers: {
