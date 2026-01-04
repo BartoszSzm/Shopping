@@ -224,11 +224,9 @@ def update_item(
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
-            item: ListItem = (
-                session.query(ListItem)
-                .filter_by(id=data.id, user_id=token.user_id)
-                .one()
-            )
+            item: ListItem = session.query(ListItem).filter_by(id=data.id).one()
+            if item.list.user_id != token.user_id:
+                raise ForbiddenAction("Not authorized to perform this action")
             if data.name:
                 item.name = data.name
             if data.quantity:
