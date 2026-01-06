@@ -6,6 +6,8 @@ declare module "next-auth" {
     error?: "RefreshAccessTokenError";
     user: {
       id: string;
+      name: string;
+      email: string;
     };
   }
 }
