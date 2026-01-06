@@ -22,7 +22,7 @@ class ShoppingList(Base):
     __tablename__ = "shoppingList"
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    name: so.Mapped[str] = so.mapped_column(sa.String(100), unique=True)
+    name: so.Mapped[str] = so.mapped_column(sa.String(100))
     user_id: so.Mapped[UUID] = so.mapped_column(sa.UUID)
     created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())
     modified: so.Mapped[datetime] = so.mapped_column(
