@@ -1,4 +1,5 @@
 import Navbar from "@/components/app/navbar/Navbar";
+import AuthManager from "@/lib/providers/AuthManager";
 import ClientSessionProvider from "@/lib/providers/ClientSessionProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <div>
           <ClientSessionProvider>
+            <AuthManager />
             <Toaster position="top-center" />
             <Navbar />
             {children}
