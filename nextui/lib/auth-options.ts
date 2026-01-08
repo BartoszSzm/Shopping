@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           // @ts-ignore
-          accessTokenExpires: expires_at,
+          accessTokenExpires: account.expires_at,
         };
       }
 
