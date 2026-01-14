@@ -9,6 +9,7 @@ services:
     command: sh ./run.sh
     networks:
       - shopping
+    restart: unless-stopped
 
   next-frontend:
     build: ./nextui
@@ -19,6 +20,7 @@ services:
       - api
     networks:
       - shopping
+    restart: unless-stopped
 
 networks:
   shopping:
