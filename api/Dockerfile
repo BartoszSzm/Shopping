@@ -1,16 +1,23 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-RUN apt-get update && \
-    apt-get install -y redis-server && \
-    rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    POETRY_VERSION=1.7.1
 
 WORKDIR /code
 
-RUN pip install poetry
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+
+COPY pyproject.toml poetry.lock* /code/
+
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-root
 
 COPY . /code
 
-RUN poetry install --no-root
-
-CMD [ "/code/run.sh" ]
+CMD ["/code/run.sh"]
 

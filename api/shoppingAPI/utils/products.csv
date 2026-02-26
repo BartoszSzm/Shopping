@@ -1,778 +1,615 @@
 nazwa_produktu,kategoria,emotikonka
-Blok,artykuły biurowe,✏️
-Długopis,artykuły biurowe,✏️
-Gumka,artykuły biurowe,✏️
-Klej,artykuły biurowe,✏️
-Koperta,artykuły biurowe,✏️
-Koszulki,artykuły biurowe,✏️
-Linijka,artykuły biurowe,✏️
-Marker,artykuły biurowe,✏️
-Notes,artykuły biurowe,✏️
-Nożyczki,artykuły biurowe,✏️
-Ołówek,artykuły biurowe,✏️
-Papier,artykuły biurowe,✏️
-Segregator,artykuły biurowe,✏️
-Taśma,artykuły biurowe,✏️
-Temperówka,artykuły biurowe,✏️
-Zakreślacz,artykuły biurowe,✏️
-Zeszyt,artykuły biurowe,✏️
-Bateria,artykuły domowe,🏠
-Deska,artykuły domowe,🏠
-Folia,artykuły domowe,🏠
-Garnek,artykuły domowe,🏠
-Gąbka,artykuły domowe,🏠
-Klej,artykuły domowe,🏠
-Kubek,artykuły domowe,🏠
-Miotła,artykuły domowe,🏠
-Mop,artykuły domowe,🏠
-Naczynie,artykuły domowe,🏠
-Nożyczki,artykuły domowe,🏠
-Nóż,artykuły domowe,🏠
-Odświeżacz,artykuły domowe,🏠
-Papier,artykuły domowe,🏠
-Patelnia,artykuły domowe,🏠
-Pojemnik,artykuły domowe,🏠
-Przedłużacz,artykuły domowe,🏠
-Pudełko,artykuły domowe,🏠
-Rękawice,artykuły domowe,🏠
-Spinacze,artykuły domowe,🏠
-Szczotka,artykuły domowe,🏠
-Sztućce,artykuły domowe,🏠
-Talerz,artykuły domowe,🏠
-Taśma,artykuły domowe,🏠
-Wiadro,artykuły domowe,🏠
-Widelec,artykuły domowe,🏠
-Wieszaki,artykuły domowe,🏠
-Wkład,artykuły domowe,🏠
-Worki,artykuły domowe,🏠
-Zapalniczka,artykuły domowe,🏠
-Zapałki,artykuły domowe,🏠
-Zmiotka,artykuły domowe,🏠
-Łyżka,artykuły domowe,🏠
-Ściereczka,artykuły domowe,🏠
-Ściereczki,artykuły domowe,🏠
-Świeca,artykuły domowe,🏠
-Świeczki,artykuły domowe,🏠
-Żarówka,artykuły domowe,🏠
-Chusteczki,chemia,🧴
-Folia,chemia,🧴
-Gąbki,chemia,🧴
-Kapsułki,chemia,🧴
-Mleczko,chemia,🧴
-Odkamieniacz,chemia,🧴
-Odplamiacz,chemia,🧴
-Papier,chemia,🧴
-Pianka,chemia,🧴
-Proszek,chemia,🧴
-Płyn,chemia,🧴
-Ręcznik,chemia,🧴
-Spray,chemia,🧴
-Tabletki,chemia,🧴
-Woreczki,chemia,🧴
-Worki,chemia,🧴
-Wybielacz,chemia,🧴
-Ściereczka,chemia,🧴
-Środek,chemia,🧴
-Żel,chemia,🧴
-Danie,dania gotowe,🍲
-Chusteczki,dla dzieci,🧸
-Kaszka,dla dzieci,🧸
-Mleko,dla dzieci,🧸
-Pieluchy,dla dzieci,🧸
-Słoiczek,dla dzieci,🧸
-Karma,dla zwierząt,🐾
-Pokarm,dla zwierząt,🐾
-Przysmak,dla zwierząt,🐾
-Siano,dla zwierząt,🐾
-Żwirek,dla zwierząt,🐾
-Buraczki,konserwy,🥫
-Bób,konserwy,🥫
-Chrzan konwerwowy,konserwy,🥫
-Ciecierzyca konserwowa,konserwy,🥫
-Dżem,konserwy,🥫
-Fasola konserwowa,konserwy,🥫
-Groch,konserwy,🥫
-Groszek,konserwy,🥫
-Kapusta,konserwy,🥫
-Konfitura,konserwy,🥫
-Kukurydza,konserwy,🥫
-Mus,konserwy,🥫
-Ogórki,konserwy,🥫
-Pasta,konserwy,🥫
-Pomidory suszone,konserwy,🥫
-Powidła,konserwy,🥫
-Przecier,konserwy,🥫
-Soczewica,konserwy,🥫
-Soja,konserwy,🥫
-Sos,konserwy,🥫
-Antyperspirant,kosmetyki i higiena,🧼
-Balsam,kosmetyki i higiena,🧼
-Chusteczki,kosmetyki i higiena,🧼
-Dezodorant,kosmetyki i higiena,🧼
-Krem,kosmetyki i higiena,🧼
-Maszynka,kosmetyki i higiena,🧼
-Mydło,kosmetyki i higiena,🧼
-Nić,kosmetyki i higiena,🧼
-Odżywka,kosmetyki i higiena,🧼
-Pasta,kosmetyki i higiena,🧼
-Patyczki,kosmetyki i higiena,🧼
-Pianka,kosmetyki i higiena,🧼
-Podpaski,kosmetyki i higiena,🧼
-Płatki,kosmetyki i higiena,🧼
-Płyn,kosmetyki i higiena,🧼
-Szampon,kosmetyki i higiena,🧼
-Szczoteczka,kosmetyki i higiena,🧼
-Tampony,kosmetyki i higiena,🧼
-Wkładki,kosmetyki i higiena,🧼
-Żel,kosmetyki i higiena,🧼
-Baleron,mięso i wędliny,🍖
-Kurczak,mięso i wędliny,🍖
-Indyk,mięso i wędliny,🍖
-Boczek,mięso i wędliny,🍖
-Filet,mięso i wędliny,🍖
-Karkówka,mięso i wędliny,🍖
-Kiełbasa,mięso i wędliny,🍖
-Mięso,mięso i wędliny,🍖
-Mortadela,mięso i wędliny,🍖
-Parówki,mięso i wędliny,🍖
-Pasztet,mięso i wędliny,🍖
-Pierś,mięso i wędliny,🍖
-Polędwica,mięso i wędliny,🍖
-Salami,mięso i wędliny,🍖
-Schab,mięso i wędliny,🍖
-Skrzydełka,mięso i wędliny,🍖
-Stek,mięso i wędliny,🍖
-Szynka,mięso i wędliny,🍖
-Udko,mięso i wędliny,🍖
-Udziec,mięso i wędliny,🍖
-Wołowina,mięso i wędliny,🍖
-Łopatka,mięso i wędliny,🍖
-Żeberka,mięso i wędliny,🍖
-Frytki,mrożonki,❄️
-Lody,mrożonki,❄️
-Pierogi,mrożonki,❄️
-Pizza,mrożonki,❄️
-Warzywa,mrożonki,❄️
-Deser,nabiał,🥛
-Jajka,nabiał,🥛
-Jogurt,nabiał,🥛
-Kefir,nabiał,🥛
-Margaryna,nabiał,🥛
-Masło,nabiał,🥛
-Maślanka,nabiał,🥛
+Blok rysunkowy A4 biały,artykuły biurowe,✏️
+Blok rysunkowy A4 kolorowy,artykuły biurowe,✏️
+Blok techniczny A4 biały,artykuły biurowe,✏️
+Blok techniczny A4 kolorowy,artykuły biurowe,✏️
+Blok techniczny A3 biały,artykuły biurowe,✏️
+Blok techniczny A3 kolorowy,artykuły biurowe,✏️
+Blok milimetrowy,artykuły biurowe,✏️
+Blok do akwareli,artykuły biurowe,✏️
+Blok do pasteli,artykuły biurowe,✏️
+Brulion A4 w kratkę (twarda oprawa),artykuły biurowe,✏️
+Brulion A4 w linię (twarda oprawa),artykuły biurowe,✏️
+Brulion A5 w kratkę,artykuły biurowe,✏️
+Brulion A5 w linię,artykuły biurowe,✏️
+Brulion biurowy spiralowany,artykuły biurowe,✏️
+Cienkopis czarny,artykuły biurowe,✏️
+Cienkopis kolorowy (zestaw),artykuły biurowe,✏️
+Cienkopis kreślarski,artykuły biurowe,✏️
+Długopis automatyczny niebieski,artykuły biurowe,✏️
+Długopis automatyczny czarny,artykuły biurowe,✏️
+Długopis wymazywalny,artykuły biurowe,✏️
+Długopis żelowy metaliczny,artykuły biurowe,✏️
+Długopis żelowy brokatowy,artykuły biurowe,✏️
+Dziurkacz mały biurowy,artykuły biurowe,✏️
+Dziurkacz wzmocniony (do 60 kartek),artykuły biurowe,✏️
+Dziurkacz ozdobny,artykuły biurowe,✏️
+Etykiety samoprzylepne A4,artykuły biurowe,✏️
+Etykiety cenowe,artykuły biurowe,✏️
+Gumka chlebowa,artykuły biurowe,✏️
+Gumka do mazania myszka,artykuły biurowe,✏️
+Gumka w ołówku,artykuły biurowe,✏️
+Identyfikator z klipsem,artykuły biurowe,✏️
+Identyfikator na smyczy,artykuły biurowe,✏️
+Kalkulator biurowy,artykuły biurowe,✏️
+Kalkulator naukowy,artykuły biurowe,✏️
+Kalendarz biurkowy stojący,artykuły biurowe,✏️
+Kalendarz książkowy A5,artykuły biurowe,✏️
+Kalendarz ścienny planer,artykuły biurowe,✏️
+Klej w taśmie,artykuły biurowe,✏️
+Klej introligatorski (Magik),artykuły biurowe,✏️
+Klej biurowy w płynie z aplikatorem,artykuły biurowe,✏️
+Klej w sztyfcie 10g,artykuły biurowe,✏️
+Klej w sztyfcie 40g,artykuły biurowe,✏️
+Klipsy biurowe 19mm,artykuły biurowe,✏️
+Klipsy biurowe 25mm,artykuły biurowe,✏️
+Klipsy biurowe 51mm,artykuły biurowe,✏️
+Koperta C6,artykuły biurowe,✏️
+Koperta DL,artykuły biurowe,✏️
+Koperta C5,artykuły biurowe,✏️
+Koperta C4,artykuły biurowe,✏️
+Koperta bąbelkowa (różne rozmiary),artykuły biurowe,✏️
+Korektor w piórze,artykuły biurowe,✏️
+Koszulka groszkowa A4,artykuły biurowe,✏️
+Koszulka krystaliczna A4,artykuły biurowe,✏️
+Koszulka poszerzana na katalogi,artykuły biurowe,✏️
+Kredki ołówkowe (zestaw),artykuły biurowe,✏️
+Kredki akwarelowe,artykuły biurowe,✏️
+Kuweta na dokumenty (półka),artykuły biurowe,✏️
+Linijka aluminiowa,artykuły biurowe,✏️
+Linijka plastikowa 30cm,artykuły biurowe,✏️
+Linijka elastyczna,artykuły biurowe,✏️
+Marker do tablic suchościeralnych,artykuły biurowe,✏️
+Marker do flipchartów,artykuły biurowe,✏️
+Marker olejowy,artykuły biurowe,✏️
+Marker kredowy,artykuły biurowe,✏️
+Masa mocująca (Patafix),artykuły biurowe,✏️
+Naboje do pióra wiecznego,artykuły biurowe,✏️
+Nożyczki z ergonomicznym uchwytem,artykuły biurowe,✏️
+Nożyczki precyzyjne,artykuły biurowe,✏️
+Nożyk do papieru (segmentowy),artykuły biurowe,✏️
+Notes kostka biały,artykuły biurowe,✏️
+Notes kostka kolorowy,artykuły biurowe,✏️
+Notes samoprzylepny neonowy,artykuły biurowe,✏️
+Notes samoprzylepny pastelowy,artykuły biurowe,✏️
+Ołówek z gumką,artykuły biurowe,✏️
+Ołówek bez gumki,artykuły biurowe,✏️
+Ołówek 2B do szkicowania,artykuły biurowe,✏️
+Ołówek 2H twardy,artykuły biurowe,✏️
+Paczka papieru ksero A4 80g,artykuły biurowe,✏️
+Paczka papieru ksero A4 kolorowy,artykuły biurowe,✏️
+Paczka papieru ksero A3,artykuły biurowe,✏️
+Papier fotograficzny,artykuły biurowe,✏️
+Piórnik tuba,artykuły biurowe,✏️
+Piórnik z wyposażeniem,artykuły biurowe,✏️
+Podkładka z klipsem (Clipboard) A4,artykuły biurowe,✏️
+Podkładka z klipsem zamykana,artykuły biurowe,✏️
+Pojemnik na długopisy i przybory,artykuły biurowe,✏️
+Pinezki tablicowe,artykuły biurowe,✏️
+Pinezki do mapy (chorągiewki),artykuły biurowe,✏️
+Przekładki kartonowe A4,artykuły biurowe,✏️
+Przekładki plastikowe numeryczne,artykuły biurowe,✏️
+Przybornik na biurko obrotowy,artykuły biurowe,✏️
+Rozszywacz,artykuły biurowe,✏️
+Segregator 50mm,artykuły biurowe,✏️
+Segregator 75mm,artykuły biurowe,✏️
+Segregator ofertowy z koszulką na okładce,artykuły biurowe,✏️
+Skoroszyt wpinany,artykuły biurowe,✏️
+Skoroszyt zawieszany do szuflad,artykuły biurowe,✏️
+Skoroszyt z klipsem,artykuły biurowe,✏️
+Spinacze kolorowe powlekane,artykuły biurowe,✏️
+Spinacze metalowe 28mm,artykuły biurowe,✏️
+Spinacze metalowe 50mm,artykuły biurowe,✏️
+Sznurek jutowy,artykuły biurowe,✏️
+Taśma klejąca biurowa 18x30,artykuły biurowe,✏️
+Taśma klejąca szeroka pakowa,artykuły biurowe,✏️
+Taśma klejąca matowa (niewidoczna),artykuły biurowe,✏️
+Teczka z gumką kartonowa,artykuły biurowe,✏️
+Teczka z gumką plastikowa,artykuły biurowe,✏️
+Teczka wiązana,artykuły biurowe,✏️
+Teczka ofertowa 10 koszulek,artykuły biurowe,✏️
+Teczka ofertowa 40 koszulek,artykuły biurowe,✏️
+Teczka harmonijkowa na dokumenty,artykuły biurowe,✏️
+Teczka konferencyjna,artykuły biurowe,✏️
+Temperówka z pojemnikiem pojedyncza,artykuły biurowe,✏️
+Temperówka z pojemnikiem podwójna,artykuły biurowe,✏️
+Temperówka metalowa,artykuły biurowe,✏️
+Temperówka elektryczna,artykuły biurowe,✏️
+Tusz do pieczątek niebieski,artykuły biurowe,✏️
+Tusz do pieczątek czarny,artykuły biurowe,✏️
+Wizytownik biurkowy,artykuły biurowe,✏️
+Wizytownik kieszonkowy,artykuły biurowe,✏️
+Wkłady do ołówka automatycznego 0.5,artykuły biurowe,✏️
+Wkłady do ołówka automatycznego 0.7,artykuły biurowe,✏️
+Wkłady do długopisu,artykuły biurowe,✏️
+Zakładki indeksujące plastikowe,artykuły biurowe,✏️
+Zakładki indeksujące papierowe strzałki,artykuły biurowe,✏️
+Zakreślacz pastelowy (zestaw),artykuły biurowe,✏️
+Zakreślacz fluorescencyjny żółty,artykuły biurowe,✏️
+Zeszyt A5 16 kartek w linię,artykuły biurowe,✏️
+Zeszyt A5 32 kartki w kratkę,artykuły biurowe,✏️
+Zeszyt A5 60 kartek w kratkę,artykuły biurowe,✏️
+Zeszyt A5 96 kartek w kratkę,artykuły biurowe,✏️
+Zeszyt do nut,artykuły biurowe,✏️
+Zeszyt do słówek,artykuły biurowe,✏️
+Zszywacz mini,artykuły biurowe,✏️
+Zszywacz biurowy standardowy,artykuły biurowe,✏️
+Zszywacz długoramienny,artykuły biurowe,✏️
+Zszywki rozmiar 10,artykuły biurowe,✏️
+Zszywki rozmiar 24/6,artykuły biurowe,✏️
+Zszywki rozmiar 26/6,artykuły biurowe,✏️
+Bateria alkaliczna AA (4 szt.),artykuły domowe,🏠
+Bateria alkaliczna AAA (4 szt.),artykuły domowe,🏠
+Bateria alkaliczna 9V,artykuły domowe,🏠
+Bateria guzikowa CR2032,artykuły domowe,🏠
+Bateria R14 (C),artykuły domowe,🏠
+Bateria R20 (D),artykuły domowe,🏠
+Czajnik elektryczny 1.7L,artykuły domowe,🏠
+Czajnik tradycyjny na gaz,artykuły domowe,🏠
+Chochla do zupy stalowa,artykuły domowe,🏠
+Chochla silikonowa,artykuły domowe,🏠
+Deska do krojenia bambusowa,artykuły domowe,🏠
+Deska do krojenia plastikowa,artykuły domowe,🏠
+Deska do krojenia szklana,artykuły domowe,🏠
+Dozownik do mydła ceramiczny,artykuły domowe,🏠
+Dozownik do mydła automatyczny,artykuły domowe,🏠
+Durszlak metalowy,artykuły domowe,🏠
+Durszlak składany silikonowy,artykuły domowe,🏠
+Fartuch kuchenny lniany,artykuły domowe,🏠
+Fartuch wodoodporny,artykuły domowe,🏠
+Filtry do kawy rozmiar 2,artykuły domowe,🏠
+Filtry do kawy rozmiar 4,artykuły domowe,🏠
+Folia aluminiowa 20m,artykuły domowe,🏠
+Folia spożywcza (stretch),artykuły domowe,🏠
+Foremki do muffinek silikonowe,artykuły domowe,🏠
+Foremki do lodu,artykuły domowe,🏠
+Garnek emaliowany 5L,artykuły domowe,🏠
+Garnek do gotowania na parze,artykuły domowe,🏠
+Garnek rzymski,artykuły domowe,🏠
+Rondel stalowy,artykuły domowe,🏠
+Klamerki do bielizny plastikowe,artykuły domowe,🏠
+Klamerki do bielizny drewniane,artykuły domowe,🏠
+Korkociąg kelnerski,artykuły domowe,🏠
+Korkociąg dźwigniowy,artykuły domowe,🏠
+Latarka czołowa (czołówka),artykuły domowe,🏠
+Latarka warsztatowa magnes,artykuły domowe,🏠
+Miska kuchenna stalowa,artykuły domowe,🏠
+Miska do prania 10L,artykuły domowe,🏠
+Miska do prania kwadratowa,artykuły domowe,🏠
+Obrus bawełniany,artykuły domowe,🏠
+Bieżnik na stół,artykuły domowe,🏠
+Podkładka pod talerz korkowa,artykuły domowe,🏠
+Otwieracz do butelek ścienny,artykuły domowe,🏠
+Papier do pieczenia arkusze,artykuły domowe,🏠
+Rękaw do pieczenia mięsa,artykuły domowe,🏠
+Patelnia teflonowa 24cm,artykuły domowe,🏠
+Patelnia ceramiczna 28cm,artykuły domowe,🏠
+Patelnia do naleśników,artykuły domowe,🏠
+Patelnia grillowa,artykuły domowe,🏠
+Patyczki do szaszłyków metalowe,artykuły domowe,🏠
+Pokrywka uniwersalna silikonowa,artykuły domowe,🏠
+Pokrywka szklana z odpowietrznikiem,artykuły domowe,🏠
+Przedłużacz listwowy 3-gniazda 1.5m,artykuły domowe,🏠
+Przedłużacz listwowy 5-gniazd z wyłącznikiem,artykuły domowe,🏠
+Przedłużacz bębnowy 10m,artykuły domowe,🏠
+Pudełko do przechowywania z pokrywką,artykuły domowe,🏠
+Pojemnik na żywność szklany,artykuły domowe,🏠
+Pojemnik na żywność próżniowy,artykuły domowe,🏠
+Organizer do szuflady na sztućce,artykuły domowe,🏠
+Sitko do herbaty (zaparzacz),artykuły domowe,🏠
+Sitko kuchenne gęste,artykuły domowe,🏠
+Suszarka do naczyń dwupoziomowa,artykuły domowe,🏠
+Mata do suszenia naczyń,artykuły domowe,🏠
+Suszarka do ubrań pionowa,artykuły domowe,🏠
+Suszarka na kaloryfer,artykuły domowe,🏠
+Szufelka i zmiotka komplet,artykuły domowe,🏠
+Szczotka do zamiatania (ulica),artykuły domowe,🏠
+Mop płaski z mikrofibry,artykuły domowe,🏠
+Mop obrotowy z wiadrem,artykuły domowe,🏠
+Szklanka do latte,artykuły domowe,🏠
+Kieliszek do wina czerwonego,artykuły domowe,🏠
+Kufel do piwa,artykuły domowe,🏠
+Sztućce komplet (24 elementy),artykuły domowe,🏠
+Łyżeczka do herbaty,artykuły domowe,🏠
+Widelec do ciasta,artykuły domowe,🏠
+Ściereczka z mikrofibry do szyb,artykuły domowe,🏠
+Ściereczka kuchenna bawełniana,artykuły domowe,🏠
+Gąbka do naczyń (10 szt.),artykuły domowe,🏠
+Druciak metalowy,artykuły domowe,🏠
+Świeca sojowa w słoiku,artykuły domowe,🏠
+Podgrzewacze (tealighty) 50 szt.,artykuły domowe,🏠
+Termometr zaokienny,artykuły domowe,🏠
+Termometr do pieczenia mięsa,artykuły domowe,🏠
+Waga łazienkowa elektroniczna,artykuły domowe,🏠
+Waga kuchenna z misą,artykuły domowe,🏠
+Wałek do ciasta silikonowy,artykuły domowe,🏠
+Wałek do ciasta grawerowany,artykuły domowe,🏠
+Wieszaki na spodnie,artykuły domowe,🏠
+Wieszaki welurowe (antypoślizgowe),artykuły domowe,🏠
+Wykałaczki w pojemniku,artykuły domowe,🏠
+Zapalniczka do gazu długa,artykuły domowe,🏠
+Żarówka LED E27 ciepła biel,artykuły domowe,🏠
+Żarówka LED E14 (mały gwint),artykuły domowe,🏠
+Żarówka LED GU10 (reflektor),artykuły domowe,🏠
+Worki na śmieci 35L z taśmą,artykuły domowe,🏠
+Worki na śmieci 60L wzmocnione,artykuły domowe,🏠
+Worki na śmieci 120L (ogrodowe),artykuły domowe,🏠
+Rękawice gumowe rozmiar M,artykuły domowe,🏠
+Ręcznik papierowy jumbo,artykuły domowe,🏠
+Rolka do czyszczenia ubrań,artykuły domowe,🏠
+Wkłady do rolki do ubrań,artykuły domowe,🏠
+Koszyk łazienkowy na drobiazgi,artykuły domowe,🏠
+Szczotka do WC,artykuły domowe,🏠
+Deska do prasowania,artykuły domowe,🏠
+Pokrowiec na deskę do prasowania,artykuły domowe,🏠
+Podkładki filcowe pod meble,artykuły domowe,🏠
+Stoper do drzwi,artykuły domowe,🏠
+Płyn do naczyń cytrynowy,chemia,🧴
+Płyn do naczyń balsam (aloes),chemia,🧴
+Płyn do naczyń koncentrat,chemia,🧴
+Płyn do prania tkanin czarnych,chemia,🧴
+Płyn do prania tkanin kolorowych,chemia,🧴
+Płyn do prania wełny i jedwabiu,chemia,🧴
+Płyn do płukania tkanin Sensitive,chemia,🧴
+Płyn do płukania tkanin Floral,chemia,🧴
+Płyn do mycia podłóg drewnianych,chemia,🧴
+Płyn do mycia paneli,chemia,🧴
+Płyn do mycia gresu i terakoty,chemia,🧴
+Płyn do mycia szyb z alkoholem,chemia,🧴
+Płyn do szyb antypara (Anti-Fog),chemia,🧴
+Płyn do mycia luster,chemia,🧴
+Proszek do prania biały (duża paczka),chemia,🧴
+Proszek do prania kolor,chemia,🧴
+Proszek do firanek,chemia,🧴
+Tabletki do prania Universal,chemia,🧴
+Kapsułki do prania 3w1,chemia,🧴
+Kostki do zmywarki All-in-One,chemia,🧴
+Kostki do zmywarki Platinum,chemia,🧴
+Żel do zmywarki,chemia,🧴
+Kostka do WC zawieszka (leśna),chemia,🧴
+Kostka do WC zawieszka (morska),chemia,🧴
+Żel do mycia WC (usuwanie kamienia),chemia,🧴
+Płyn do dezynfekcji toalet (z chlorem),chemia,🧴
+Nabłyszczacz do zmywarki standardowy,chemia,🧴
+Sól do zmywarki gruboziarnista,chemia,🧴
+Czyścik do zmywarek (płyn),chemia,🧴
+Zapach do zmywarki,chemia,🧴
+Udrażniacz do rur w granulkach,chemia,🧴
+Udrażniacz do rur w żelu (bezpieczny dla plastiku),chemia,🧴
+Worek na śmieci 35L z taśmą,chemia,🧴
+Worek na śmieci 60L LDPE wzmocniony,chemia,🧴
+Worek na śmieci 120L czarny,chemia,🧴
+Woreczki strunowe małe (zestaw),chemia,🧴
+Woreczki do mrożenia żywności,chemia,🧴
+Zapach do odkurzacza (wkłady),chemia,🧴
+Ściereczki nasączone do mebli,chemia,🧴
+Ściereczki nasączone do łazienki,chemia,🧴
+Ściereczki do ekranów i LCD,chemia,🧴
+Odtłuszczacz kuchenny (spray),chemia,🧴
+Mleczko do czyszczenia z mikrodrobinkami,chemia,🧴
+Spray do czyszczenia kabin prysznicowych,chemia,🧴
+Aktywna piana do łazienki,chemia,🧴
+Preparat na pleśń i grzyby,chemia,🧴
+Odplamiacz w sprayu,chemia,🧴
+Odplamiacz w proszku (Oxy Action),chemia,🧴
+Mydło odplamiające (galasowe),chemia,🧴
+Wybielacz do tkanin,chemia,🧴
+Chusteczki wyłapujące kolor (do prania),chemia,🧴
+Krochmal w płynie,chemia,🧴
+Woda destylowana do żelazka,chemia,🧴
+Odkamieniacz w proszku do czajników,chemia,🧴
+Odkamieniacz w płynie do ekspresów,chemia,🧴
+Pasta do czyszczenia srebra i metalu,chemia,🧴
+Nabłyszczacz do mebli w aerozolu,chemia,🧴
+Preparat do konserwacji skóry (meblowy),chemia,🧴
+Płyn do mycia nagrobków,chemia,🧴
+Szampon do dywanów i tapicerki,chemia,🧴
+Neutralizator zapachów w sprayu,chemia,🧴
+Odświeżacz powietrza w żelu,chemia,🧴
+Odświeżacz powietrza automatyczny (wkład),chemia,🧴
+Benzyna ekstrakcyjna (mała butelka),chemia,🧴
+Denaturat,chemia,🧴
+Izopropanol (do elektroniki),chemia,🧴
+Soda oczyszczona (opakowanie gospodarcze),chemia,🧴
+Kwas cytrynowy (opakowanie gospodarcze),chemia,🧴
+Boraks do celów czyszczących,chemia,🧴
+Szare mydło w płynie,chemia,🧴
+Tabletki solne do uzdatniaczy wody,chemia,🧴
 Mleko,nabiał,🥛
-Ser,nabiał,🥛
-Serek,nabiał,🥛
+Mleko bez laktozy,nabiał,🥛
+Mleko kozie,nabiał,🥛
+Mleko zagęszczone,nabiał,🥛
+Mleczko kokosowe,nabiał,🥛
+Masło,nabiał,🥛
+Masło klarowane (Ghee),nabiał,🥛
+Jogurt naturalny,nabiał,🥛
+Jogurt grecki,nabiał,🥛
 Skyr,nabiał,🥛
-Twarożek,nabiał,🥛
-Twaróg,nabiał,🥛
-Zsiadłe,nabiał,🥛
+Kefir,nabiał,🥛
+Maślanka,nabiał,🥛
+Zsiadłe mleko,nabiał,🥛
 Śmietana,nabiał,🥛
-Śmietanka,nabiał,🥛
-Cola,napoje,🥤
-Herbata,napoje,🥤
-Lód,napoje,🥤
-Kawa,napoje,🥤
-Kompot,napoje,🥤
+Śmietanka do kawy,nabiał,🥛
+Bita śmietana,nabiał,🥛
+Twaróg,nabiał,🥛
+Twaróg sernikowy (mielony),nabiał,🥛
+Serek wiejski,nabiał,🥛
+Serek homogenizowany,nabiał,🥛
+Serek śmietankowy do smarowania,nabiał,🥛
+Serek topiony,nabiał,🥛
+Mozzarella,nabiał,🥛
+Feta,nabiał,🥛
+Halloumi,nabiał,🥛
+Ricotta,nabiał,🥛
+Mascarpone,nabiał,🥛
+Brie,nabiał,🥛
+Camembert,nabiał,🥛
+Gorgonzola,nabiał,🥛
+Parmezan,nabiał,🥛
+Gouda (ser żółty twardy),nabiał,🥛
+Oscypek,nabiał,🥛
+Bryndza,nabiał,🥛
+Tofu,nabiał,🥛
+Napój roślinny (owsiany/sojowy),nabiał,🥛
+Jaja kurze,nabiał,🥛
+Jaja przepiórcze,nabiał,🥛
+Margaryna,nabiał,🥛
+Mix maślany,nabiał,🥛
+Deser mleczny (pudding),nabiał,🥛
+Puszka skondensowanego mleka słodzonego (kajmak),nabiał,🥛
+Chleb żytni na zakwasie,pieczywo,🍞
+Chleb słonecznikowy,pieczywo,🍞
+Chleb proteinowy,pieczywo,🍞
+Chleb kukurydziany,pieczywo,🍞
+Bagietka korzenna,pieczywo,🍞
+Pajda szczecińska (duży bochen),pieczywo,🍞
+Bułka dyniowa,pieczywo,🍞
+Bułka fitness (z ziarnami),pieczywo,🍞
+Bułka wrocławska,pieczywo,🍞
+Sznyka z kruszonką,pieczywo,🍞
+Jagodzianka,pieczywo,🍞
+Pączek,pieczywo,🍞
+Drożdżówka z serem,pieczywo,🍞
+Donut,pieczywo,🍞
+Muffinka wytrawna,pieczywo,🍞
+Eklera,pieczywo,🍞
+Gniazdko (pączek hiszpański),pieczywo,🍞
+Pasztecik z kapustą i grzybami,pieczywo,🍞
+Kulebiak,pieczywo,🍞
+Pizzinka (zapiekanka bułkowa),pieczywo,🍞
+Chleb litewski (ciemny, słodkawy),pieczywo,🍞
+Chleb irlandzki (sodowy),pieczywo,🍞
+Knäckebröd (szwedzkie pieczywo żytnie),pieczywo,🍞
+Lawaš (lawasz),pieczywo,🍞
+Podpłomyk,pieczywo,🍞
+Scones (bułeczki brytyjskie),pieczywo,🍞
+Gofry (biszkoptowe/belgijskie),pieczywo,🧇
+Biszkopty (pieczywo cukiernicze),pieczywo,🍞
+Grzanki (gotowe do sałatek),pieczywo,🍞
+Panini,pieczywo,🍞
+Pletzel (cebulak),pieczywo,🍞
+Obwarzanek,pieczywo,🍞
+Chleb bananowy,pieczywo,🍞
+Keks,pieczywo,🍞
+Woda mineralna wysokozmineralizowana,napoje,🥤
+Woda smakowa,napoje,🥤
+Woda lecznicza (leczniczo-swoista),napoje,🥤
+Sok z czarnej porzeczki (nektar),napoje,🥤
+Sok pomidorowy,napoje,🥤
+Sok wielowarzywny,napoje,🥤
+Sok z kiszonej kapusty,napoje,🥤
+Syrop do rozcieńczania (owocowy),napoje,🥤
 Lemoniada,napoje,🥤
-Napój,napoje,🥤
-Nektar,napoje,🥤
+Tonic,napoje,🥤
+Napój gazowany typu Lime-Lemon,napoje,🥤
 Oranżada,napoje,🥤
-Sok,napoje,🥤
-Syrop,napoje,🥤
-Tonik,napoje,🥤
-Woda,napoje,🥤
-Yerba,napoje,🥤
-Ketchup,oleje i sosy,🫒
-Majonez,oleje i sosy,🫒
-Musztarda,oleje i sosy,🫒
-Ocet,oleje i sosy,🫒
-Olej,oleje i sosy,🫒
-Oliwa,oleje i sosy,🫒
-Sos,oleje i sosy,🫒
-Agrest,owoc,🍎
+Kwas chlebowy,napoje,🥤
+Podpiwek,napoje,🥤
+Kombucha (napój z grzyba herbacianego),napoje,🥤
+Yerba Mate (gotowa do picia),napoje,🥤
+Napój energetyczny (Energy Drink),napoje,🥤
+Napój izotoniczny,napoje,🥤
+Napój aloesowy,napoje,🥤
+Nektar z bananów,napoje,🥤
+Mrożona herbata (Ice Tea),napoje,🥤
+Mrożona kawa (Frappe),napoje,🥤
+Kakao (napój czekoladowy),napoje,🥤
+Czekolada na gorąco,napoje,🥤
+Cydr,napoje,🥤
+Perry (cydr z gruszek),napoje,🥤
+Szampan (wino musujące),napoje,🥤
+Prosecco,napoje,🥤
+Wermut,napoje,🥤
+Nalewka owocowa,napoje,🥤
+Likier,napoje,🥤
+Wódka,napoje,🥤
+Whisky,napoje,🥤
+Gin,napoje,🥤
+Rum,napoje,🥤
+Tequila,napoje,🥤
+Koniak,napoje,🥤
+Burbon,napoje,🥤
+Napój owsiany,napoje,🥤
+Napój migdałowy,napoje,🥤
+Napój sojowy,napoje,🥤
+Smoothie owocowe,napoje,🥤
+Zioła do zaparzania (napar),napoje,🥤
+Makaron pszenny,produkty sypkie,🌾
+Makaron pełnoziarnisty,produkty sypkie,🌾
+Makaron jajeczny,produkty sypkie,🌾
+Makaron ryżowy,produkty sypkie,🌾
+Makaron kukurydziany,produkty sypkie,🌾
+Makaron sojowy,produkty sypkie,🌾
+Ryż,produkty sypkie,🌾
+Ryż do sushi (krótkoziarnisty),produkty sypkie,🌾
+Ryż dziki,produkty sypkie,🌾
+Kasza gryczana,produkty sypkie,🌾
+Kasza jaglana,produkty sypkie,🌾
+Kasza jęczmienna,produkty sypkie,🌾
+Kasza manna,produkty sypkie,🌾
+Kasza kuskus,produkty sypkie,🌾
+Kasza bulgur,produkty sypkie,🌾
+Kukurydza do popcornu,produkty sypkie,🌾
+Komosa ryżowa (Quinoa),produkty sypkie,🌾
+Amarantus,produkty sypkie,🌾
+Mąka pszenna,produkty sypkie,🌾
+Mąka żytnia,produkty sypkie,🌾
+Mąka ziemniaczana (skrobia),produkty sypkie,🌾
+Mąka kukurydziana,produkty sypkie,🌾
+Mąka migdałowa,produkty sypkie,🌾
+Mąka ryżowa,produkty sypkie,🌾
+Mąka kokosowa,produkty sypkie,🌾
+Płatki owsiane,produkty sypkie,🌾
+Płatki kukurydziane,produkty sypkie,🌾
+Płatki orkiszowe,produkty sypkie,🌾
+Otręby pszenne,produkty sypkie,🌾
+Musli,produkty sypkie,🌾
+Granola,produkty sypkie,🌾
+Cukier biały,produkty sypkie,🌾
+Cukier puder,produkty sypkie,🌾
+Erytrol (słodzik sypki),produkty sypkie,🌾
+Ksylitol,produkty sypkie,🌾
+Sól spożywcza,produkty sypkie,🌾
+Sól peklująca,produkty sypkie,🌾
+Proszek do pieczenia,produkty sypkie,🌾
+Soda oczyszczona,produkty sypkie,🌾
+Drożdże suche (instant),produkty sypkie,🌾
+Kwasek cytrynowy,produkty sypkie,🌾
+Żelatyna,produkty sypkie,🌾
+Bułka tarta,produkty sypkie,🌾
+Soczewica czerwona,produkty sypkie,🌾
+Soczewica zielona,produkty sypkie,🌾
+Ciecierzyca,produkty sypkie,🌾
+Groch łuskany (połówki),produkty sypkie,🌾
+Fasola biała (Jaś),produkty sypkie,🌾
+Fasola czerwona (Kidney),produkty sypkie,🌾
+Sojowe kawałki (teksturat),produkty sypkie,🌾
+Tapioka (perełki),produkty sypkie,🌾
+Kakao ciemne,produkty sypkie,🌾
 Ananas,owoc,🍎
 Arbuz,owoc,🍎
-Awokado,owoc,🍎
 Banan,owoc,🍎
-Borówka,owoc,🍎
+Borówka amerykańska,owoc,🍎
+Jagoda leśna,owoc,🍎
 Brzoskwinia,owoc,🍎
-Cherimoya,owoc,🍎
 Cytryna,owoc,🍎
 Czereśnia,owoc,🍎
-Daktyle,owoc,🍎
-Durian,owoc,🍎
-Figa,owoc,🍎
-Granat,owoc,🍎
-Grejpfrut,owoc,🍎
 Gruszka,owoc,🍎
 Jabłko,owoc,🍎
-Jackfruit,owoc,🍎
-Jeżyna,owoc,🍎
-Karambola,owoc,🍎
 Kiwi,owoc,🍎
-Kokos,owoc,🍎
-Limetka,owoc,🍎
-Limonka,owoc,🍎
 Malina,owoc,🍎
-Mandarynka,owoc,🍎
 Mango,owoc,🍎
-Mangostan,owoc,🍎
-Marakuja,owoc,🍎
 Melon,owoc,🍎
-Mieszanka,owoc,🍎
-Morela,owoc,🍎
-Mrożone,owoc,🍎
-Mus,owoc,🍎
 Nektarynka,owoc,🍎
-Pamplemusa,owoc,🍎
-Papaja,owoc,🍎
-Pitaja,owoc,🍎
 Pomarańcza,owoc,🍎
-Pomelo,owoc,🍎
-Porzeczka,owoc,🍎
-Puree,owoc,🍎
-Rodzynki,owoc,🍎
+Śliwka,owoc,🍎
 Truskawka,owoc,🍎
 Winogrono,owoc,🍎
 Wiśnia,owoc,🍎
-Śliwka,owoc,🍎
+Grejpfrut,owoc,🍎
+Mandarynka,owoc,🍎
+Limonka,owoc,🍎
+Granat,owoc,🍎
+Awokado,owoc,🍎
+Morela,owoc,🍎
+Pigwa,owoc,🍎
 Żurawina,owoc,🍎
-Bagietka,pieczywo,🍞
-Bułka,pieczywo,🍞
-Chleb,pieczywo,🍞
-Croissant,pieczywo,🍞
-Drożdżówka,pieczywo,🍞
-Pieczywo,pieczywo,🍞
-Pita,pieczywo,🍞
-Tortilla,pieczywo,🍞
-Amarantus,produkty sypkie,🌾
-Bób,produkty sypkie,🌾
-Ciecierzyca,produkty sypkie,🌾
-Cukier,produkty sypkie,🌾
-Fasola,produkty sypkie,🌾
-Granola,produkty sypkie,🌾
-Groch,produkty sypkie,🌾
-Kasza,produkty sypkie,🌾
-Makaron,produkty sypkie,🌾
-Musli,produkty sypkie,🌾
-Mąka,produkty sypkie,🌾
-Otręby,produkty sypkie,🌾
-Płatki,produkty sypkie,🌾
-Quinoa,produkty sypkie,🌾
-Ryż,produkty sypkie,🌾
-Soczewica,produkty sypkie,🌾
-Soja,produkty sypkie,🌾
-Sól,produkty sypkie,🌾
-Granola,produkty śniadaniowe,🥣
-Konfitura,produkty śniadaniowe,🥣
-Krem,produkty śniadaniowe,🥣
-Masło,produkty śniadaniowe,🥣
-Miód,produkty śniadaniowe,🥣
-Musli,produkty śniadaniowe,🥣
-Owsianka,produkty śniadaniowe,🥣
-Płatki,produkty śniadaniowe,🥣
-Anyż,przyprawy,🧂
-Bazylia,przyprawy,🧂
-Cebula,przyprawy,🧂
-Chili,przyprawy,🧂
-Curry,przyprawy,🧂
-Cynamon,przyprawy,🧂
-Czosnek,przyprawy,🧂
-Estragon,przyprawy,🧂
-Gałka,przyprawy,🧂
-Goździki,przyprawy,🧂
-Imbir,przyprawy,🧂
-Kardamon,przyprawy,🧂
-Kmin,przyprawy,🧂
-Kminek,przyprawy,🧂
-Kolendra,przyprawy,🧂
-Koper,przyprawy,🧂
-Koperek,przyprawy,🧂
-Kurkuma,przyprawy,🧂
-Liść,przyprawy,🧂
-Majeranek,przyprawy,🧂
-Mieszanka,przyprawy,🧂
-Natka,przyprawy,🧂
-Oregano,przyprawy,🧂
-Papryka,przyprawy,🧂
-Pieprz,przyprawy,🧂
-Przyprawa,przyprawy,🧂
-Rozmaryn,przyprawy,🧂
-Szałwia,przyprawy,🧂
-Sól,przyprawy,🧂
-Tymianek,przyprawy,🧂
-Ziele,przyprawy,🧂
-Zioła,przyprawy,🧂
-Dorsz,ryby i owoce morza,🐟
-Filety,ryby i owoce morza,🐟
-Kalmar,ryby i owoce morza,🐟
-Krewetki,ryby i owoce morza,🐟
-Makrela,ryby i owoce morza,🐟
-Małże,ryby i owoce morza,🐟
-Mintaj,ryby i owoce morza,🐟
-Ośmiornica,ryby i owoce morza,🐟
-Paluszki,ryby i owoce morza,🐟
-Pstrąg,ryby i owoce morza,🐟
-Sardynki,ryby i owoce morza,🐟
-Szprot,ryby i owoce morza,🐟
-Tuńczyk,ryby i owoce morza,🐟
-Łosoś,ryby i owoce morza,🐟
-Śledź,ryby i owoce morza,🐟
-Baton,słodycze i przekąski,🍫
-Biszkopty,słodycze i przekąski,🍫
-Chałwa,słodycze i przekąski,🍫
-Chipsy,słodycze i przekąski,🍫
-Chrupki,słodycze i przekąski,🍫
-Ciastka,słodycze i przekąski,🍫
-Cukierki,słodycze i przekąski,🍫
-Czekolada,słodycze i przekąski,🍫
-Draże,słodycze i przekąski,🍫
-Herbatniki,słodycze i przekąski,🍫
-Krakersy,słodycze i przekąski,🍫
-Lizaki,słodycze i przekąski,🍫
-Mieszanka,słodycze i przekąski,🍫
-Migdały,słodycze i przekąski,🍫
-Nachosy,słodycze i przekąski,🍫
-Nerkowce,słodycze i przekąski,🍫
-Orzechy,słodycze i przekąski,🍫
-Orzeszki,słodycze i przekąski,🍫
-Paluszki,słodycze i przekąski,🍫
-Pestki,słodycze i przekąski,🍫
-Pistacje,słodycze i przekąski,🍫
-Popcorn,słodycze i przekąski,🍫
-Precelki,słodycze i przekąski,🍫
-Sezamki,słodycze i przekąski,🍫
-Słonecznik,słodycze i przekąski,🍫
-Wafel,słodycze i przekąski,🍫
-Wafle,słodycze i przekąski,🍫
-Żelki,słodycze i przekąski,🍫
-Bakłażan,warzywo,🥕
-Batat,warzywo,🥕
-Boczniak,warzywo,🥕
+Agrest,owoc,🍎
+Porzeczka (czarna/czerwona),owoc,🍎
+Jeżyna,owoc,🍎
+Poziomka,owoc,🍎
+Kaki (Persymona),owoc,🍎
+Papaja,owoc,🍎
+Marakuja,owoc,🍎
+Smoczy owoc (Pitaja),owoc,🍎
+Lichi,owoc,🍎
+Figa świeża,owoc,🍎
+Daktyle świeże,owoc,🍎
+Karambola,owoc,🍎
+Rabarbar (botanicznie warzywo, kulinarnie owoc),owoc,🍎
+Dereń,owoc,🍎
+Rokitnik,owoc,🍎
 Brokuł,warzywo,🥕
-Brukselka,warzywo,🥕
-Burak,warzywo,🥕
-Bób,warzywo,🥕
 Cebula,warzywo,🥕
-Chrzan,warzywo,🥕
 Cukinia,warzywo,🥕
 Czosnek,warzywo,🥕
-Dynia,warzywo,🥕
-Fasolka,warzywo,🥕
-Fenkuł,warzywo,🥕
-Groszek,warzywo,🥕
-Imbir,warzywo,🥕
-Jarmuż,warzywo,🥕
 Kalafior,warzywo,🥕
-Kalarepa,warzywo,🥕
-Kapusta,warzywo,🥕
-Koncentrat,warzywo,🥕
-Koper,warzywo,🥕
-Kukurydza,warzywo,🥕
+Kapusta biała,warzywo,🥕
+Kapusta pekińska,warzywo,🥕
+Kapusta włoska,warzywo,🥕
 Marchew,warzywo,🥕
-Mieszanka,warzywo,🥕
-Mrożona,warzywo,🥕
-Mrożone,warzywo,🥕
-Mrożony,warzywo,🥕
 Ogórek,warzywo,🥕
-Papryka,warzywo,🥕
-Passata,warzywo,🥕
-Pasternak,warzywo,🥕
-Patison,warzywo,🥕
-Pieczarka,warzywo,🥕
-Pietruszka,warzywo,🥕
+Papryka słodka,warzywo,🥕
+Papryka chili,warzywo,🥕
+Pietruszka korzeń,warzywo,🥕
 Pomidor,warzywo,🥕
-Pomidory,warzywo,🥕
 Por,warzywo,🥕
-Przecier,warzywo,🥕
-Roszponka,warzywo,🥕
-Rukola,warzywo,🥕
-Rzepa,warzywo,🥕
-Rzodkiewka,warzywo,🥕
-Sałata,warzywo,🥕
-Seler,warzywo,🥕
-Sos,warzywo,🥕
-Szparagi,warzywo,🥕
-Szpinak,warzywo,🥕
-Topinambur,warzywo,🥕
+Sałata masłowa,warzywo,🥕
+Seler korzeniowy,warzywo,🥕
+Seler naciowy,warzywo,🥕
 Ziemniak,warzywo,🥕
-Dziurkacz,artykuły biurowe,✏️ 
-Kalendarz,artykuły biurowe,✏️ 
-Korektor,artykuły biurowe,✏️ 
-Spinacze biurowe,artykuły biurowe,✏️
-Teczka,artykuły biurowe,✏️ 
-Zszywacz,artykuły biurowe,✏️ 
-Zszywki,artykuły biurowe,✏️ 
-Fartuch,artykuły domowe,🏠 
-Filtry do kawy,artykuły domowe,🏠 
-Folia aluminiowa,artykuły domowe,🏠 
-Foremki do ciastek,artykuły domowe,🏠 
-Klamerki,artykuły domowe,🏠 
-Korkociąg,artykuły domowe,🏠 
-Latarka,artykuły domowe,🏠 
-Miski,artykuły domowe,🏠 
-Obrus,artykuły domowe,🏠 
-Otwieracz,artykuły domowe,🏠 
-Papier do pieczenia,artykuły domowe,🏠 
-Papier śniadaniowy,artykuły domowe,🏠 
-Patyczki do szaszłyków,artykuły domowe,🏠 
-Szklanka,artykuły domowe,🏠 
-Szufelka,artykuły domowe,🏠 
-Tarka,artykuły domowe,🏠 
-Termometr,artykuły domowe,🏠 
-Waga kuchenna,artykuły domowe,🏠 
-Wałek do ciasta,artykuły domowe,🏠 
-Wyciskarka do czosnku,artykuły domowe,🏠 
-Wykałaczki,artykuły domowe,🏠 
-Zaparzacz,artykuły domowe,🏠 
-Kostki do zmywarki,chemia,🧴 
-Nabłyszczacz,chemia,🧴 
-Odświeżacz do zmywarki,chemia,🧴 
-Płyn do podłóg,chemia,🧴 
-Płyn do szyb,chemia,🧴 
-Sól do zmywarki,chemia,🧴 
-Udrażniacz do rur,chemia,🧴 
-Zapach do domu,chemia,🧴 
-Bigos,dania gotowe,🍲 
-Krokiety,dania gotowe,🍲 
-Lasagne,dania gotowe,🍲 
-Naleśniki,dania gotowe,🍲 
-Sałatka jarzynowa,dania gotowe,🍲
-Sushi,dania gotowe,🍲 
-Żurek,dania gotowe,🍲 
-Chusteczki nawilżane,dla dzieci,🧸 
-Smoczek,dla dzieci,🧸 
-Puder,dla dzieci,🧸 
-Szampon dla dzieci,dla dzieci,🧸 
-Groszek ptysiowy,konserwy,🥫 
-Oliwki czarne,konserwy,🥫 
-Oliwki zielone,konserwy,🥫 
-Papryka konserwowa,konserwy,🥫 
-Pasztet sojowy,konserwy,🥫 
-Szczaw konserwowy,konserwy,🥫 
-Tuńczyk w sosie własnym,konserwy,🥫 
-Aceton,kosmetyki i higiena,🧼 
-Gąbka do makijażu,kosmetyki i higiena,🧼 
-Krem do rąk,kosmetyki i higiena,🧼 
-Lakier do włosów,kosmetyki i higiena,🧼 
-Maszynka do golenia,kosmetyki i higiena,🧼 
-Peeling,kosmetyki i higiena,🧼 
-Pianka do golenia,kosmetyki i higiena,🧼 
-Pilnik do paznokci,kosmetyki i higiena,🧼 
-Plastry,kosmetyki i higiena,🧼 
-Płyn do demakijażu,kosmetyki i higiena,🧼 
-Płyn do higieny intymnej,kosmetyki i higiena,🧼 
-Płyn do płukania ust,kosmetyki i higiena,🧼 
-Pumeks,kosmetyki i higiena,🧼 
-Wata kosmetyczna,kosmetyki i higiena,🧼 
-Kabanosy,mięso i wędliny,🍖 
-Kaszanka,mięso i wędliny,🍖 
-Metka,mięso i wędliny,🍖 
-Salceson,mięso i wędliny,🍖 
-Słonina,mięso i wędliny,🍖 
-Smalec,mięso i wędliny,🍖 
-Tatar wołowy,mięso i wędliny,🍖 
-Wątróbka,mięso i wędliny,🍖 
-Barszcz ukraiński,mrożonki,❄️ 
-Bób mrożony,mrożonki,❄️ 
-Grzyby mrożone,mrożonki,❄️ 
-Owoce leśne,mrożonki,❄️ 
-Ryba mrożona,mrożonki,❄️ 
-Szpinak mrożony,mrożonki,❄️ 
-Zapiekanka,mrożonki,❄️ 
-Zupa grzybowa,mrożonki,❄️ 
-Brie,nabiał,🥛 
-Camembert,nabiał,🥛 
-Cheddar,nabiał,🥛 
-Feta,nabiał,🥛 
-Gouda,nabiał,🥛 
-Mascarpone,nabiał,🥛 
-Mozzarella,nabiał,🥛 
-Parmezan,nabiał,🥛 
-Ricotta,nabiał,🥛 
-Ser pleśniowy,nabiał,🥛 
-Ser topiony,nabiał,🥛 
-Zsiadłe mleko,nabiał,🥛 
-Cydr,napoje,🥤 
-Energetyk,napoje,🥤 
-Izotonik,napoje,🥤 
-Kakao napój,napoje,🥤 
-Kwas chlebowy,napoje,🥤 
-Piwo,napoje,🥤 
-Piwo bezalkoholowe,napoje,🥤 
-Wino,napoje,🥤 Woda gazowana,napoje,🥤 
-Woda niegazowana,napoje,🥤 
-Chrzan tarty,oleje i sosy,🫒 
-Ocet balsamiczny,oleje i sosy,🫒 
-Ocet jabłkowy,oleje i sosy,🫒 
-Olej kokosowy,oleje i sosy,🫒 
-Olej rzepakowy,oleje i sosy,🫒 
-Olej słonecznikowy,oleje i sosy,🫒 
-Sos czosnkowy,oleje i sosy,🫒 
-Sos sojowy,oleje i sosy,🫒 
-Sos słodko-kwaśny,oleje i sosy,🫒 
-Pigwa,owoc,🍎 
-Rabarbar,owoc,🍎 
-Bułka tarta,pieczywo,🍞 
-Chleb razowy,pieczywo,🍞 
-Chleb tostowy,pieczywo,🍞 
-Ciabatta,pieczywo,🍞 
-Pumpernikiel,pieczywo,🍞 
-Cukier brązowy,produkty sypkie,🌾 
-Cukier puder,produkty sypkie,🌾 
-Cukier wanilinowy,produkty sypkie,🌾 
-Kakao sypkie,produkty sypkie,🌾 
-Kasza gryczana,produkty sypkie,🌾 
-Kasza jaglana,produkty sypkie,🌾 
-Kasza jęczmienna,produkty sypkie,🌾 
-Kasza kuskus,produkty sypkie,🌾 
-Kasza manna,produkty sypkie,🌾 
-Kisiel,produkty sypkie,🌾 
-Mąka kukurydziana,produkty sypkie,🌾 
-Mąka pszenna,produkty sypkie,🌾 
-Mąka ziemniaczana,produkty sypkie,🌾 
-Proszek do pieczenia,produkty sypkie,🌾 
-Siemię lniane,produkty sypkie,🌾 
-Soda oczyszczona,produkty sypkie,🌾 
-Wiórki kokosowe,produkty sypkie,🌾 
-Zupa w proszku,produkty sypkie,🌾 
-Krem czekoladowy,produkty śniadaniowe,🥣 
-Masło orzechowe,produkty śniadaniowe,🥣 
-Sucharki,produkty śniadaniowe,🥣 
-Gałka muszkatołowa,przyprawy,🧂 
-Gorczyca,przyprawy,🧂 
-Jałowiec,przyprawy,🧂 
-Kostka rosołowa,przyprawy,🧂 
-Liść laurowy,przyprawy,🧂 
-Lubczyk,przyprawy,🧂 
-Papryka ostra,przyprawy,🧂 
-Papryka słodka,przyprawy,🧂 
-Papryka wędzona,przyprawy,🧂 
-Pieprz ziołowy,przyprawy,🧂 
-Ziele angielskie,przyprawy,🧂 
-Halibut,ryby i owoce morza,🐟 
-Karp,ryby i owoce morza,🐟 
-Miruna,ryby i owoce morza,🐟 
-Sandacz,ryby i owoce morza,🐟 
-Budyń,słodycze i przekąski,🍫 
-Delicje,słodycze i przekąski,🍫 
-Galaretka,słodycze i przekąski,🍫 
-Guma do żucia,słodycze i przekąski,🍫 
-Pierniki,słodycze i przekąski,🍫 
-Ptasie mleczko,słodycze i przekąski,🍫 
-Rodzynki,słodycze i przekąski,🍫 
-Rurki z kremem,słodycze i przekąski,🍫 
-Sezamki,słodycze i przekąski,🍫 
-Botwinka,warzywo,🥕 
-Kiełki,warzywo,🥕 
-Rzodkiew biała,warzywo,🥕 
-Szczaw,warzywo,🥕 
-Szczypiorek,warzywo,🥕 
-Włoszczyzna,warzywo,🥕
-Pióro,artykuły biurowe,✏️
-Pióro kulkowe,artykuły biurowe,✏️
-Pióro wieczne,artykuły biurowe,✏️
-Pióro wieczne,artykuły biurowe,✏️
-Blok techniczny kolorowy,artykuły biurowe,✏️
-Brulion,artykuły biurowe,✏️
-Brulion,artykuły biurowe,✏️
-Skoroszyt,artykuły biurowe,✏️
-Klips biurowy,artykuły biurowe,✏️
-Dziurkacz metalowy,artykuły biurowe,✏️
-Identyfikator,artykuły biurowe,✏️
-Zakładki indeksujące,artykuły biurowe,✏️
-Podkładka pod mysz,artykuły biurowe,✏️
-Klips archiwizacyjny,artykuły biurowe,✏️
-Klips do dokumentów,artykuły biurowe,✏️
-Podajnik taśmy,artykuły biurowe,✏️
-Zestaw kreślarski,artykuły biurowe,✏️
-Brulion w kratkę,artykuły biurowe,✏️
-Brulion w linię,artykuły biurowe,✏️
-Brulion gładki,artykuły biurowe,✏️
-Brulion szkolny,artykuły biurowe,✏️
-Brulion biurowy,artykuły biurowe,✏️
-Płyn do naczyń,chemia,🧴
-Płyn do prania,chemia,🧴
-Płyn do płukania,chemia,🧴
-Kostki do WC,chemia,🧴
-Worek na śmieci biodegradowalny,chemia,🧴
-Spray do mebli,chemia,🧴
-Spray do łazienki,chemia,🧴
-Żel do WC,chemia,🧴
-Nabłyszczacz do zmywarki ekologiczny,chemia,🧴
-Płyn do mycia szyb ekologiczny,chemia,🧴
-Udrażniacz do rur żelowy,chemia,🧴
-Zapach do odkurzacza,chemia,🧴
-Folia spożywcza biodegradowalna,chemia,🧴
-Ściereczki kuchenne jednorazowe,chemia,🧴
-Woreczki strunowe,chemia,🧴
-Tabletki do prania kolor,chemia,🧴
-Pasta do butów,kosmetyki i higiena,🧼
-Żel pod prysznic,kosmetyki i higiena,🧼
-Żel do włosów,kosmetyki i higiena,🧼
-Maseczka kosmetyczna,kosmetyki i higiena,🧼
-Krem do twarzy,kosmetyki i higiena,🧼
-Balsam do ust,kosmetyki i higiena,🧼
-Płatki kosmetyczne okrągłe,kosmetyki i higiena,🧼
-Chusteczki higieniczne zapachowe,kosmetyki i higiena,🧼
-Aceton,kosmetyki i higiena,🧼
-Pilnik do paznokci,kosmetyki i higiena,🧼
-Peeling,kosmetyki i higiena,🧼
-Plastry,kosmetyki i higiena,🧼
-Pumeks,kosmetyki i higiena,🧼
-Wata kosmetyczna,kosmetyki i higiena,🧼
-Dozownik do mydła,artykuły domowe,🏠
-Miska kuchenna plastikowa,artykuły domowe,🏠
-Pokrywka do garnka,artykuły domowe,🏠
-Czajnik,artykuły domowe,🏠
-Chochla,artykuły domowe,🏠
-Durszlak,artykuły domowe,🏠
-Sitko,artykuły domowe,🏠
-Suszarka do naczyń,artykuły domowe,🏠
-Zmiotka z szufelką,artykuły domowe,🏠
-Deska do krojenia,artykuły domowe,🏠
-Fartuch kuchenny bawełniany,artykuły domowe,🏠
-Latarka kieszonkowa,artykuły domowe,🏠
-Termometr elektroniczny,artykuły domowe,🏠
-Waga kuchenna,artykuły domowe,🏠
-Otwieracz do puszek,artykuły domowe,🏠
-Foremki do ciastek,artykuły domowe,🏠
-Obrus plamoodporny,artykuły domowe,🏠
-Przedłużacz listwowy,artykuły domowe,🏠
-Wieszaki drewniane,artykuły domowe,🏠
-Wykałaczki bambusowe,artykuły domowe,🏠
-Zapalniczka gazowa wielorazowa,artykuły domowe,🏠
-Szufelka metalowa,artykuły domowe,🏠
-Sztućce turystyczne,artykuły domowe,🏠
-Suszarka do ubrań,artykuły domowe,🏠
-Świeca zapachowa,artykuły domowe,🏠
-Świeca bezzapachowa,artykuły domowe,🏠
-Żarówka LED,artykuły domowe,🏠
-Bateria alkaliczna AA,artykuły domowe,🏠
-Bateria alkaliczna AAA,artykuły domowe,🏠
-Nuggetsy,dania gotowe,🍲
-Klopsiki,dania gotowe,🍲
-Gołąbki,dania gotowe,🍲
-Zupa pomidorowa,dania gotowe,🍲
-Zupa jarzynowa,dania gotowe,🍲
-Danie wegetariańskie gotowe,dania gotowe,🍲
-Mieszanka warzywna mrożona,mrożonki,❄️
-Mieszanka owocowa mrożona,mrożonki,❄️
-Sok pomarańczowy świeży,napoje,🥤
-Sok jabłkowy świeży,napoje,🥤
-Woda źródlana,napoje,🥤
-Napój owocowy gazowany,napoje,🥤
-Napój herbaciany,napoje,🥤
-Napój kawowy,napoje,🥤
-Yerba mate napój,napoje,🥤
-Piwo,napoje,🥤
-Piwo bezalkoholowe,napoje,🥤
-Wino,napoje,🥤
-Woda gazowana,napoje,🥤
-Woda niegazowana,napoje,🥤
-Bułka maślana,pieczywo,🍞
-Chałka,pieczywo,🍞
-Chleb wieloziarnisty,pieczywo,🍞
-Chleb pszenny,pieczywo,🍞
-Bułeczki hamburgerowe,pieczywo,🍞
-Bułka tarta,pieczywo,🍞
-Chleb razowy,pieczywo,🍞
-Chleb tostowy,pieczywo,🍞
-Ciabatta,pieczywo,🍞
-Pumpernikiel,pieczywo,🍞
-Kasza owsiana,produkty sypkie,🌾
-Płatki kukurydziane miodowe,produkty śniadaniowe,🥣
-Płatki ryżowe,produkty śniadaniowe,🥣
-Kakao instant,produkty śniadaniowe,🥣
-Masło orzechowe,produkty śniadaniowe,🥣
-Krem czekoladowy,produkty śniadaniowe,🥣
-Sucharki,produkty śniadaniowe,🥣
-Miód lipowy,produkty śniadaniowe,🥣
-Miód wielokwiatowy,produkty śniadaniowe,🥣
-Dżem truskawkowy,konserwy,🥫
-Dżem morelowy,konserwy,🥫
-Konfitura wiśniowa,konserwy,🥫
-Pomidory krojone w puszce,konserwy,🥫
-Ogórki konserwowe pikantne,konserwy,🥫
-Kukurydza konserwowa mini,konserwy,🥫
-Groszek konserwowy mini,konserwy,🥫
-Fasola czerwona w puszce,konserwy,🥫
-Fasola biała w puszce,konserwy,🥫
-Przecier pomidorowy butelka,konserwy,🥫
-Tuńczyk w oleju,konserwy,🥫
-Sardela,ryby i owoce morza,🐟
-Łosoś wędzony plastry,ryby i owoce morza,🐟
-Krewetki koktajlowe,ryby i owoce morza,🐟
-Filet z pangi,ryby i owoce morza,🐟
-Brie,nabiał,🥛
-Camembert,nabiał,🥛
-Cheddar,nabiał,🥛
-Feta,nabiał,🥛
-Gouda,nabiał,🥛
-Mascarpone,nabiał,🥛
-Mozzarella,nabiał,🥛
-Ricotta,nabiał,🥛
-Jogurt grecki,nabiał,🥛
-Ser halloumi,nabiał,🥛
-Serek homogenizowany,nabiał,🥛
-Tatar wołowy,mięso i wędliny,🍖
-Pasztet drobiowy,mięso i wędliny,🍖
-Kiełbasa śląska,mięso i wędliny,🍖
-Schab wędzony,mięso i wędliny,🍖
-Stek wołowy marynowany,mięso i wędliny,🍖
-Ser twarogowy chudy,nabiał,🥛
-Ser twarogowy półtłusty,nabiał,🥛
-Jogurt naturalny pitny,nabiał,🥛
-Jogurt owocowy pitny,nabiał,🥛
-Kefir smakowy,nabiał,🥛
-Maślanka smakowa,nabiał,🥛
-Mleko czekoladowe,nabiał,🥛
-Napój czekoladowy,nabiał,🥛
-Agrest świeży,owoc,🍎
-Grzyby świeże,warzywo,🥕
-Bakłażan świeży,warzywo,🥕
-Brokuł świeży,warzywo,🥕
-Kalafior świeży,warzywo,🥕
-Cukinia świeża,warzywo,🥕
-Ogórek świeży,warzywo,🥕
-Papryka świeża,warzywo,🥕
-Pomidor świeży,warzywo,🥕
-Marchew świeża,warzywo,🥕
-Seler świeży,warzywo,🥕
-Sałata świeża,warzywo,🥕
-Rabarbar świeży,owoc,🍎
-Pigwa świeża,owoc,🍎
-Truskawki świeże,owoc,🍎
-Maliny świeże,owoc,🍎
-Borówki świeże,owoc,🍎
-Winogrona świeże,owoc,🍎
-Ananas świeży,owoc,🍎
-Arbuz świeży,owoc,🍎
-Melon świeży,owoc,🍎
-Banan świeży,owoc,🍎
-Cytryna świeża,owoc,🍎
-Kiwi świeże,owoc,🍎
-Gruszki świeże,owoc,🍎
-Morele świeże,owoc,🍎
-Nektarynki świeże,owoc,🍎
-Mąka orkiszowa,produkty sypkie,🌾
-Mąka żytnia,produkty sypkie,🌾
-Cukier trzcinowy,produkty sypkie,🌾
-Sól morska,produkty sypkie,🌾
-Soda oczyszczona,produkty sypkie,🌾
-Proszek do pieczenia bezglutenowy,produkty sypkie,🌾
-Kakao sypkie,produkty sypkie,🌾
-Kisiel truskawkowy,produkty sypkie,🌾
-Budyń czekoladowy,produkty sypkie,🌾
-Budyń waniliowy,produkty sypkie,🌾
-Przyprawa do kurczaka,przyprawy,🧂
-Przyprawa do grilla,przyprawy,🧂
-Mieszanka pieprzowa,przyprawy,🧂
-Zioła prowansalskie,przyprawy,🧂
-Czosnek granulowany,przyprawy,🧂
-Bazylia suszona,przyprawy,🧂
-Oregano suszone,przyprawy,🧂
-Imbir mielony,przyprawy,🧂
-Kurkuma mielona,przyprawy,🧂
-Zapalniczka gazowa wielorazowa,artykuły domowe,🏠
+Batat (słodki ziemniak),warzywo,🥕
+Bakłażan,warzywo,🥕
+Rzodkiewka,warzywo,🥕
+Bób,warzywo,🥕
+Fasolka szparagowa,warzywo,🥕
+Groszek cukrowy,warzywo,🥕
+Dynia,warzywo,🥕
+Szparagi,warzywo,🥕
+Szpinak świeży,warzywo,🥕
+Rzepa,warzywo,🥕
+Brukiew,warzywo,🥕
+Kalarepa,warzywo,🥕
+Burak ćwikłowy,warzywo,🥕
+Botwina,warzywo,🥕
+Jarmuż,warzywo,🥕
+Rukola,warzywo,🥕
+Roszponka,warzywo,🥕
+Kukurydza (kolba),warzywo,🥕
+Karczoch,warzywo,🥕
+Fenkul (Koper włoski),warzywo,🥕
+Bakłażan,warzywo,🥕
+Chrzan korzeń,warzywo,🥕
+Szczypiorek,warzywo,🥕
+Koper,warzywo,🥕
+Natka pietruszki,warzywo,🥕
+Pierś z kurczaka,mięso i wędliny,🍖
+Udko z indyka,mięso i wędliny,🍖
+Kaczka cała,mięso i wędliny,🍖
+Gęś,mięso i wędliny,🍖
+Schab wieprzowy,mięso i wędliny,🍖
+Polędwiczka wieprzowa,mięso i wędliny,🍖
+Karkówka,mięso i wędliny,🍖
+Żeberka wieprzowe,mięso i wędliny,🍖
+Boczek,mięso i wędliny,🍖
+Golonka,mięso i wędliny,🍖
+Łopatka wieprzowa,mięso i wędliny,🍖
+Antrykot wołowy,mięso i wędliny,🍖
+Polędwica wołowa,mięso i wędliny,🍖
+Rostbef,mięso i wędliny,🍖
+Pręga wołowa,mięso i wędliny,🍖
+Mielone mięso mieszane,mięso i wędliny,🍖
+Cielęcina,mięso i wędliny,🍖
+Jagnięcina,mięso i wędliny,🍖
+Dziczyzna (np. sarnina),mięso i wędliny,🍖
+Królik,mięso i wędliny,🍖
+Szynka gotowana,mięso i wędliny,🍖
+Szynka dojrzewająca,mięso i wędliny,🍖
+Polędwica łososiowa,mięso i wędliny,🍖
+Salami,mięso i wędliny,🍖
+Kiełbasa wędzona,mięso i wędliny,🍖
+Kiełbasa biała surowa,mięso i wędliny,🍖
+Kabanosy,mięso i wędliny,🍖
+Parówki,mięso i wędliny,🍖
+Serdelki,mięso i wędliny,🍖
+Kaszanka,mięso i wędliny,🍖
+Pasztetowa,mięso i wędliny,🍖
+Salceson,mięso i wędliny,🍖
+Metka,mięso i wędliny,🍖
+Leberka,mięso i wędliny,🍖
+Pasztet pieczony,mięso i wędliny,🍖
+Wątróbka drobiowa,mięso i wędliny,🍖
+Serca drobiowe,mięso i wędliny,🍖
+Ozory wołowe,mięso i wędliny,🍖
+Żołądki drobiowe,mięso i wędliny,🍖
+Smalec,mięso i wędliny,🍖
