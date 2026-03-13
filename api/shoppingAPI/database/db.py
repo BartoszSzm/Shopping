@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import typing as t
 from datetime import datetime
-from uuid import UUID
+from enum import Enum
 
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -18,13 +18,20 @@ class Base(so.DeclarativeBase):
     pass
 
 
+class ListRole(Enum):
+    OWNER = "owner"
+    VIEWER = "viewer"
+    EDITOR = "editor"
+
+
 class ShoppingList(Base):
     __tablename__ = "shoppingList"
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100))
-    user_id: so.Mapped[UUID] = so.mapped_column(sa.UUID)
+    user_id: so.Mapped[str] = so.mapped_column(sa.String(100))
     created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())
+    role: so.Mapped[ListRole] = so.mapped_column(sa.String(30), default=ListRole.OWNER)
     modified: so.Mapped[datetime] = so.mapped_column(
         sa.DateTime, default=sa.func.now(), onupdate=sa.func.now()
     )
