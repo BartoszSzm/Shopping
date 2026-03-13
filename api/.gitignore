@@ -4,3 +4,4 @@
 *.rdb
 __pycache__/
 *.swp
+.vscode
