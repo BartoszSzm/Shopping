@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
@@ -11,7 +9,10 @@ from src.validation_models import DeleteManyItems, NewListItem
 
 
 def new_list_item(
-    session: Session, user_id: UUID, data: NewListItem, collection: list[ItemTypeRow]
+    session: Session,
+    user_id: str,
+    data: NewListItem,
+    collection: list[ItemTypeRow],
 ) -> None:
 
     try:
@@ -50,7 +51,7 @@ def new_list_item(
 
 def delete_many_items(
     session: Session,
-    user_id: UUID,
+    user_id: str,
     data: DeleteManyItems,
 ) -> None:
 

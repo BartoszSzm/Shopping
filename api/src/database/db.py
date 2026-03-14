@@ -31,7 +31,9 @@ class ShoppingList(Base):
     name: so.Mapped[str] = so.mapped_column(sa.String(100))
     user_id: so.Mapped[str] = so.mapped_column(sa.String(100))
     created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())
-    role: so.Mapped[ListRole] = so.mapped_column(sa.String(30), default=ListRole.OWNER)
+    role: so.Mapped[ListRole] = so.mapped_column(
+        sa.String(30), default=ListRole.OWNER.value
+    )
     modified: so.Mapped[datetime] = so.mapped_column(
         sa.DateTime, default=sa.func.now(), onupdate=sa.func.now()
     )

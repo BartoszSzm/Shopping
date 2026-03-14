@@ -1,5 +1,4 @@
 from typing import Annotated, Optional
-from uuid import UUID
 
 import httpx
 import jwt
@@ -12,7 +11,7 @@ from src.config import config
 
 
 class TokenData(BaseModel):
-    user_id: UUID | int
+    user_id: str
 
 
 oauth2_scheme = HTTPBearer(auto_error=False)

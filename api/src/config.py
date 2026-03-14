@@ -1,5 +1,4 @@
 import os
-from uuid import UUID
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,7 +13,7 @@ class Config(BaseSettings):
     KEYCLOAK_BASE_URL: str
     KEYCLOAK_REALM: str
     DISABLE_AUTH: bool
-    DEV_USER_ID: UUID | int
+    DEV_USER_ID: str
 
     model_config = SettingsConfigDict(env_file=env_path)
 
