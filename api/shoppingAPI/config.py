@@ -1,20 +1,22 @@
 import os
+from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+env_path = os.path.dirname(os.path.dirname(__file__)) + "/.env"
 
 
-class Config(BaseModel):
+class Config(BaseSettings):
+    DB_URL: str
     ALGORITHM: str
     KEYCLOAK_CLIENT_ID: str
     KEYCLOAK_CLIENT_SECRET: str
     KEYCLOAK_BASE_URL: str
     KEYCLOAK_REALM: str
+    DISABLE_AUTH: bool
+    DEV_USER_ID: UUID | int
+
+    model_config = SettingsConfigDict(env_file=env_path)
 
 
-config = Config(
-    ALGORITHM=os.environ["ALGORITHM"],
-    KEYCLOAK_CLIENT_ID=os.environ["KEYCLOAK_CLIENT_ID"],
-    KEYCLOAK_CLIENT_SECRET=os.environ["KEYCLOAK_CLIENT_SECRET"],
-    KEYCLOAK_BASE_URL=os.environ["KEYCLOAK_BASE_URL"],
-    KEYCLOAK_REALM=os.environ["KEYCLOAK_REALM"],
-)
+config = Config()  # pyright: ignore[reportCallIssue]
