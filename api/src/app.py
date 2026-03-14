@@ -3,13 +3,14 @@ from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from shoppingAPI import validation_models as basic_vm
-from shoppingAPI.app_types import ItemTypeRow
-from shoppingAPI.auth.auth import TokenData, get_token_data
-from shoppingAPI.crud import list_item as list_item_crud
-from shoppingAPI.exceptions import ForbiddenAction, InvalidAction
-from shoppingAPI.utils.load_categories import load_item_types
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
+
+from src import validation_models as basic_vm
+from src.app_types import ItemTypeRow
+from src.auth.auth import TokenData, get_token_data
+from src.crud import list_item as list_item_crud
+from src.exceptions import ForbiddenAction, InvalidAction
+from src.utils.load_categories import load_item_types
 
 from .database import ListItem, ShoppingList, db_session
 from .database.db import create_db

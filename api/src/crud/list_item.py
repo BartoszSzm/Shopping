@@ -1,12 +1,13 @@
 from uuid import UUID
 
-from shoppingAPI.app_types import ItemTypeRow
-from shoppingAPI.database.db import ListItem, ShoppingList
-from shoppingAPI.exceptions import ForbiddenAction, InvalidAction
-from shoppingAPI.utils.utils import find_category
-from shoppingAPI.validation_models import DeleteManyItems, NewListItem
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
+
+from src.app_types import ItemTypeRow
+from src.database.db import ListItem, ShoppingList
+from src.exceptions import ForbiddenAction, InvalidAction
+from src.utils.utils import find_category
+from src.validation_models import DeleteManyItems, NewListItem
 
 
 def new_list_item(

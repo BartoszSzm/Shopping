@@ -6,11 +6,10 @@ import jwt
 import pytest
 import redis
 
-from shoppingAPI import auth
+from src import auth
 
 
 class TestCreateAccessToken:
-
     @pytest.fixture
     def secret_key(self):
         yield secrets.token_hex(32)
@@ -36,7 +35,6 @@ class TestCreateAccessToken:
 
 
 class TestBlacklist:
-
     @pytest.fixture
     def db(self):
         redis_instance = redis.Redis()

@@ -2,7 +2,7 @@ from typing import Iterable, Optional
 
 from thefuzz import fuzz
 
-from shoppingAPI.app_types import ItemTypeRow
+from src.app_types import ItemTypeRow
 
 
 def normalize(text: str) -> str:

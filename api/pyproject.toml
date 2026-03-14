@@ -1,33 +1,35 @@
-[tool.poetry]
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
 name = "api"
 version = "0.1.0"
 description = ""
-authors = ["logos201 <logos201@gmail.com>"]
+authors = [
+    { name = "logos201", email = "logos201@gmail.com" }
+]
+dependencies = [
+    "fastapi==0.110.1",
+    "python-dotenv==1.0.1",
+    "uvicorn==0.29.0",
+    "sqlalchemy==2.0.29",
+    "passlib==1.7.4",
+    "types-passlib==1.7.7.20240327",
+    "pyjwt==2.9.0",
+    "python-multipart==0.0.9",
+    "cryptography==43.0.1",
+    "redis==5.1.1",
+    "fastapi-csrf-protect==0.3.5",
+    "thefuzz==0.22.1",
+    "httpx==0.28.1",
+    "alembic==1.18.4",
+    "pydantic-settings==2.13.1",
+    "ruff==0.15.6",
+    "pytest==8.3.3"
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-fastapi = "^0.110.1"
-python-dotenv = "^1.0.1"
-uvicorn = "^0.29.0"
-sqlalchemy = "^2.0.29"
-passlib = "^1.7.4"
-types-passlib = "^1.7.7.20240327"
-pyjwt = "^2.9.0"
-python-multipart = "^0.0.9"
-cryptography = "^43.0.1"
-redis = "^5.1.1"
-pytest = "^8.3.3"
-fastapi-csrf-protect = "0.3.5"
-thefuzz = "^0.22.1"
-httpx = "^0.28.1"
-alembic = "^1.18.4"
-pydantic-settings = "^2.13.1"
-ruff = "^0.15.6"
-
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.4"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.optional-dependencies]
+dev = [
+    "ipykernel==6.29.4"
+]

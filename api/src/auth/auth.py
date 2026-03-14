@@ -8,7 +8,7 @@ from fastapi.security import HTTPBearer
 from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 
-from shoppingAPI.config import config
+from src.config import config
 
 
 class TokenData(BaseModel):

@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: api
+Version: 0.1.0
+Author-email: logos201 <logos201@gmail.com>
+Requires-Dist: fastapi==0.110.1
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: uvicorn==0.29.0
+Requires-Dist: sqlalchemy==2.0.29
+Requires-Dist: passlib==1.7.4
+Requires-Dist: types-passlib==1.7.7.20240327
+Requires-Dist: pyjwt==2.9.0
+Requires-Dist: python-multipart==0.0.9
+Requires-Dist: cryptography==43.0.1
+Requires-Dist: redis==5.1.1
+Requires-Dist: fastapi-csrf-protect==0.3.5
+Requires-Dist: thefuzz==0.22.1
+Requires-Dist: httpx==0.28.1
+Requires-Dist: alembic==1.18.4
+Requires-Dist: pydantic-settings==2.13.1
+Requires-Dist: ruff==0.15.6
+Requires-Dist: pytest==8.3.3
+Provides-Extra: dev
+Requires-Dist: ipykernel==6.29.4; extra == "dev"

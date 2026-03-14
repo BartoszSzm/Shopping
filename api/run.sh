@@ -1,1 +1,1 @@
-poetry run uvicorn shoppingAPI.app:app --host 0.0.0.0 --port 80
+uv run uvicorn src.app:app --host 0.0.0.0 --port 80

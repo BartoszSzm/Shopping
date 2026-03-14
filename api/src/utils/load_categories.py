@@ -2,7 +2,7 @@ import csv
 from os.path import dirname
 from pprint import pprint
 
-from shoppingAPI.app_types import ItemTypeRow
+from src.app_types import ItemTypeRow
 
 PRODUCTS_PATH = dirname(__file__) + "/products.csv"
 
