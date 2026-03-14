@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleLogout = async () => {
     await fetch("/api/auth/federated-logout")
-      .then(async () => await signOut({ callbackUrl: "/" }))
+      .then(async () => await signOut())
       .catch((e) => {
         const error = e as Error;
         toast.error(`Nie można wylogować: ${error.message}`);
@@ -37,11 +37,7 @@ const Login = () => {
   }
 
   if (status === "unauthenticated") {
-    return (
-      <Button onClick={() => signIn("keycloak", { callbackUrl: "/" })}>
-        Zaloguj
-      </Button>
-    );
+    return <Button onClick={() => signIn()}>Zaloguj</Button>;
   }
 
   return (

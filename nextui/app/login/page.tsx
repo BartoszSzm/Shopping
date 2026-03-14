@@ -4,15 +4,19 @@ import AppLogo from "@/components/app/Logos/AppLogo";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      signIn("keycloak", { callbackUrl: "/" });
+      signIn(undefined, { callbackUrl: callbackUrl, redirect: true });
     }, 1500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [callbackUrl]);
 
   const fadeIn = {
     initial: { opacity: 0, y: 10 },
