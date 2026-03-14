@@ -4,7 +4,7 @@ from uuid import UUID
 import httpx
 import jwt
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import HTTPBearer
 from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 
@@ -28,8 +28,7 @@ def introspect_token(
 ) -> bool:
 
     introspection_url = (
-        f"{keycloak_base_url}/realms/{realm}"
-        "/protocol/openid-connect/token/introspect"
+        f"{keycloak_base_url}/realms/{realm}/protocol/openid-connect/token/introspect"
     )
 
     data = {
