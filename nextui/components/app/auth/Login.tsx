@@ -13,21 +13,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { toast } from "sonner";
 import UserLogo from "../Logos/UserLogo";
 
 const Login = () => {
   const { status, data: session } = useSession();
-
-  const handleLogout = async () => {
-    await fetch("/api/auth/federated-logout")
-      .then(async () => await signOut())
-      .catch((e) => {
-        const error = e as Error;
-        toast.error(`Nie można wylogować: ${error.message}`);
-        console.error(error);
-      });
-  };
 
   if (status === "loading") {
     return (
@@ -45,7 +34,7 @@ const Login = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="outline-none focus:ring-2 focus:ring-blue-500 rounded-full transition-all">
-          {session.user ? (
+          {session?.user ? (
             <Image
               src={session.user.image}
               alt="User profile picture"
@@ -78,7 +67,7 @@ const Login = () => {
 
         <DropdownMenuItem
           className="text-red-600 focus:bg-red-50 cursor-pointer"
-          onClick={handleLogout}
+          onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
         >
           Wyloguj się
         </DropdownMenuItem>
