@@ -1,76 +1,69 @@
-import re
-import secrets
-import time
+from unittest.mock import patch
 
-import jwt
 import pytest
-import redis
+from fastapi import HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials
 
-from src import auth
-
-
-class TestCreateAccessToken:
-    @pytest.fixture
-    def secret_key(self):
-        yield secrets.token_hex(32)
-
-    def test_create_access_token_basic(self, secret_key: str):
-        """Ensure that the function generates a valid JWT (JSON Web Token)
-        when provided with a standard data dictionary and no expires_delta"""
-        token = auth.create_access_token({"sub": "Bartosz"}, secret_key=secret_key)
-        jwt.decode(token, secret_key, algorithms=["HS256"])
-        assert (
-            re.match("^[A-Za-z0-9-_]+\.([A-Za-z0-9-_]+)\.([A-Za-z0-9-_]+)$", token)  # type: ignore
-            != None
-        )
-
-    def test_create_access_token_expiration_default(self, secret_key: str):
-        pass
-
-    def test_create_access_token_expiration_custom(self, secret_key: str):
-        pass
-
-    def test_create_access_token_payload_encoding(self, secret_key: str):
-        pass
+from src.auth.auth import TokenData, get_token_data
 
 
-class TestBlacklist:
-    @pytest.fixture
-    def db(self):
-        redis_instance = redis.Redis()
-        yield redis_instance
-        redis_instance.flushdb()  # type: ignore
-        redis_instance.close()
+@pytest.mark.asyncio
+async def test_get_token_data_disable_auth():
+    credentials = HTTPAuthorizationCredentials(scheme="Bearer", credentials="any")
 
-    def test_add_in_db(self, db: redis.Redis):
-        """Test if add method adds record to specific redis instance"""
-        auth.Blacklist(db).add("sometoken", 999999)
-        assert db.exists("sometoken") == 1
-        assert len(list(db.keys())) == 1  # type: ignore
+    with patch("src.auth.auth.config") as mock_config:
+        mock_config.DISABLE_AUTH = True
+        mock_config.DEV_USER_ID = "test-dev-user"
 
-    def test_add_expire(self, db: redis.Redis):
-        """Test if added record expires according to the argument value"""
-        auth.Blacklist(db).add("sometoken", 2)
-        time.sleep(3)
-        assert db.exists("sometoken") == 0
-        assert len(list(db.keys())) == 0  # type: ignore
+        result = await get_token_data(credentials=credentials)
 
-    def test_add_empty(self, db: redis.Redis):
-        """Test if method raises exception on empty value"""
-        with pytest.raises(ValueError):
-            auth.Blacklist(db).add("", 999)
+        assert result.user_id == "test-dev-user"
+        assert isinstance(result, TokenData)
 
-    def test_is_present_ok(self, db: redis.Redis):
-        """Check if method returns correctly"""
-        db.set("sometoken", "")
-        assert auth.Blacklist(db).is_present("sometoken") == True
-        assert auth.Blacklist(db).is_present("sometoke") == False
 
-    def test_is_present_false(self, db: redis.Redis):
-        """Check if method returns correctly"""
-        assert auth.Blacklist(db).is_present("sometoken") == False
-        assert auth.Blacklist(db).is_present("sometoke") == False
+@pytest.mark.asyncio
+async def test_get_token_data_success():
+    token = "secret-token"
+    user_id = "user-123"
+    credentials = HTTPAuthorizationCredentials(scheme="Bearer", credentials=token)
 
-    def test_is_present_empty(self, db: redis.Redis):
-        """Check if method returns correctly"""
-        assert auth.Blacklist(db).is_present("") == False
+    with patch("src.auth.auth.config") as mock_config:
+        mock_config.DISABLE_AUTH = False
+        mock_config.BACKEND_SERVICE_TOKEN = token
+
+        result = await get_token_data(credentials=credentials, x_user_id=user_id)
+
+        assert result.user_id == user_id
+
+
+@pytest.mark.asyncio
+async def test_get_token_data_invalid_token():
+    credentials = HTTPAuthorizationCredentials(
+        scheme="Bearer", credentials="wrong-token"
+    )
+
+    with patch("src.auth.auth.config") as mock_config:
+        mock_config.DISABLE_AUTH = False
+        mock_config.BACKEND_SERVICE_TOKEN = "valid-token"
+
+        with pytest.raises(HTTPException) as exc_info:
+            await get_token_data(credentials=credentials, x_user_id="any-user")
+
+        assert exc_info.value.status_code == status.HTTP_401_UNAUTHORIZED
+        assert exc_info.value.detail == "Could not validate credentials"
+
+
+@pytest.mark.asyncio
+async def test_get_token_data_missing_x_user_id():
+    token = "valid-token"
+    credentials = HTTPAuthorizationCredentials(scheme="Bearer", credentials=token)
+
+    with patch("src.auth.auth.config") as mock_config:
+        mock_config.DISABLE_AUTH = False
+        mock_config.BACKEND_SERVICE_TOKEN = token
+
+        with pytest.raises(HTTPException) as exc_info:
+            await get_token_data(credentials=credentials, x_user_id=None)
+
+        assert exc_info.value.status_code == status.HTTP_401_UNAUTHORIZED
+        assert "Missing X-User-Id header" in exc_info.value.detail
