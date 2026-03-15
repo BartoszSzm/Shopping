@@ -38,6 +38,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/lists/shared": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Shared Lists */
+        get: operations["get_shared_lists_api_lists_shared_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lists/share": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Share List */
+        post: operations["share_list_api_lists_share_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/{list_id}": {
         parameters: {
             query?: never;
@@ -225,6 +259,11 @@ export interface components {
              */
             modified: string;
         };
+        /**
+         * ListRole
+         * @enum {string}
+         */
+        ListRole: "owner" | "viewer" | "editor";
         /** MarkAsBuyedData */
         MarkAsBuyedData: {
             /** Item Id */
@@ -261,6 +300,15 @@ export interface components {
             /** List Id */
             list_id: number;
         };
+        /** ShareListRequest */
+        ShareListRequest: {
+            /** Shopping List Id */
+            shopping_list_id: number;
+            /** User Id */
+            user_id: string;
+            /** @default viewer */
+            role: components["schemas"]["ListRole"];
+        };
         /** ShoppingListModel */
         ShoppingListModel: {
             /** Id */
@@ -287,10 +335,7 @@ export interface components {
         };
         /** TokenData */
         TokenData: {
-            /**
-             * User Id
-             * Format: uuid
-             */
+            /** User Id */
             user_id: string;
         };
         /** UpdateItem */
@@ -323,7 +368,9 @@ export interface operations {
     read_token_data_token_data__get: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -338,12 +385,23 @@ export interface operations {
                     "application/json": components["schemas"]["TokenData"];
                 };
             };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
     };
     get_lists_api_lists_get: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -358,12 +416,89 @@ export interface operations {
                     "application/json": components["schemas"]["ShoppingListModel"][] | components["schemas"]["MsgResponse"];
                 };
             };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_shared_lists_api_lists_shared_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ShoppingListModel"][] | components["schemas"]["MsgResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    share_list_api_lists_share_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ShareListRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MsgResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
     };
     get_list_items_api__list_id__get: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path: {
                 list_id: number;
             };
@@ -394,7 +529,9 @@ export interface operations {
     buyed_api_buyed_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -427,7 +564,9 @@ export interface operations {
     delete_api_delete_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -460,7 +599,9 @@ export interface operations {
     newItem_api_newItem_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -493,7 +634,9 @@ export interface operations {
     new_list_api_newList_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -526,7 +669,9 @@ export interface operations {
     delete_list_api_deleteList_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -559,7 +704,9 @@ export interface operations {
     update_item_api_updateItem_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -592,7 +739,9 @@ export interface operations {
     delete_many_items_api_deleteManyItems_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };

@@ -11,6 +11,7 @@ import {
   MsgResponse,
   NewList,
   NewListItem,
+  ShareListRequest,
   ShoppingListResponse,
   UpdateItem,
 } from "@/types/apiTypes";
@@ -38,6 +39,24 @@ export async function deleteList(
 export async function getLists(): Promise<ListItemType[]> {
   return authApiFetch<ListItemType[]>({
     url: URLS.api.allLists(),
+    errorMessage: "Nie można pobrać list",
+  });
+}
+
+export async function getSharedLists(): Promise<ListItemType[]> {
+  return authApiFetch<ListItemType[]>({
+    url: URLS.api.sharedLists(),
+    errorMessage: "Nie można pobrać list",
+  });
+}
+
+export async function shareList(
+  shareListInput: ShareListRequest,
+): Promise<MsgResponse> {
+  return authApiFetch<MsgResponse>({
+    method: "POST",
+    body: shareListInput,
+    url: URLS.api.shareList(),
     errorMessage: "Nie można pobrać list",
   });
 }

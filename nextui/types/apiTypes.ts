@@ -5,6 +5,7 @@ export type HTTPValidationError = components["schemas"]["HTTPValidationError"];
 export type ListIdentifier = components["schemas"]["ListIdentifier"];
 export type ListItemIdentifier = components["schemas"]["ListItemIdentifier"];
 export type ListItemType = components["schemas"]["ListItemType"];
+export type ShareListRequest = components["schemas"]["ShareListRequest"];
 export type MarkAsBuyedData = components["schemas"]["MarkAsBuyedData"];
 export type MsgResponse = components["schemas"]["MsgResponse"];
 export type NewList = components["schemas"]["NewList"];

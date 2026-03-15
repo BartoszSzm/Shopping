@@ -11,12 +11,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { URLS } from "@/lib/apiClient";
 import { List } from "@/types/list";
-import { ChevronRight, MoreHorizontal, Trash2 } from "lucide-react";
+import { ChevronRight, MoreHorizontal, Trash2, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const ListItem = ({ list }: { list: List }) => {
+interface ListItemProps {
+  list: List;
+  showOwner?: boolean;
+}
+
+const ListItem = ({ list, showOwner = false }: ListItemProps) => {
   const router = useRouter();
 
   const handleDelete = () => {
@@ -33,17 +38,26 @@ const ListItem = ({ list }: { list: List }) => {
       <div className="flex items-center justify-between p-5">
         <Link
           href={URLS.app.listDetails(list.id)}
-          className="flex-1 flex items-center gap-3 group/link"
+          className="flex-1 flex items-center gap-4 group/link"
         >
-          <div className="h-10 w-10 bg-zinc-50 rounded-xl flex items-center justify-center group-hover/link:bg-zinc-100 transition-colors">
+          <div className="h-10 w-10 bg-zinc-50 rounded-xl flex items-center justify-center group-hover/link:bg-zinc-100 transition-colors shrink-0">
             <ChevronRight
               size={18}
               className="text-zinc-400 group-hover/link:text-zinc-900 transition-colors"
             />
           </div>
-          <span className="font-semibold text-zinc-700 group-hover/link:text-black transition-colors">
-            {list.name}
-          </span>
+
+          <div className="flex flex-col">
+            <span className="font-semibold text-zinc-700 group-hover/link:text-black transition-colors leading-tight">
+              {list.name}
+            </span>
+            {showOwner && (
+              <div className="flex items-center gap-1.5 mt-0.5 text-zinc-400 font-medium text-xs">
+                <User size={12} className="opacity-70" />
+                <span>{list.name}</span>
+              </div>
+            )}
+          </div>
         </Link>
 
         <DropdownMenu>

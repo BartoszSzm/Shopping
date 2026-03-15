@@ -7,6 +7,8 @@ export const URLS = {
   api: {
     apiUrl: () => process.env.BACKEND_URL,
     allLists: () => `${URLS.api.apiUrl()}/lists`,
+    sharedLists: () => `${URLS.api.apiUrl()}/lists/shared`,
+    shareList: () => `${URLS.api.apiUrl()}/lists/share`,
     deleteList: () => `${URLS.api.apiUrl()}/deleteList`,
     newList: () => `${URLS.api.apiUrl()}/newList`,
     listDetails: (listId: number) => `${URLS.api.apiUrl()}/${listId}`,
