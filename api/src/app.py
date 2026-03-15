@@ -13,7 +13,7 @@ from src.exceptions import ForbiddenAction, InvalidAction
 from src.utils.load_categories import load_item_types
 
 from .database import ListItem, ShoppingList, db_session
-from .database.db import create_db
+from .database.db import ShoppingListShare, create_db
 
 item_types: t.Optional[list[ItemTypeRow]] = None
 
@@ -82,6 +82,86 @@ def get_lists(
                 )
             return response
         except Exception as exc:
+            return basic_vm.MsgResponse(status="rejected", msg=str(exc))
+
+
+@app.get("/api/lists/shared")
+def get_shared_lists(
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
+    with db_session() as session:
+        response: t.List[basic_vm.ShoppingListModel] = []
+        try:
+            shared_lists = (
+                session.query(ShoppingList)
+                .join(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .filter(ShoppingListShare.user_id == token.user_id)
+                .all()
+            )
+
+            for slist in shared_lists:
+                response.append(
+                    basic_vm.ShoppingListModel(
+                        id=slist.id,
+                        name=slist.name,
+                        created=slist.created,
+                        modified=slist.modified,
+                    )
+                )
+
+            return response
+        except Exception as exc:
+            return basic_vm.MsgResponse(status="rejected", msg=str(exc))
+
+
+@app.post("/api/lists/share")
+def share_list(
+    request: basic_vm.ShareListRequest,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+) -> basic_vm.MsgResponse:
+    with db_session() as session:
+        try:
+            shopping_list = (
+                session.query(ShoppingList)
+                .filter_by(id=request.shopping_list_id, user_id=token.user_id)
+                .first()
+            )
+            if not shopping_list:
+                return basic_vm.MsgResponse(
+                    status="rejected", msg="List not found or you are not the owner"
+                )
+
+            existing_share = (
+                session.query(ShoppingListShare)
+                .filter_by(
+                    shopping_list_id=request.shopping_list_id, user_id=request.user_id
+                )
+                .first()
+            )
+            if existing_share:
+                return basic_vm.MsgResponse(
+                    status="confirmed",
+                    msg="List already shared with this user",
+                )
+
+            new_share = ShoppingListShare(
+                shopping_list_id=request.shopping_list_id,
+                user_id=request.user_id,
+                role=request.role.value,
+            )
+            session.add(new_share)
+            session.commit()
+
+            return basic_vm.MsgResponse(
+                status="confirmed",
+                msg=f"List shared successfully with user {request.user_id}",
+            )
+
+        except Exception as exc:
+            session.rollback()
             return basic_vm.MsgResponse(status="rejected", msg=str(exc))
 
 

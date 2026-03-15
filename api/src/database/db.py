@@ -42,6 +42,10 @@ class ShoppingList(Base):
         back_populates="list", cascade="all,delete"
     )
 
+    shared_with: so.Mapped[t.List["ShoppingListShare"]] = so.relationship(
+        back_populates="shopping_list", cascade="all,delete"
+    )
+
 
 class ListItem(Base):
     __tablename__ = "listItem"
@@ -60,6 +64,24 @@ class ListItem(Base):
     )
 
     list: so.Mapped["ShoppingList"] = so.relationship(back_populates="items")
+
+
+class ShoppingListShare(Base):
+    __tablename__ = "shoppingListShare"
+
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    shopping_list_id: so.Mapped[int] = so.mapped_column(
+        sa.ForeignKey("shoppingList.id", ondelete="CASCADE")
+    )
+    user_id: so.Mapped[str] = so.mapped_column(sa.String(100))
+    role: so.Mapped[ListRole] = so.mapped_column(
+        sa.String(30), default=ListRole.VIEWER.value
+    )
+    created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())
+
+    shopping_list: so.Mapped["ShoppingList"] = so.relationship(
+        back_populates="shared_with"
+    )
 
 
 def create_db() -> None:

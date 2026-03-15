@@ -3,6 +3,14 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from src.database.db import ListRole
+
+
+class ShareListRequest(BaseModel):
+    shopping_list_id: int
+    user_id: str
+    role: ListRole = ListRole.VIEWER
+
 
 class NewUser(BaseModel):
     username: str
