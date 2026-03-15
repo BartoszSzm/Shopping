@@ -1,3 +1,5 @@
+import rawAllowedUsers from "@/assets/allowedUsers.json";
+import { ShoppingUser } from "@/next-auth";
 import { ListItemType } from "@/types/apiTypes";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -15,4 +17,9 @@ export const sortTableRows = (rows: ListItemType[]) => {
     if (a.typeicon > b.typeicon) return 1;
     return 0;
   });
+};
+
+export const getAllowedUser = async (email: string) => {
+  const allowedUsers = rawAllowedUsers as ShoppingUser[];
+  return allowedUsers.find((item) => item.email === email);
 };

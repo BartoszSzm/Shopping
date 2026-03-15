@@ -25,7 +25,7 @@ export async function newList(payload: NewList): Promise<MsgResponse> {
 }
 
 export async function deleteList(
-  payload: ListIdentifier
+  payload: ListIdentifier,
 ): Promise<MsgResponse> {
   return authApiFetch<MsgResponse, ListIdentifier>({
     url: URLS.api.deleteList(),
@@ -43,7 +43,7 @@ export async function getLists(): Promise<ListItemType[]> {
 }
 
 export async function getListDetails(
-  listId: number
+  listId: number,
 ): Promise<ShoppingListResponse> {
   return authApiFetch<ShoppingListResponse>({
     url: URLS.api.listDetails(listId),
@@ -61,7 +61,7 @@ export async function newListItem(payload: NewListItem): Promise<MsgResponse> {
 }
 
 export async function toggleBuyed(
-  payload: MarkAsBuyedData
+  payload: MarkAsBuyedData,
 ): Promise<MsgResponse> {
   return authApiFetch<MsgResponse, MarkAsBuyedData>({
     url: URLS.api.buyed(),
@@ -81,7 +81,7 @@ export async function editItem(payload: UpdateItem): Promise<MsgResponse> {
 }
 
 export async function deleteItem(
-  payload: ListItemIdentifier
+  payload: ListItemIdentifier,
 ): Promise<MsgResponse> {
   return authApiFetch<MsgResponse, ListItemIdentifier>({
     url: URLS.api.deleteItem(),
@@ -92,7 +92,7 @@ export async function deleteItem(
 }
 
 export async function deleteAllItems(
-  payload: DeleteManyItems
+  payload: DeleteManyItems,
 ): Promise<MsgResponse> {
   return authApiFetch<MsgResponse, DeleteManyItems>({
     url: URLS.api.deleteManyItems(),

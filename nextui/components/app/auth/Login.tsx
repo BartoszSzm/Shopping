@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 import { toast } from "sonner";
 import UserLogo from "../Logos/UserLogo";
 
@@ -44,7 +45,18 @@ const Login = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="outline-none focus:ring-2 focus:ring-blue-500 rounded-full transition-all">
-          <UserLogo />
+          {session.user ? (
+            <Image
+              src={session.user.image}
+              alt="User profile picture"
+              width={36}
+              height={36}
+              className="rounded-full object-cover"
+              unoptimized
+            />
+          ) : (
+            <UserLogo />
+          )}
         </button>
       </DropdownMenuTrigger>
 

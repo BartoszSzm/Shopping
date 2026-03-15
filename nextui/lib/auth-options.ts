@@ -1,7 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-const allowedEmails = ["bartoszszmyt0@gmail.com"];
+import { getAllowedUser } from "./utils";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -28,28 +27,24 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       if (!user.email) return "/unauthorized";
 
-      if (allowedEmails.includes(user.email)) {
+      if (await getAllowedUser(user.email)) {
         return true;
       } else {
-        // Return false to display a default error message
-        // return false;
-        // Or you can return a URL to redirect to:
         return "/unauthorized";
       }
     },
-    async jwt({ token, account, profile }) {
+    async jwt({ token, user, account, profile }) {
       // User just logged in
       if (account) {
         token.accessToken = account.access_token;
+        token.email = user.email!;
       }
       return token;
     },
 
-    // What will be in session cookie
     async session({ session, token }) {
-      if (session.user) {
-        (session as any).accessToken = token.accessToken;
-      }
+      const allowedUser = await getAllowedUser(token.email);
+      if (allowedUser) session.shoppingUser = allowedUser;
       return session;
     },
   },

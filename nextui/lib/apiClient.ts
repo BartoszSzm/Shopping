@@ -28,6 +28,7 @@ type ApiFetchOptions<TBody> = {
   body?: TBody;
   errorMessage?: string;
   token?: string;
+  extraHeaders?: Record<string, string>;
 };
 
 export async function apiFetch<TResponse, TBody = unknown>({
@@ -36,16 +37,17 @@ export async function apiFetch<TResponse, TBody = unknown>({
   body,
   errorMessage = "Błąd komunikacji z API",
   token,
+  extraHeaders = {},
 }: ApiFetchOptions<TBody>): Promise<TResponse> {
   let res: Response;
 
   try {
-    console.log("BODY", body);
     res = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
+        ...extraHeaders,
       },
       body: body ? JSON.stringify(body) : undefined,
       cache: "no-cache",
@@ -71,7 +73,7 @@ export async function authApiFetch<TResponse, TBody = unknown>({
   errorMessage = "Błąd komunikacji z API",
 }: ApiFetchOptions<TBody>): Promise<TResponse> {
   const session = await getServerSession(authOptions);
-  if (!session || !session.accessToken) {
+  if (!session) {
     throw new Error("Unauthorized");
   }
   return apiFetch({
@@ -79,6 +81,7 @@ export async function authApiFetch<TResponse, TBody = unknown>({
     method,
     body,
     errorMessage,
-    token: session.accessToken,
+    token: process.env.BACKEND_SERVICE_TOKEN,
+    extraHeaders: { "X-User-Id": session.shoppingUser.id },
   });
 }

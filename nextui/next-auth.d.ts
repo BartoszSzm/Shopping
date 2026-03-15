@@ -1,23 +1,19 @@
 import "next-auth";
 
+type ShoppingUser = {
+  email: string;
+  id: string;
+};
+
 declare module "next-auth" {
   interface Session {
-    accessToken?: string;
-    error?: "RefreshAccessTokenError";
-    user: {
-      id: string;
-      name: string;
-      email: string;
-    };
+    shoppingUser: ShoppingUser;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id?: string;
+    email: string;
     accessToken?: string;
-    refreshToken?: string;
-    accessTokenExpires?: number;
-    error?: "RefreshAccessTokenError";
   }
 }
