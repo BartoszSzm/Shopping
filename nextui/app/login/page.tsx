@@ -4,13 +4,9 @@ import AppLogo from "@/components/app/Logos/AppLogo";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function LoginPage() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const callbackUrl = params.get("callbackUrl") || "/";
