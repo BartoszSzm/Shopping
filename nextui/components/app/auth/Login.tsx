@@ -34,7 +34,7 @@ const Login = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="outline-none focus:ring-2 focus:ring-blue-500 rounded-full transition-all">
-          {session?.user ? (
+          {session?.user?.image ? (
             <Image
               src={session.user.image}
               alt="User profile picture"
