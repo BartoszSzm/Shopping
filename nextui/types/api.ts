@@ -325,6 +325,13 @@ export interface components {
              * Format: date-time
              */
             modified: string;
+            /** Owner */
+            owner: string;
+            /**
+             * Shared With
+             * @default []
+             */
+            shared_with: string[] | null;
         };
         /** ShoppingListResponse */
         ShoppingListResponse: {

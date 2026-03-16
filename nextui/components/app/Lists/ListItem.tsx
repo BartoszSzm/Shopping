@@ -10,14 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { URLS } from "@/lib/apiClient";
-import { ShareListInput } from "@/types/apiTypes";
-import { List } from "@/types/list";
+import { ShareListInput, ShoppingListModel } from "@/types/apiTypes";
 import {
   ChevronRight,
   MoreHorizontal,
   Share2,
   Trash2,
   User,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,7 +26,7 @@ import { toast } from "sonner";
 import ShareListModal from "./ShareListModal";
 
 interface ListItemProps {
-  list: List;
+  list: ShoppingListModel;
   showOwner?: boolean;
 }
 
@@ -66,10 +66,19 @@ const ListItem = ({ list, showOwner = false }: ListItemProps) => {
               <span className="font-semibold text-zinc-700 group-hover/link:text-black transition-colors leading-tight">
                 {list.name}
               </span>
-              {showOwner && (
+              {showOwner ? (
                 <div className="flex items-center gap-1.5 mt-0.5 text-zinc-400 font-medium text-xs">
                   <User size={12} className="opacity-70" />
-                  <span>{list.name}</span>
+                  <span>{list.owner}</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5 mt-0.5 text-zinc-400 font-medium text-xs">
+                  <Users size={12} className="opacity-70" />{" "}
+                  <span>
+                    {list.shared_with && list.shared_with.length > 0
+                      ? list.shared_with.join(", ")
+                      : "Brak współdzielonych użytkowników"}
+                  </span>
                 </div>
               )}
             </div>

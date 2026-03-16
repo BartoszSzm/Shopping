@@ -7,12 +7,12 @@ import {
   DeleteManyItems,
   ListIdentifier,
   ListItemIdentifier,
-  ListItemType,
   MarkAsBuyedData,
   MsgResponse,
   NewList,
   NewListItem,
   ShareListInput,
+  ShoppingListModel,
   ShoppingListResponse,
   UpdateItem,
 } from "@/types/apiTypes";
@@ -37,15 +37,15 @@ export async function deleteList(
   });
 }
 
-export async function getLists(): Promise<ListItemType[]> {
-  return authApiFetch<ListItemType[]>({
+export async function getLists(): Promise<ShoppingListModel[]> {
+  return authApiFetch<ShoppingListModel[]>({
     url: URLS.api.allLists(),
     errorMessage: "Nie można pobrać list",
   });
 }
 
-export async function getSharedLists(): Promise<ListItemType[]> {
-  return authApiFetch<ListItemType[]>({
+export async function getSharedLists(): Promise<ShoppingListModel[]> {
+  return authApiFetch<ShoppingListModel[]>({
     url: URLS.api.sharedLists(),
     errorMessage: "Nie można pobrać list",
   });
