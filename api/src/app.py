@@ -11,7 +11,7 @@ from src import validation_models as basic_vm
 from src.app_types import ItemTypeRow
 from src.auth.auth import TokenData, get_token_data
 from src.crud import list_item as list_item_crud
-from src.exceptions import ForbiddenAction, InvalidAction
+from src.exceptions import ForbiddenAction
 from src.utils.load_categories import load_item_types
 
 from .database import ListItem, ShoppingList, db_session

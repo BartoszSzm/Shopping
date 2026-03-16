@@ -12,26 +12,28 @@ export default function LoginPage() {
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const callbackUrl = params.get("callbackUrl") || "/";
+
     const timer = setTimeout(() => {
       signIn(undefined, { callbackUrl: callbackUrl, redirect: true });
     }, 1500);
+
     return () => clearTimeout(timer);
-  }, [callbackUrl]);
+  }, []);
 
   const fadeIn = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" as const },
   };
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center px-6">
-      {/* @ts-ignore */}
       <motion.div
         {...fadeIn}
         className="w-full max-w-md bg-white p-12 rounded-[32px] shadow-sm border border-zinc-100 text-center"
       >
-        {/* Logo i Ikona */}
         <div className="flex flex-col items-center gap-6 mb-8">
           <div className="bg-zinc-50 p-4 rounded-2xl">
             <AppLogo />
@@ -46,10 +48,8 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Spinner i Status */}
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
-            {/* Pulsacyjne tło pod spinnerem */}
             <div className="absolute inset-0 bg-zinc-100 rounded-full scale-150 blur-xl opacity-50" />
             <Loader2
               className="w-8 h-8 text-black animate-spin relative z-10"
@@ -63,7 +63,6 @@ export default function LoginPage() {
         </div>
       </motion.div>
 
-      {/* Dyskretny powrót */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
