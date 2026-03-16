@@ -72,9 +72,11 @@ def get_lists(
         try:
             all_lists = (
                 session.query(ShoppingList)
+                .options(joinedload(ShoppingList.shared_with))
                 .filter_by(user_id=token.user_id, role=ListRole.OWNER.value)
                 .all()
             )
+
             for list in all_lists:
                 response.append(
                     basic_vm.ShoppingListModel(
@@ -82,6 +84,8 @@ def get_lists(
                         name=list.name,
                         created=list.created,
                         modified=list.modified,
+                        owner=list.user_id,
+                        shared_with=[share.user_id for share in list.shared_with],
                     )
                 )
             return response
@@ -113,6 +117,7 @@ def get_shared_lists(
                         name=slist.name,
                         created=slist.created,
                         modified=slist.modified,
+                        owner=slist.user_id,
                     )
                 )
 

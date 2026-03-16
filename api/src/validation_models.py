@@ -66,6 +66,8 @@ class ShoppingListModel(BaseModel):
     name: str
     created: datetime
     modified: datetime
+    owner: str
+    shared_with: t.Optional[t.List[str]] = []
 
 
 class UpdateItem(BaseModel):
