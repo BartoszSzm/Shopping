@@ -3,7 +3,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import and_, or_
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy.orm import joinedload
 
 from src import validation_models as basic_vm
 from src.app_types import ItemTypeRow
@@ -13,7 +15,7 @@ from src.exceptions import ForbiddenAction, InvalidAction
 from src.utils.load_categories import load_item_types
 
 from .database import ListItem, ShoppingList, db_session
-from .database.db import ShoppingListShare, create_db
+from .database.db import ListRole, ShoppingListShare, create_db
 
 item_types: t.Optional[list[ItemTypeRow]] = None
 
@@ -69,7 +71,9 @@ def get_lists(
         response: t.List[basic_vm.ShoppingListModel] = []
         try:
             all_lists = (
-                session.query(ShoppingList).filter_by(user_id=token.user_id).all()
+                session.query(ShoppingList)
+                .filter_by(user_id=token.user_id, role=ListRole.OWNER.value)
+                .all()
             )
             for list in all_lists:
                 response.append(
@@ -169,15 +173,29 @@ def share_list(
 def get_list_items(
     list_id: int, token: t.Annotated[TokenData, Depends(get_token_data)]
 ) -> basic_vm.ShoppingListResponse | basic_vm.MsgResponse:
+
     with db_session() as session:
         try:
-            items = (
+            requested_list = (
                 session.query(ShoppingList)
-                .filter_by(id=list_id, user_id=token.user_id)
+                .outerjoin(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .options(joinedload(ShoppingList.items))
+                .filter(
+                    ShoppingList.id == list_id,
+                    or_(
+                        ShoppingList.user_id == token.user_id,
+                        ShoppingListShare.user_id == token.user_id,
+                    ),
+                )
                 .one()
             )
+
         except NoResultFound:
             return basic_vm.MsgResponse(status="rejected", msg="Item not found")
+
         else:
             return basic_vm.ShoppingListResponse(
                 list_id=list_id,
@@ -192,7 +210,7 @@ def get_list_items(
                         created=item.created,
                         modified=item.modified,
                     )
-                    for item in items.items
+                    for item in requested_list.items
                 ],
             )
 
@@ -206,7 +224,18 @@ def buyed(
         try:
             _ = (
                 session.query(ShoppingList)
-                .filter_by(id=data.list_id, user_id=token.user_id)
+                .outerjoin(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .options(joinedload(ShoppingList.items))
+                .filter(
+                    ShoppingList.id == data.list_id,
+                    or_(
+                        ShoppingList.user_id == token.user_id,
+                        ShoppingListShare.user_id == token.user_id,
+                    ),
+                )
                 .one()
             )
             item: ListItem = (
@@ -231,7 +260,18 @@ def delete(
         try:
             _ = (
                 session.query(ShoppingList)
-                .filter_by(id=data.list_id, user_id=token.user_id)
+                .outerjoin(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .options(joinedload(ShoppingList.items))
+                .filter(
+                    ShoppingList.id == data.list_id,
+                    or_(
+                        ShoppingList.user_id == token.user_id,
+                        ShoppingListShare.user_id == token.user_id,
+                    ),
+                )
                 .one()
             )
             item: ListItem = (
@@ -288,41 +328,79 @@ def delete_list(
     data: basic_vm.ListIdentifier,
     token: t.Annotated[TokenData, Depends(get_token_data)],
 ) -> basic_vm.MsgResponse:
+
     with db_session() as session:
         try:
-            list: ShoppingList = session.query(ShoppingList).filter_by(id=data.id).one()
-            session.delete(list)
+            shopping_list = (
+                session.query(ShoppingList)
+                .filter(
+                    ShoppingList.id == data.id,
+                    ShoppingList.user_id == token.user_id,
+                )
+                .one()
+            )
+
+            session.delete(shopping_list)
             session.commit()
+
         except NoResultFound:
-            return basic_vm.MsgResponse(status="rejected", msg="Record not found")
+            return basic_vm.MsgResponse(
+                status="rejected",
+                msg="Record not found or insufficient permissions",
+            )
+
         else:
             return basic_vm.MsgResponse(status="confirmed")
 
 
 @app.post("/api/updateItem")
 def update_item(
-    data: basic_vm.UpdateItem, token: t.Annotated[TokenData, Depends(get_token_data)]
+    data: basic_vm.UpdateItem,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
 ) -> basic_vm.MsgResponse:
+
     with db_session() as session:
         try:
-            item: ListItem = session.query(ListItem).filter_by(id=data.id).one()
-            if item.list.user_id != token.user_id:
-                raise ForbiddenAction("Not authorized to perform this action")
-            if data.name:
+            item: ListItem = (
+                session.query(ListItem)
+                .join(ShoppingList, ListItem.list_id == ShoppingList.id)
+                .outerjoin(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .filter(
+                    ListItem.id == data.id,
+                    or_(
+                        ShoppingList.user_id == token.user_id,
+                        and_(
+                            ShoppingListShare.user_id == token.user_id,
+                            ShoppingListShare.role == ListRole.EDITOR.value,
+                        ),
+                    ),
+                )
+                .one()
+            )
+
+            if data.name is not None:
                 item.name = data.name
-            if data.quantity:
+
+            if data.quantity is not None:
                 item.quantity = data.quantity
+
             session.commit()
+
             return basic_vm.MsgResponse(status="confirmed")
 
         except NoResultFound:
             return basic_vm.MsgResponse(
-                status="rejected", msg=f"No item found with id: {data.id} for this user"
+                status="rejected",
+                msg="Item not found or insufficient permissions",
             )
+
         except MultipleResultsFound:
             return basic_vm.MsgResponse(
                 status="rejected",
-                msg=f"Multiple items found for id: {data.id} for this user",
+                msg=f"Multiple items found for id: {data.id}",
             )
 
 
@@ -331,16 +409,41 @@ def delete_many_items(
     data: basic_vm.DeleteManyItems,
     token: t.Annotated[TokenData, Depends(get_token_data)],
 ) -> basic_vm.MsgResponse:
+
     with db_session() as session:
         try:
-            list_item_crud.delete_many_items(session, user_id=token.user_id, data=data)
-            return basic_vm.MsgResponse(status="confirmed")
-
-        except (InvalidAction, ForbiddenAction) as exc:
-            print(exc)
-            return basic_vm.MsgResponse(
-                status="rejected", msg="Some error occured, check logs"
+            items = (
+                session.query(ListItem)
+                .join(ShoppingList, ListItem.list_id == ShoppingList.id)
+                .outerjoin(
+                    ShoppingListShare,
+                    ShoppingList.id == ShoppingListShare.shopping_list_id,
+                )
+                .filter(
+                    ListItem.id.in_(data.items_ids),
+                    or_(
+                        ShoppingList.user_id == token.user_id,
+                        and_(
+                            ShoppingListShare.user_id == token.user_id,
+                            ShoppingListShare.role == ListRole.EDITOR.value,
+                        ),
+                    ),
+                )
+                .all()
             )
+
+            if len(items) != len(data.items_ids):
+                return basic_vm.MsgResponse(
+                    status="rejected",
+                    msg="Item not found or insufficient permissions",
+                )
+
+            for item in items:
+                session.delete(item)
+
+            session.commit()
+
+            return basic_vm.MsgResponse(status="confirmed")
 
         except Exception as exc:
             print(exc)

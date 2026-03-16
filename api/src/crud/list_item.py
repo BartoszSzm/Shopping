@@ -1,8 +1,9 @@
+from sqlalchemy import or_
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from src.app_types import ItemTypeRow
-from src.database.db import ListItem, ShoppingList
+from src.database.db import ListItem, ShoppingList, ShoppingListShare
 from src.exceptions import ForbiddenAction, InvalidAction
 from src.utils.utils import find_category
 from src.validation_models import DeleteManyItems, NewListItem
@@ -18,7 +19,18 @@ def new_list_item(
     try:
         _ = (
             session.query(ShoppingList)
-            .filter_by(id=data.list_id, user_id=user_id)
+            .outerjoin(
+                ShoppingListShare,
+                ShoppingList.id == ShoppingListShare.shopping_list_id,
+            )
+            .options(joinedload(ShoppingList.items))
+            .filter(
+                ShoppingList.id == data.list_id,
+                or_(
+                    ShoppingList.user_id == user_id,
+                    ShoppingListShare.user_id == user_id,
+                ),
+            )
             .one()
         )
     except NoResultFound:
