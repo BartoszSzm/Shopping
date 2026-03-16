@@ -1,6 +1,7 @@
 "use server";
 
 import { authApiFetch, URLS } from "@/lib/apiClient";
+import { getAllowedUser } from "@/lib/utils";
 
 import {
   DeleteManyItems,
@@ -11,7 +12,7 @@ import {
   MsgResponse,
   NewList,
   NewListItem,
-  ShareListRequest,
+  ShareListInput,
   ShoppingListResponse,
   UpdateItem,
 } from "@/types/apiTypes";
@@ -51,11 +52,19 @@ export async function getSharedLists(): Promise<ListItemType[]> {
 }
 
 export async function shareList(
-  shareListInput: ShareListRequest,
+  shareListInput: ShareListInput,
 ): Promise<MsgResponse> {
+  const user = await getAllowedUser(shareListInput.email);
+  if (!user) {
+    throw new Error("Niepoprawny email lub użytkownik nie istnieje");
+  }
   return authApiFetch<MsgResponse>({
     method: "POST",
-    body: shareListInput,
+    body: {
+      shopping_list_id: shareListInput.listId,
+      user_id: user.id,
+      role: shareListInput.role,
+    },
     url: URLS.api.shareList(),
     errorMessage: "Nie można pobrać list",
   });

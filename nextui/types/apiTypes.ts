@@ -1,6 +1,13 @@
 import { components } from "./api";
 
+export type ShareListInput = {
+  email: string;
+  listId: number;
+  role: SetableRoles;
+};
+
 export type DeleteManyItems = components["schemas"]["DeleteManyItems"];
+export type SetableRoles = Exclude<components["schemas"]["ListRole"], "owner">;
 export type HTTPValidationError = components["schemas"]["HTTPValidationError"];
 export type ListIdentifier = components["schemas"]["ListIdentifier"];
 export type ListItemIdentifier = components["schemas"]["ListItemIdentifier"];
