@@ -5,17 +5,18 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import and_, or_
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import Session, joinedload, sessionmaker
 
 from src import validation_models as basic_vm
 from src.app_types import ItemTypeRow
 from src.auth.auth import TokenData, get_token_data
+from src.config import get_config
 from src.crud import list_item as list_item_crud
 from src.exceptions import ForbiddenAction
 from src.utils.load_categories import load_item_types
 
-from .database import ListItem, ShoppingList, db_session
-from .database.db import ListRole, ShoppingListShare, create_db
+from .database import ListItem, ShoppingList
+from .database.db import ListRole, ShoppingListShare, create_db, get_db_session
 
 item_types: t.Optional[list[ItemTypeRow]] = None
 
@@ -29,8 +30,7 @@ def get_item_types() -> list[ItemTypeRow]:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # before
-    create_db()
+    create_db(get_config().DB_URL)
     global item_types
     item_types = load_item_types()
     yield
@@ -53,7 +53,7 @@ app.add_middleware(
 
 
 ############################ AUTH ENDPOINTS ######################################
-@app.get("/token-data/", response_model=TokenData)
+@app.get("/token-data/")
 async def read_token_data(
     token_data: t.Annotated[TokenData, Depends(get_token_data)],
 ):
@@ -66,6 +66,7 @@ async def read_token_data(
 @app.get("/api/lists")
 def get_lists(
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
     with db_session() as session:
         response: t.List[basic_vm.ShoppingListModel] = []
@@ -96,6 +97,7 @@ def get_lists(
 @app.get("/api/lists/shared")
 def get_shared_lists(
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> t.List[basic_vm.ShoppingListModel] | basic_vm.MsgResponse:
     with db_session() as session:
         response: t.List[basic_vm.ShoppingListModel] = []
@@ -130,6 +132,7 @@ def get_shared_lists(
 def share_list(
     request: basic_vm.ShareListRequest,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -152,7 +155,7 @@ def share_list(
             )
             if existing_share:
                 return basic_vm.MsgResponse(
-                    status="confirmed",
+                    status="rejected",
                     msg="List already shared with this user",
                 )
 
@@ -176,7 +179,9 @@ def share_list(
 
 @app.get("/api/{list_id}")
 def get_list_items(
-    list_id: int, token: t.Annotated[TokenData, Depends(get_token_data)]
+    list_id: int,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.ShoppingListResponse | basic_vm.MsgResponse:
 
     with db_session() as session:
@@ -224,6 +229,7 @@ def get_list_items(
 def buyed(
     data: basic_vm.MarkAsBuyedData,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -260,6 +266,7 @@ def buyed(
 def delete(
     data: basic_vm.ListItemIdentifier,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -294,7 +301,9 @@ def delete(
 
 @app.post("/api/newItem")
 def newItem(
-    data: basic_vm.NewListItem, token: t.Annotated[TokenData, Depends(get_token_data)]
+    data: basic_vm.NewListItem,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -316,7 +325,9 @@ def newItem(
 
 @app.post("/api/newList")
 def new_list(
-    data: basic_vm.NewList, token: t.Annotated[TokenData, Depends(get_token_data)]
+    data: basic_vm.NewList,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
@@ -332,6 +343,7 @@ def new_list(
 def delete_list(
     data: basic_vm.ListIdentifier,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
 
     with db_session() as session:
@@ -362,6 +374,7 @@ def delete_list(
 def update_item(
     data: basic_vm.UpdateItem,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
 
     with db_session() as session:
@@ -413,6 +426,7 @@ def update_item(
 def delete_many_items(
     data: basic_vm.DeleteManyItems,
     token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ) -> basic_vm.MsgResponse:
 
     with db_session() as session:

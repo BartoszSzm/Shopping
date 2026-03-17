@@ -1,21 +1,32 @@
 from __future__ import annotations
 
-import os
 import typing as t
 from datetime import datetime
 from enum import Enum
 
 import sqlalchemy as sa
 import sqlalchemy.orm as so
+from fastapi import Depends
 
-DB_URL = os.environ["DB_URL"]
+from src.config import Config, get_config
 
-engine = sa.create_engine(DB_URL)
-db_session = so.sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_engine(db_url: str):
+    return sa.create_engine(db_url)
+
+
+def get_db_session(config: Config = Depends(get_config)):
+    return so.sessionmaker(
+        autocommit=False, autoflush=False, bind=get_engine(config.DB_URL)
+    )
 
 
 class Base(so.DeclarativeBase):
     pass
+
+
+def create_db(db_url: str) -> None:
+    Base.metadata.create_all(get_engine(db_url))
 
 
 class ListRole(Enum):
@@ -82,7 +93,3 @@ class ShoppingListShare(Base):
     shopping_list: so.Mapped["ShoppingList"] = so.relationship(
         back_populates="shared_with"
     )
-
-
-def create_db() -> None:
-    Base.metadata.create_all(engine)
