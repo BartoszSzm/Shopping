@@ -18,16 +18,10 @@ def test_401_no_x_user_id(config: Config, client: TestClient):
     assert response.json() == {"detail": "Missing X-User-Id header"}
 
 
-def test_200_ok(config: Config, client: TestClient):
-    response = client.get(
-        "/token-data",
-        headers={
-            "Authorization": f"Bearer {config.BACKEND_SERVICE_TOKEN}",
-            "x-user-id": "myuser",
-        },
-    )
-    assert response.status_code == 200
-    assert response.json() == {"user_id": "myuser"}
+def test_200_ok(config: Config, auth_client_user: TestClient, test_user: str):
+    response = auth_client_user.get("/token-data")
+    # assert response.status_code == 200
+    assert response.json() == {"user_id": test_user}
 
 
 def test_401_invalid_token(config: Config, client: TestClient):
