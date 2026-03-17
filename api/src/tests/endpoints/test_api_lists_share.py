@@ -58,7 +58,6 @@ def test_share_list_success(
     assert data["status"] == "confirmed"
     assert "user2" in data["msg"]
 
-    # sprawdzenie w bazie, czy wpis został dodany
     with db_session() as session:
         share = (
             session.query(ShoppingListShare)
@@ -83,7 +82,6 @@ def test_share_list_duplicate(
         session.add(share)
         session.commit()
 
-        # próba ponownego share
         response = auth_client_user.post(
             "/api/lists/share",
             json={"shopping_list_id": my_list.id, "user_id": "user2", "role": "editor"},

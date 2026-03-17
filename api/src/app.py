@@ -281,11 +281,15 @@ def delete(
                     ShoppingList.id == data.list_id,
                     or_(
                         ShoppingList.user_id == token.user_id,
-                        ShoppingListShare.user_id == token.user_id,
+                        and_(
+                            ShoppingListShare.user_id == token.user_id,
+                            ShoppingListShare.role == ListRole.EDITOR.value,
+                        ),
                     ),
                 )
                 .one()
             )
+
             item: ListItem = (
                 session.query(ListItem)
                 .filter_by(id=data.item_id, list_id=data.list_id)
@@ -294,7 +298,9 @@ def delete(
             session.delete(item)
             session.commit()
         except NoResultFound:
-            return basic_vm.MsgResponse(status="rejected", msg="Record not found")
+            return basic_vm.MsgResponse(
+                status="rejected", msg="Record not found or insufficient permissions"
+            )
         else:
             return basic_vm.MsgResponse(status="confirmed")
 

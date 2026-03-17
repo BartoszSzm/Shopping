@@ -86,7 +86,7 @@ class ShoppingListShare(Base):
     )
     user_id: so.Mapped[str] = so.mapped_column(sa.String(100))
     role: so.Mapped[ListRole] = so.mapped_column(
-        sa.String(30), default=ListRole.VIEWER.value
+        sa.String(30), default=ListRole.EDITOR.value
     )
     created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())
 
