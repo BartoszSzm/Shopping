@@ -23,6 +23,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { ConfirmationModal } from "../utils/ConfirmationModal";
 import ShareListModal from "./ShareListModal";
 
 interface ListItemProps {
@@ -33,6 +34,8 @@ interface ListItemProps {
 const ListItem = ({ list, showOwner = false }: ListItemProps) => {
   const router = useRouter();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] =
+    useState(false);
 
   const handleDelete = () => {
     deleteList({ id: list.id })
@@ -107,7 +110,7 @@ const ListItem = ({ list, showOwner = false }: ListItemProps) => {
               </DropdownMenuItem>
 
               <DropdownMenuItem
-                onClick={handleDelete}
+                onClick={() => setIsDeleteConfirmModalOpen(true)}
                 className="text-red-600 focus:text-red-600 focus:bg-red-50 gap-2 cursor-pointer"
               >
                 <Trash2 size={16} />
@@ -123,6 +126,14 @@ const ListItem = ({ list, showOwner = false }: ListItemProps) => {
         setOpen={setIsShareModalOpen}
         listId={list.id}
         onSubmitAction={handleShare}
+      />
+
+      <ConfirmationModal
+        open={isDeleteConfirmModalOpen}
+        title="Usuń listę"
+        description="Czy na pewno chcesz usunąć tą listę ? Operacji nie można cofnąć."
+        onConfirm={handleDelete}
+        onCancel={() => setIsDeleteConfirmModalOpen(false)}
       />
     </>
   );

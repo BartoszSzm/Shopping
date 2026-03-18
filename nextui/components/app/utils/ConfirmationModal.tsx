@@ -25,14 +25,19 @@ export function ConfirmationModal({
 }: ConfirmationModalProps) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>
-      <DialogContent>
+      <DialogContent className="top-[30%]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <Button onClick={onConfirm}>Potwierdź</Button>
+          <div className="flex w-full justify-around gap-4">
+            <Button onClick={onConfirm} variant={"destructive"}>
+              Potwierdź
+            </Button>
+            <Button onClick={onCancel}>Anuluj</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
