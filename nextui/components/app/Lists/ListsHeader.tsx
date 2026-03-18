@@ -56,7 +56,7 @@ const ListsHeader = ({ title }: { title: string }) => {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-[425px] rounded-3xl border-none shadow-2xl">
+        <DialogContent className="sm:max-w-[425px] rounded-3xl border-none shadow-2xl top-[30%]">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold tracking-tight">

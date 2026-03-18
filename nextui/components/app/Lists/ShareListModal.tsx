@@ -52,7 +52,7 @@ const ShareListModal = ({ open, setOpen, listId, onSubmitAction }: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md top-[30%]">
         <DialogHeader>
           <DialogTitle>Udostępnij listę</DialogTitle>
         </DialogHeader>
