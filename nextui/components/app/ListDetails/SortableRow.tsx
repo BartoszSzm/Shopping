@@ -51,7 +51,7 @@ const SortableRow = ({
           <div
             {...attributes}
             {...listeners}
-            className="cursor-grab active:cursor-grabbing p-1 text-zinc-300 hover:text-zinc-600 transition-colors"
+            className="touch-none cursor-grab active:cursor-grabbing p-1 text-zinc-300 hover:text-zinc-600 transition-colors"
           >
             <GripVertical size={18} />
           </div>

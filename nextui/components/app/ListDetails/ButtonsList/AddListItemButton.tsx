@@ -16,14 +16,12 @@ const AddListItemButton = ({ listId }: Props) => {
   const router = useRouter();
 
   const onSubmitAction = async (e: React.FormEvent<HTMLFormElement>) => {
-    // Zachowujemy Twoją logikę biznesową
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name")?.toString().trim();
     let quantity = formData.get("quantity")?.toString();
 
     if (name === undefined || quantity === undefined) return;
 
-    // Tutaj warto dodać .then(() => setOpen(false)) jeśli chcesz zamykać modal po sukcesie
     // @ts-ignore
     newListItem({ list_id: listId, name: name, quantity: quantity });
   };
@@ -37,7 +35,6 @@ const AddListItemButton = ({ listId }: Props) => {
         onSubmitAction={onSubmitAction}
       />
 
-      {/* Przycisk dostosowany do paska akcji */}
       <Button
         className="h-14 px-8 rounded-full bg-black hover:bg-zinc-800 text-white shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group"
         onClick={() => setOpen(true)}

@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
@@ -35,7 +36,14 @@ const AddEditListItemModal = ({
   values,
 }: Props) => {
   const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
+
+  useEffect(() => {
+    if (open) {
+      setQuantity(values?.quantity ?? 1);
+    }
+  }, [open, values]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,38 +60,74 @@ const AddEditListItemModal = ({
       .finally(() => setLoading(false));
   };
 
+  const adjustQuantity = (amount: number) => {
+    setQuantity((prev) => Math.max(1, prev + amount));
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-106.25 top-[30%]">
+      <DialogContent className="sm:max-w-[425px] top-[30%]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2 grid-cols-2">
-              <Label htmlFor="name">Nazwa</Label>
-              <Label htmlFor="quantity">Ilość</Label>
-              <Input id="id" name="id" defaultValue={values?.id} hidden />
-              <Input
-                id="name"
-                name="name"
-                defaultValue={values?.name ?? ""}
-                required
-              />
-              <Input
-                id="quantity"
-                name="quantity"
-                defaultValue={
-                  values?.quantity ? values.quantity.toString() : ""
-                }
-                type="number"
-                required
-              />
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nazwa</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  defaultValue={values?.name ?? ""}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="quantity">Ilość</Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-10 w-10 shrink-0"
+                    onClick={() => adjustQuantity(-1)}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+
+                  <Input
+                    id="quantity"
+                    name="quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
+                    type="number"
+                    className="text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    required
+                  />
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-10 w-10 shrink-0"
+                    onClick={() => adjustQuantity(1)}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <input type="hidden" name="id" value={values?.id ?? ""} />
             </div>
           </div>
 
           <DialogFooter>
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="submit"
+              className="w-full sm:w-auto"
+              disabled={loading}
+            >
               Zapisz
             </Button>
           </DialogFooter>
