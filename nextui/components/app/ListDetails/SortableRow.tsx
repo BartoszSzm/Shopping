@@ -39,7 +39,14 @@ const SortableRow = ({
   return (
     <div
       ref={setNodeRef}
-      style={style}
+      style={{
+        ...style,
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+        msUserSelect: "none",
+        WebkitTouchCallout: "none",
+      }}
       className={`grid grid-cols-[40px_1fr_80px_60px_40px] gap-4 items-center p-4 bg-white border rounded-2xl ${
         isDragging
           ? "border-black shadow-2xl scale-[1.02] z-50 opacity-95 ring-4 ring-black/5"
