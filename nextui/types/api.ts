@@ -340,11 +340,6 @@ export interface components {
             /** List Items */
             list_items: components["schemas"]["ListItemType"][];
         };
-        /** TokenData */
-        TokenData: {
-            /** User Id */
-            user_id: string;
-        };
         /** UpdateItem */
         UpdateItem: {
             /** Id */
@@ -389,7 +384,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TokenData"];
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */
