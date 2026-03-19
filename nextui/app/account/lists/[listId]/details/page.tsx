@@ -1,4 +1,3 @@
-import ButtonsList from "@/components/app/ListDetails/ButtonsList/ButtonsList";
 import ShoppingListTable from "@/components/app/ListDetails/ShoppingListTable";
 
 const ShoppingListDetails = async ({
@@ -21,8 +20,6 @@ const ShoppingListDetails = async ({
 
         <ShoppingListTable headers={headers} listId={listId} />
       </div>
-
-      <ButtonsList listId={listId} />
     </div>
   );
 };

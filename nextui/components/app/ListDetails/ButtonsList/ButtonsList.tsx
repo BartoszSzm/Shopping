@@ -8,9 +8,10 @@ import AddListItemButton from "./AddListItemButton";
 
 interface Props {
   listId: number;
+  onAddItemAction: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-const ButtonsList = ({ listId }: Props) => {
+const ButtonsList = ({ listId, onAddItemAction }: Props) => {
   const router = useRouter();
   return (
     <div className="fixed bottom-8 left-0 right-0 flex justify-center px-6 pointer-events-none">
@@ -25,7 +26,7 @@ const ButtonsList = ({ listId }: Props) => {
 
         <div className="h-8 w-px bg-zinc-200 mx-1" />
 
-        <AddListItemButton listId={listId} />
+        <AddListItemButton onAddItemAction={onAddItemAction} />
       </div>
     </div>
   );

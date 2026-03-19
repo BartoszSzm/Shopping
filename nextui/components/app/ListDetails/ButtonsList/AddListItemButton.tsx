@@ -1,30 +1,16 @@
 "use client";
 
-import { newListItem } from "@/actions/actions";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AddEditListItemModal from "./AddEditListItemModal";
 
 interface Props {
-  listId: number;
+  onAddItemAction: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-const AddListItemButton = ({ listId }: Props) => {
+const AddListItemButton = ({ onAddItemAction }: Props) => {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-
-  const onSubmitAction = async (e: React.FormEvent<HTMLFormElement>) => {
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name")?.toString().trim();
-    let quantity = formData.get("quantity")?.toString();
-
-    if (name === undefined || quantity === undefined) return;
-
-    // @ts-ignore
-    newListItem({ list_id: listId, name: name, quantity: quantity });
-  };
 
   return (
     <>
@@ -32,7 +18,7 @@ const AddListItemButton = ({ listId }: Props) => {
         title="Dodaj do listy"
         open={open}
         setOpen={setOpen}
-        onSubmitAction={onSubmitAction}
+        onSubmitAction={onAddItemAction}
       />
 
       <Button

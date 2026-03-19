@@ -13,7 +13,7 @@ export function useShoppingList(listId: number) {
   const [tableRows, setTableRows] = useState<ListItemType[]>([]);
   const [autoSort, setAutoSort] = useState(getStoredAutoSortState());
 
-  const { data: fetchedRows, error, isLoading } = useTableRows(listId);
+  const { data: fetchedRows, error, isLoading, refetch } = useTableRows(listId);
 
   // sync rows
   useEffect(() => {
@@ -105,5 +105,6 @@ export function useShoppingList(listId: number) {
     deleteAll,
     error,
     isLoading,
+    refetch,
   };
 }

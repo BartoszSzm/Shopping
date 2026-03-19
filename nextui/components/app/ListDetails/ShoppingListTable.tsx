@@ -1,6 +1,6 @@
 "use client";
 
-import { editItem } from "@/actions/actions";
+import { editItem, newListItem } from "@/actions/actions";
 import { Switch } from "@/components/ui/switch";
 import { ListItemType } from "@/types/apiTypes";
 import {
@@ -23,6 +23,7 @@ import { Loader2, Package } from "lucide-react"; // Dodany Loader2 jako spinner
 import React, { useState } from "react";
 import { toast } from "sonner";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
+import ButtonsList from "./ButtonsList/ButtonsList";
 import SettingsButton from "./ButtonsList/SettingsButton";
 import SortableRow from "./SortableRow";
 import { useShoppingList } from "./hooks/useShoppingList";
@@ -45,6 +46,7 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
     deleteItemAction,
     deleteAll,
     isLoading,
+    refetch,
   } = useShoppingList(listId);
 
   const sensors = useSensors(
@@ -69,7 +71,7 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const edit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -80,13 +82,28 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
         ...data,
       });
       setEditClicked(false);
-      toast.success("Zapisano zmiany");
+      refetch();
     } catch (error) {
       toast.error("Błąd podczas edycji");
     }
   };
 
-  // --- OBSŁUGA ŁADOWANIA ---
+  const addItem = async (e: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name")?.toString().trim();
+    let quantity = formData.get("quantity")?.toString();
+
+    if (name === undefined || quantity === undefined) return;
+
+    // @ts-ignore
+    newListItem({ list_id: listId, name: name, quantity: quantity })
+      .then(() => {
+        // TODO - change to optimistic update
+        refetch();
+      })
+      .catch(() => toast.error("Błąd podczas dodawania"));
+  };
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-zinc-200 text-zinc-400">
@@ -142,7 +159,7 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
         title="Edytuj element"
         open={editClicked}
         setOpen={setEditClicked}
-        onSubmitAction={handleSubmit}
+        onSubmitAction={edit}
         values={{
           id: clickedRow?.id,
           name: clickedRow?.name,
@@ -177,6 +194,8 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
           </div>
         </SortableContext>
       </DndContext>
+
+      <ButtonsList listId={listId} onAddItemAction={addItem} />
     </div>
   );
 };
