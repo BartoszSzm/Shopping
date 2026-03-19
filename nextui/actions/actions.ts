@@ -72,8 +72,8 @@ export async function shareList(
 
 export async function getListDetails(
   listId: number,
-): Promise<ShoppingListResponse> {
-  return authApiFetch<ShoppingListResponse>({
+): Promise<ShoppingListResponse | MsgResponse> {
+  return authApiFetch<ShoppingListResponse | MsgResponse>({
     url: URLS.api.listDetails(listId),
     errorMessage: "Nie można pobrać szczegółów listy",
   });

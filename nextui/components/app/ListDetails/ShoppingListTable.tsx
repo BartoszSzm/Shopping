@@ -19,7 +19,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Package } from "lucide-react";
+import { Loader2, Package } from "lucide-react"; // Dodany Loader2 jako spinner
 import React, { useState } from "react";
 import { toast } from "sonner";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
@@ -29,10 +29,10 @@ import { useShoppingList } from "./hooks/useShoppingList";
 
 interface Props {
   headers: string[];
-  rows: ListItemType[];
+  listId: number;
 }
 
-const ShoppingListTable = ({ headers, rows }: Props) => {
+const ShoppingListTable = ({ headers, listId }: Props) => {
   const [editClicked, setEditClicked] = useState(false);
   const [clickedRow, setClickedRow] = useState<ListItemType | null>(null);
 
@@ -44,7 +44,8 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
     toggleItem,
     deleteItemAction,
     deleteAll,
-  } = useShoppingList(rows);
+    isLoading,
+  } = useShoppingList(listId);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -84,6 +85,16 @@ const ShoppingListTable = ({ headers, rows }: Props) => {
       toast.error("Błąd podczas edycji");
     }
   };
+
+  // --- OBSŁUGA ŁADOWANIA ---
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-zinc-200 text-zinc-400">
+        <Loader2 className="animate-spin mb-4" size={40} />
+        <p className="font-medium">Ładowanie listy...</p>
+      </div>
+    );
+  }
 
   if (tableRows.length === 0) {
     return (

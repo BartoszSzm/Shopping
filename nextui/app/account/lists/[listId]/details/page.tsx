@@ -1,8 +1,5 @@
-import { getListDetails } from "@/actions/actions";
 import ButtonsList from "@/components/app/ListDetails/ButtonsList/ButtonsList";
 import ShoppingListTable from "@/components/app/ListDetails/ShoppingListTable";
-import { sortTableRows } from "@/lib/utils";
-import { ShoppingListResponse } from "@/types/apiTypes";
 
 const ShoppingListDetails = async ({
   params,
@@ -11,8 +8,6 @@ const ShoppingListDetails = async ({
 }) => {
   const headers = ["NAZWA", "ILOŚĆ", "TYP"];
   const { listId } = await params;
-  const listDetailsData: ShoppingListResponse = await getListDetails(listId);
-  const rows = sortTableRows(listDetailsData.list_items);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] pb-32">
@@ -24,10 +19,10 @@ const ShoppingListDetails = async ({
           <p className="text-zinc-500">Zarządzaj swoimi produktami</p>
         </div>
 
-        <ShoppingListTable headers={headers} rows={rows} />
+        <ShoppingListTable headers={headers} listId={listId} />
       </div>
 
-      <ButtonsList listId={listDetailsData.list_id} />
+      <ButtonsList listId={listId} />
     </div>
   );
 };

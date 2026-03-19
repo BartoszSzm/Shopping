@@ -4,23 +4,28 @@ import { ListItemType } from "@/types/apiTypes";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import useTableRows from "./useTableRows";
 
 const getStoredAutoSortState = () =>
   JSON.parse(localStorage.getItem("shoppingList_autoSort") || "false");
 
-export function useShoppingList(initialRows: ListItemType[]) {
-  const [tableRows, setTableRows] = useState<ListItemType[]>(initialRows);
+export function useShoppingList(listId: number) {
+  const [tableRows, setTableRows] = useState<ListItemType[]>([]);
   const [autoSort, setAutoSort] = useState(getStoredAutoSortState());
+
+  const { data: fetchedRows, error, isLoading } = useTableRows(listId);
+
+  // sync rows
+  useEffect(() => {
+    if (fetchedRows) {
+      setTableRows(autoSort ? sortTableRows([...fetchedRows]) : fetchedRows);
+    }
+  }, [fetchedRows, autoSort]);
 
   // localStorage init
   useEffect(() => {
     setAutoSort(getStoredAutoSortState());
   }, []);
-
-  // sync rows
-  useEffect(() => {
-    setTableRows(autoSort ? sortTableRows([...initialRows]) : initialRows);
-  }, [initialRows]);
 
   // persist autoSort
   useEffect(() => {
@@ -98,5 +103,7 @@ export function useShoppingList(initialRows: ListItemType[]) {
     toggleItem,
     deleteItemAction,
     deleteAll,
+    error,
+    isLoading,
   };
 }
