@@ -8,6 +8,27 @@ It serves both as a practical daily-use tool and a platform for exploring backen
 
 ---
 
+## Main features
+
+* Google OAuth authentication
+* Creating and deleting personal shopping lists
+* Sharing lists with other users via email
+* Permission management (View Only or Edit access)
+* Full item management: adding, editing, deleting, and marking as "bought"
+* Live synchronization with automatic updates every 5 seconds
+* Screen wake lock using NoSleep.js to prevent the display from dimming while shopping
+* Automatic product categorization for faster navigation in-store
+* Smart sorting by category with an option to toggle it off
+* Manual item reordering using dnd-kit for a smooth drag-and-drop experience
+
+---
+
+## Demo
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/fe52437f-e240-406b-9dc4-f4711961300e" width="100%"></video>
+</div>
+
 ## Architecture & Design Decisions
 
 ### Decoupled Architecture
@@ -33,8 +54,6 @@ The frontend is built with Next.js due to:
 * seamless integration of server actions (BFF pattern),
 * strong support for modular, component-based architecture via React,
 * many out-of-the-box optimizations.
-
-The UI layer is strictly responsible for rendering and user interaction.
 
 ---
 
