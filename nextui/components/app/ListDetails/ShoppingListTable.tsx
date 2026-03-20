@@ -118,6 +118,7 @@ const ShoppingListTable = ({ headers, listId }: Props) => {
       <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-zinc-200 text-zinc-400">
         <Package size={40} className="mb-4 opacity-20" />
         <p className="font-medium">Ta lista jest pusta</p>
+        <ButtonsList listId={listId} onAddItemAction={addItem} />
       </div>
     );
   }

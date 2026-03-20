@@ -34,7 +34,6 @@ const SettingsButton = ({ deleteAllAction }: Props) => {
     if (!noSleepRef.current) return;
 
     if (!noSleepState) {
-      // Poprawiona logika wizualna (enable gdy chcemy noSleep)
       noSleepRef.current.enable();
     } else {
       noSleepRef.current.disable();
