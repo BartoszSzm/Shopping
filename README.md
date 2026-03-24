@@ -8,6 +8,17 @@ It serves both as a practical daily-use tool and a platform for exploring backen
 
 ---
 
+## What problem does this solve?
+
+For many people, everyday grocery shopping is a tedious chore they want to get done as quickly as possible. This app was built to optimize and significantly speed up the entire shopping experience.
+
+The core advantage of this solution is real-time list sharing. This allows multiple people to shop simultaneously and independently in different parts of the store while seamlessly tracking items purchased by others. Additionally, the app automatically organizes items by category, reflecting the physical layout of store aisles. This helps users quickly identify what needs to be bought in a specific section, eliminating chaotic store navigation.
+
+Preparing for the trip is also much faster, as you can continuously add missing items to your list anytime, anywhere. This removes the need to write down a long list right before heading out. Furthermore, thanks to its clean design and versatility, the app can easily double as a simple, everyday To-Do list.
+
+---
+
+
 ## Main features
 
 * Google OAuth authentication
