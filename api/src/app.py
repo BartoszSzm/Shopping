@@ -2,7 +2,7 @@ import typing as t
 from contextlib import asynccontextmanager
 from functools import lru_cache
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import and_, or_
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
@@ -488,28 +488,24 @@ def delete_many_items(
 
 @app.patch("/api/notifications/seen")
 def notification_seen(
-    data: basic_vm.NotificationSeenRequest,
     token: t.Annotated[TokenData, Depends(get_token_data)],
     db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
 ):
     with db_session() as session:
-        notification = (
-            session.query(Notification)
-            .filter_by(id=data.id, user_id=token.user_id)
-            .first()
+        notifications = (
+            session.query(Notification).filter_by(user_id=token.user_id).all()
         )
-        if notification is None:
-            raise HTTPException(404, "Notification not found for this user")
+        for notif in notifications:
+            notif.is_read = True
 
-        notification.is_read = True
         session.commit()
 
 
-@app.get("/api/notifications/all")
+@app.get("/api/notifications/all", response_model=list[basic_vm.NotificationResponse])
 def notification_all(
     token: t.Annotated[TokenData, Depends(get_token_data)],
     db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
-):
+) -> t.Sequence[Notification]:
     with db_session() as session:
         return session.query(Notification).filter_by(user_id=token.user_id).all()
 

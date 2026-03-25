@@ -1,7 +1,7 @@
 import typing as t
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from src.database.db import ListRole
 
@@ -86,3 +86,14 @@ class ListIdentifier(BaseModel):
 
 class NotificationSeenRequest(BaseModel):
     id: int
+
+
+class NotificationResponse(BaseModel):
+    id: int
+    user_id: str
+    message: str
+    is_read: bool
+    action_url: t.Optional[str] = None
+    created: datetime
+
+    model_config = ConfigDict(from_attributes=True)
