@@ -258,6 +258,12 @@ def buyed(
                 .one()
             )
             item.buyed = data.buyed
+            notif_crud.notify(
+                session,
+                data.list_id,
+                token.user_id,
+                message=f"{token.user_id} kupił(a) '{item.name}' z '{list_crud.get_list_name(session, data.list_id)}'",
+            )
             session.commit()
         except NoResultFound:
             return basic_vm.MsgResponse(status="rejected", msg="Item not found")
@@ -299,6 +305,12 @@ def delete(
                 .one()
             )
             session.delete(item)
+            notif_crud.notify(
+                session,
+                data.list_id,
+                token.user_id,
+                message=f"{token.user_id} usunął(ęła) '{item.name}' z '{list_crud.get_list_name(session, data.list_id)}'",
+            )
             session.commit()
         except NoResultFound:
             return basic_vm.MsgResponse(
@@ -324,7 +336,7 @@ def newItem(
                 session,
                 data.list_id,
                 token.user_id,
-                message=f"Użytkownik {token.user_id} dodał element {data.name} do listy {list_crud.get_list_name(session, data.list_id)}",
+                message=f"{token.user_id} dodał(a) '{data.name}' do '{list_crud.get_list_name(session, data.list_id)}'",
             )
             return basic_vm.MsgResponse(status="confirmed")
         except ForbiddenAction as exc:
@@ -475,6 +487,16 @@ def delete_many_items(
 
             for item in items:
                 session.delete(item)
+
+            list_id = items[0].list_id if len(items) > 0 else None
+
+            if list_id:
+                notif_crud.notify(
+                    session,
+                    list_id,
+                    token.user_id,
+                    message=f"{token.user_id} wyczyścił(a) listę '{list_crud.get_list_name(session, list_id)}'",
+                )
 
             session.commit()
 
