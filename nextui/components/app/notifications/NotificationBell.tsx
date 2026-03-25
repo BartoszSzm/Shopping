@@ -29,7 +29,7 @@ export default function NotificationBell() {
   } = useQuery({
     queryKey: ["notifications"],
     queryFn: getAllNotifications,
-    refetchInterval: 60000,
+    refetchInterval: 15000,
   });
 
   const { mutate: markAsReadMutation } = useMutation({
