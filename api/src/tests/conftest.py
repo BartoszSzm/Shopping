@@ -7,7 +7,7 @@ from src.database.db import create_db, get_db_session
 
 os.environ["ENV_FILE"] = ".env.test"
 
-from src.app import app
+from src.app import app, get_cached_item_types
 from src.config import Config
 
 
@@ -57,3 +57,21 @@ def setup_db(config: Config):
 @pytest.fixture
 def db_session(config: Config):
     return get_db_session(config=config)
+
+
+@pytest.fixture(autouse=True)
+def override_item_types_dependency():
+    def mock_get_cached_item_types():
+        return [
+            {"name": "Jajka", "icon": "🥚"},
+            {"name": "Jabłka", "icon": "🍎"},
+            {"name": "Mąka", "icon": "🌾"},
+            {"name": "Chleb", "icon": "🍞"},
+            {"name": "Mleko", "icon": "🥛"},
+        ]
+
+    app.dependency_overrides[get_cached_item_types] = mock_get_cached_item_types
+
+    yield
+
+    app.dependency_overrides.clear()

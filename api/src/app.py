@@ -1,7 +1,8 @@
 import typing as t
 from contextlib import asynccontextmanager
+from functools import lru_cache
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import and_, or_
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
@@ -12,27 +13,28 @@ from src.app_types import ItemTypeRow
 from src.auth.auth import TokenData, get_token_data
 from src.config import get_config
 from src.crud import list_item as list_item_crud
+from src.crud import notifications as notif_crud
 from src.exceptions import ForbiddenAction
 from src.utils.load_categories import load_item_types
 
 from .database import ListItem, ShoppingList
-from .database.db import ListRole, ShoppingListShare, create_db, get_db_session
+from .database.db import (
+    ListRole,
+    Notification,
+    ShoppingListShare,
+    create_db,
+    get_db_session,
+)
 
-item_types: t.Optional[list[ItemTypeRow]] = None
 
-
-def get_item_types() -> list[ItemTypeRow]:
-    global item_types
-    if item_types:
-        return item_types
-    raise ValueError("cannot get item_types")
+@lru_cache(maxsize=1)
+def get_cached_item_types() -> list[ItemTypeRow]:
+    return load_item_types()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db(get_config().DB_URL)
-    global item_types
-    item_types = load_item_types()
     yield
     # after
 
@@ -310,11 +312,18 @@ def newItem(
     data: basic_vm.NewListItem,
     token: t.Annotated[TokenData, Depends(get_token_data)],
     db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
+    items_collection: t.Annotated[list[ItemTypeRow], Depends(get_cached_item_types)],
 ) -> basic_vm.MsgResponse:
     with db_session() as session:
         try:
             list_item_crud.new_list_item(
-                session, token.user_id, data, collection=get_item_types()
+                session, token.user_id, data, collection=items_collection
+            )
+            notif_crud.notify(
+                session,
+                data.list_id,
+                token.user_id,
+                message=f"Użytkownik {token.user_id} dodał element {data.name} do listy {data.list_id}",
             )
             return basic_vm.MsgResponse(status="confirmed")
         except ForbiddenAction as exc:
@@ -475,3 +484,41 @@ def delete_many_items(
             return basic_vm.MsgResponse(
                 status="rejected", msg="Unknown error, check logs"
             )
+
+
+@app.patch("/api/notifications/seen")
+def notification_seen(
+    data: basic_vm.NotificationSeenRequest,
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
+):
+    with db_session() as session:
+        notification = (
+            session.query(Notification)
+            .filter_by(id=data.id, user_id=token.user_id)
+            .first()
+        )
+        if notification is None:
+            raise HTTPException(404, "Notification not found for this user")
+
+        notification.is_read = True
+        session.commit()
+
+
+@app.get("/api/notifications/all")
+def notification_all(
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
+):
+    with db_session() as session:
+        return session.query(Notification).filter_by(user_id=token.user_id).all()
+
+
+@app.delete("/api/notifications/clear")
+def notification_clear(
+    token: t.Annotated[TokenData, Depends(get_token_data)],
+    db_session: t.Annotated[sessionmaker[Session], Depends(get_db_session)],
+):
+    with db_session() as session:
+        session.query(Notification).filter_by(user_id=token.user_id).delete()
+        session.commit()

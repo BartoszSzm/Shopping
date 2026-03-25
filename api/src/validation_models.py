@@ -82,3 +82,7 @@ class AllListsResponse(BaseModel):
 
 class ListIdentifier(BaseModel):
     id: int
+
+
+class NotificationSeenRequest(BaseModel):
+    id: int

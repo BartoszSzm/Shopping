@@ -54,7 +54,7 @@ class ShoppingList(Base):
     )
 
     shared_with: so.Mapped[t.List["ShoppingListShare"]] = so.relationship(
-        back_populates="shopping_list", cascade="all,delete"
+        back_populates="shopping_list", cascade="all,delete", lazy="selectin"
     )
 
 
@@ -93,3 +93,16 @@ class ShoppingListShare(Base):
     shopping_list: so.Mapped["ShoppingList"] = so.relationship(
         back_populates="shared_with"
     )
+
+
+class Notification(Base):
+    __tablename__ = "Notification"
+
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id: so.Mapped[str] = so.mapped_column(sa.String(100))
+    message: so.Mapped[str] = so.mapped_column(sa.String(200))
+    is_read: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
+    action_url: so.Mapped[t.Optional[str]] = so.mapped_column(
+        sa.String(255), nullable=True
+    )
+    created: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=sa.func.now())

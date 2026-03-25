@@ -19,7 +19,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Loader2, Package } from "lucide-react"; // Dodany Loader2 jako spinner
+import { Loader2, Package } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import AddEditListItemModal from "./ButtonsList/AddEditListItemModal";
