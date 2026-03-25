@@ -31,6 +31,7 @@ Preparing for the trip is also much faster, as you can continuously add missing 
 * Automatic product categorization for faster navigation in-store
 * Smart sorting by category with an option to toggle it off
 * Manual item reordering using dnd-kit for a smooth drag-and-drop experience
+* Notifications system
 
 ---
 
