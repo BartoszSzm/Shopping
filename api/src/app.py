@@ -12,6 +12,7 @@ from src import validation_models as basic_vm
 from src.app_types import ItemTypeRow
 from src.auth.auth import TokenData, get_token_data
 from src.config import get_config
+from src.crud import list as list_crud
 from src.crud import list_item as list_item_crud
 from src.crud import notifications as notif_crud
 from src.exceptions import ForbiddenAction
@@ -323,7 +324,7 @@ def newItem(
                 session,
                 data.list_id,
                 token.user_id,
-                message=f"Użytkownik {token.user_id} dodał element {data.name} do listy {data.list_id}",
+                message=f"Użytkownik {token.user_id} dodał element {data.name} do listy {list_crud.get_list_name(session, data.list_id)}",
             )
             return basic_vm.MsgResponse(status="confirmed")
         except ForbiddenAction as exc:
