@@ -11,6 +11,7 @@ import {
   MsgResponse,
   NewList,
   NewListItem,
+  Notification,
   ShareListInput,
   ShoppingListModel,
   ShoppingListResponse,
@@ -127,5 +128,29 @@ export async function deleteAllItems(
     method: "POST",
     body: payload,
     errorMessage: "Nie można usunąć elementów",
+  });
+}
+
+export async function clearNotifications(): Promise<null> {
+  return authApiFetch<null, null>({
+    url: URLS.api.clearNotifications(),
+    method: "DELETE",
+    errorMessage: "Nie można usunąć powiadomień",
+  });
+}
+
+export async function getAllNotifications(): Promise<Notification[]> {
+  return authApiFetch<Notification[], null>({
+    url: URLS.api.getAllNotifications(),
+    method: "GET",
+    errorMessage: "Nie można usunąć powiadomień",
+  });
+}
+
+export async function markNotificationsAsSeen(): Promise<null> {
+  return authApiFetch<null, null>({
+    url: URLS.api.markNotificationsAsSeen(),
+    method: "PATCH",
+    errorMessage: "Nie można usunąć powiadomień",
   });
 }

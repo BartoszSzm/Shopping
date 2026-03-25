@@ -17,6 +17,9 @@ export const URLS = {
     updateItem: () => `${URLS.api.apiUrl()}/updateItem`,
     deleteItem: () => `${URLS.api.apiUrl()}/delete`,
     deleteManyItems: () => `${URLS.api.apiUrl()}/deleteManyItems`,
+    clearNotifications: () => `${URLS.api.apiUrl()}/notifications/clear`,
+    getAllNotifications: () => `${URLS.api.apiUrl()}/notifications/all`,
+    markNotificationsAsSeen: () => `${URLS.api.apiUrl()}/notifications/seen`,
   },
   app: {
     lists: () => `/account/lists`,
@@ -26,7 +29,7 @@ export const URLS = {
 
 type ApiFetchOptions<TBody> = {
   url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: TBody;
   errorMessage?: string;
   token?: string;

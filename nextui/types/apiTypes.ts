@@ -22,3 +22,4 @@ export type ShoppingListResponse =
   components["schemas"]["ShoppingListResponse"];
 export type UpdateItem = components["schemas"]["UpdateItem"];
 export type ValidationError = components["schemas"]["ValidationError"];
+export type Notification = components["schemas"]["NotificationResponse"];
